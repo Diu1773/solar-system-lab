@@ -1,0 +1,15 @@
+Google Drive·Sites 공유용 문구와 주소
+
+제목: 태양계천문학 × Codex 실습 자료
+소개: 태양흑점·소행성·스펙트럼 실습, Codex 따라 하기, 실제 관측 CSV와 복사용 요청문을 모았습니다.
+수업 안내: https://diu1773.github.io/solar-system-lab/class/
+실습실: https://diu1773.github.io/solar-system-lab/
+전체 소스: https://github.com/Diu1773/solar-system-lab
+
+버튼 이름 예시: 실습실 열기 / Codex 따라 하기 / 실습 키트 받기
+수업 키트: https://diu1773.github.io/solar-system-lab/class/downloads/solar-system-lab-class-kit.zip
+오프라인 앱: https://github.com/Diu1773/solar-system-lab/releases/download/classroom-2026-10/Solar-System-Lab-offline.zip
+
+Drive: ZIP·QR를 올려 링크와 함께 공유합니다. 파일의 보기 권한을 수업 대상에게 설정합니다.
+Sites: 수업 안내·실습실 주소를 버튼으로 연결합니다.
+Drive에 저장한 HTML은 내려받아 브라우저로 여는 자료입니다. 실행되는 웹 앱은 위 공개 주소에 있습니다.

@@ -2,7 +2,12 @@
 *.fit -text
 *.fts -text
 *.jpg -text
+*.png -text
+*.zip -text
 *.js text eol=lf
 *.html text eol=lf
 *.css text eol=lf
 *.md text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.py text eol=lf

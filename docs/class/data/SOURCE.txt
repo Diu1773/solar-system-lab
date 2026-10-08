@@ -1,0 +1,42 @@
+팔라스 실제 측광 · Codex 수업 실습 자료
+대상: (2) Pallas / 팔라스
+관측 묶음: 1971.11.28–30, curve_id 26·27·28
+점 수: 26=41, 27=91, 28=23; 전체 155점
+원자료 수집일: 2026-10-08
+
+출처: DAMIT / Astronomical Institute of Charles University
+https://damit.cuni.cz/projects/damit/light_curves/exportAllForAsteroid/101/json
+설명: https://damit.cuni.cz/pages/documentation
+라이선스: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
+크레딧: Charles University · Josef Ďurech · Vojtěch Sidorin 및 아래 원 관측자
+원본 JSON은 공개 저장소의 data-sources/pallas-lc.json에 보존합니다.
+이 CSV는 세 회차를 선택해 열 이름·curve_id·source_url을 붙인 발췌 자료입니다.
+각 숫자의 원문 표기는 그대로 옮겼습니다. 합성 관측이나 새 오차를 추가하지 않았습니다.
+
+열 설명
+curve_id: DAMIT의 관측 회차 식별자. 천체 번호가 아닙니다.
+JD_light_time_corrected: 빛 도달 시간 보정 Julian Date, 단위 day.
+intensity_relative: 상대 강도 F (scale=0). 절대 플럭스·등급이 아닙니다.
+sun_x_AU, sun_y_AU, sun_z_AU: DAMIT 태양 방향 위치 벡터의 세 성분, AU.
+earth_x_AU, earth_y_AU, earth_z_AU: DAMIT 지구 방향 위치 벡터의 세 성분, AU.
+source_url: 해당 회차의 공개 출처.
+
+첫 그래프를 만들 때
+m = -2.5 log10(F), F > 0인 값에만 적용합니다.
+위상 = frac[24(JD - JD0) / P], P는 hour, JD0는 선택 자료의 최소 JD.
+위상 비교의 첫 실습에서는 회차별 평균 m을 빼고 색을 구분합니다.
+이는 기존 실습실의 푸리에·회차별 영점 동시 적합과 다른 처리입니다.
+오차 열이 없어 비가중 분석입니다. 이 CSV는 FITS 영상이 아닌 처리된 실제 측광 자료입니다.
+주기 후보만으로 복잡하거나 유일한 3D 형상을 확정할 수 없습니다.
+FITS 6장의 138205 (2000 EZ148)와 다른 소행성이므로 서로 합쳐 분석하지 않습니다.
+
+원 관측 기록
+curve_id 26: 26  1971 11 28.2  Schroll_et_al_1976
+  Schroll et al. (1976). Rotation and photometric characteristics of Pallas Icarus
+curve_id 27: 27  1971 11 29.2  Schroll_et_al_1976
+  Schroll et al. (1976). Rotation and photometric characteristics of Pallas Icarus
+curve_id 28: 28  1971 11 30.2  Schroll_et_al_1976
+  Schroll et al. (1976). Rotation and photometric characteristics of Pallas Icarus
+
+수업 안내: https://diu1773.github.io/solar-system-lab/class/
+실습실: https://diu1773.github.io/solar-system-lab/#asteroid

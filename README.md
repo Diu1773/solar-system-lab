@@ -2,6 +2,21 @@
 
 상단 탭으로 태양흑점, 행성 궤도, 소행성, 스펙트럼과 교육과정 활동을 선택하는 교육용 웹 실습실입니다.
 
+## 수업에서 공유하기
+
+- **수업 공유실:** https://diu1773.github.io/solar-system-lab/class/
+- **실습실:** https://diu1773.github.io/solar-system-lab/
+- **Codex 실습 키트:** https://diu1773.github.io/solar-system-lab/class/downloads/solar-system-lab-class-kit.zip
+- **오프라인 실습 앱:** https://github.com/Diu1773/solar-system-lab/releases/download/classroom-2026-10/Solar-System-Lab-offline.zip
+
+수업 공유실은 활동별 따라 하기, Codex로 실제 팔라스 CSV를 읽어 첫 도구를 만드는 방법, 복사용 요청문, 브라우저에서 작성·인쇄할 기록지, QR와 자료 출처를 모았습니다. 웹 실습은 설치·로그인 없이 열립니다. Codex 제작 실습에는 본인의 Codex 접근 환경이 필요합니다.
+
+키트의 `starter` 폴더를 Codex 로컬 프로젝트로 열고 `START.txt` 순서대로 요청하면 됩니다. 팔라스 1971년 실제 측광 155점(관측 회차 26: 41점, 27: 91점, 28: 23점)을 발췌했습니다. 원본 수치는 변형 없이 옮기고 출처 열을 붙였습니다. 전체 DAMIT JSON은 `data-sources/pallas-lc.json`에 보존합니다.
+
+전체 소스를 내려받은 뒤 Python이 있다면 저장소에서 `python serve.py`를 실행하고 http://127.0.0.1:4317/class/ 를 엽니다. 실제 FITS 파일을 읽는 전체 앱은 로컬 서버 또는 공개 주소로 여세요. 첫 Codex 도구는 CSV 파일 선택 방식을 사용해 단일 HTML로 만들 수 있습니다.
+
+`python tools/build_classroom.py`는 CSV·요청문·실습 키트를 다시 만듭니다. QR 재생성에는 `qrcode[pil]` 패키지가 필요하며, 패키지가 없을 때는 포함된 QR 이미지를 유지합니다. 공개 배포는 `main`의 `/docs`를 사용합니다.
+
 ## 활동
 
 - NASA/SDO 영상에서 흑점 이동과 태양 자전 측정.

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>태양계천문학 × Codex · 활동 기록지</title><link rel="stylesheet" href="worksheet.css"></head><body>
+<div class="toolbar"><a href="index.html">← 수업 안내</a><span>작성 내용은 이 브라우저에 보관됩니다. 제출할 때 TXT 또는 PDF로 저장하세요.</span><button id="save">TXT 저장</button><button id="print">인쇄·PDF 저장</button></div>
+<main>
+<section class="sheet"><p class="eyebrow">SOLAR SYSTEM LAB / OBSERVATION</p><h1>관측에서 근거 찾기</h1><div class="identity"><label>모둠·작성자 <input data-field="작성자" placeholder="선택 입력"></label><label>활동 날짜 <input data-field="활동 날짜" placeholder="YYYY.MM.DD"></label></div><label>선택한 활동 <select data-field="선택한 활동"><option>태양흑점 · 자전</option><option>팔라스 · 광도곡선과 3D</option><option>138205 · FITS 측광</option><option>태양 스펙트럼 · 흡수선</option><option>행성 궤도 · 케플러 법칙</option></select></label>
+<h2>1. 탐구 질문과 예측</h2><label>무엇을 바꾸고, 어떤 변화가 생길 것으로 예상했나요?<textarea data-field="탐구 질문과 예측" rows="3"></textarea></label>
+<h2>2. 자료를 먼저 확인하기</h2><div class="identity"><label>대상·관측 시기 <input data-field="대상과 시기"></label><label>파일명·자료 출처 <input data-field="파일과 출처"></label></div><label>실제 관측값 / 모형의 예측 / 변환한 값 중 무엇을 사용했나요? 단위도 적으세요.<textarea data-field="자료 유형과 단위" rows="2"></textarea></label>
+<h2>3. 조건과 측정 기록</h2><p class="hint">예: 날짜–경도 / 주기–RMS / 시선–축비 / 영상–Δm / 적분 경계–등가폭.</p><table><thead><tr><th>바꾼 조건</th><th>측정·계산값</th><th>단위</th><th>메모</th></tr></thead><tbody id="rows"></tbody></table>
+<h2>4. 근거와 해석</h2><label>어떤 비교가 결론을 뒷받침하나요? 저장한 CSV·그래프 파일명도 적으세요.<textarea data-field="근거와 해석" rows="3"></textarea></label><label>오차 원인 또는 모형의 가정·한계 한 가지<textarea data-field="오차와 한계" rows="2"></textarea></label>
+<p class="footnote">팔라스 광도곡선과 138205 FITS는 다른 소행성입니다. 3D 타원체 적합과 DAMIT 문헌 형상을 구분하세요.</p></section>
+<section class="sheet"><p class="eyebrow">SOLAR SYSTEM LAB / CODEX</p><h1>Codex로 만들고 확인하기</h1><p class="hint">실제 팔라스 CSV로 첫 도구를 만들거나, 기존 실습실에서 기능 하나를 수정한 과정을 남깁니다.</p>
+<h2>1. 내가 요청한 일</h2><label>목표와 사용한 자료·파일<textarea data-field="Codex 목표와 자료" rows="3"></textarea></label><label>처음 보낸 요청문<textarea data-field="처음 요청문" rows="5"></textarea></label>
+<h2>2. 결과를 보고 수정한 일</h2><label>첫 결과에서 잘 된 것·고칠 것<textarea data-field="첫 결과와 개선" rows="3"></textarea></label><label>후속 요청문과 바뀐 결과<textarea data-field="후속 요청과 결과" rows="4"></textarea></label>
+<h2>3. 과학적으로 확인한 내용</h2><p class="hint">팔라스 첫 실습: 155점·3회차, JD day와 P hour, 큰 F → 작은 m, 원자료 보존, 출처·정규화 방법 표시.</p><label>직접 대조한 항목 3개와 확인 방법<textarea data-field="과학적 확인" rows="4"></textarea></label><label>Codex가 자동으로 판단할 수 없었던 것 또는 내가 확인해야 했던 한계<textarea data-field="사람이 확인한 한계" rows="3"></textarea></label>
+<div class="identity"><label>완성 파일·공유 주소 <input data-field="완성 파일 또는 주소"></label><label>함께 제출할 캡처·CSV <input data-field="제출 파일"></label></div>
+<p class="footnote">수업 자료: https://diu1773.github.io/solar-system-lab/class/ · 제출 방식과 평가 기준은 담당 교수님의 안내를 따르세요.</p></section>
+</main>
+<script>
+(() => {
+  const rows = document.getElementById('rows');
+  for (let i=1;i<=5;i++) {const tr=document.createElement('tr');for(const name of ['조건','값','단위','메모']) {const td=document.createElement('td');const input=document.createElement('input');input.dataset.field='기록 '+i+' '+name;input.setAttribute('aria-label',i+'행 '+name);td.append(input);tr.append(td);}rows.append(tr);}
+  const fields=[...document.querySelectorAll('[data-field]')];const key='solar-system-class-worksheet-v1';
+  let saved={};try {saved=JSON.parse(localStorage.getItem(key)||'{}');}catch{}
+  for(const el of fields){if(saved[el.dataset.field]!==undefined)el.value=saved[el.dataset.field];el.addEventListener('input',()=>{try {localStorage.setItem(key,JSON.stringify(Object.fromEntries(fields.map(f=>[f.dataset.field,f.value]))));}catch{}});}
+  document.getElementById('print').onclick=()=>window.print();
+  document.getElementById('save').onclick=()=>{const text='태양계천문학 × Codex 활동 기록\n\n'+fields.map(f=>f.dataset.field+'\n'+f.value).join('\n\n');const url=URL.createObjectURL(new Blob(['\ufeff'+text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='solar-system-lab-worksheet.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),5000);};
+})();
+</script></body></html>
