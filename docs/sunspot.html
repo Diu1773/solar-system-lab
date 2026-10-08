@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Solar Lab | 태양 흑점 관측 실험실</title>
+  <meta name="description" content="NASA/SDO 영상에서 흑점을 검출하고 이동을 측정해 태양의 자전과 차등 자전을 탐구하세요.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23f49a38'/%3E%3Ccircle cx='20' cy='12' r='3' fill='%23121b29'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="data.js"></script><script defer src="physics.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="sunspot.html" aria-label="흑점 도구 초기화"><span class="brand-mark" aria-hidden="true">☉</span><span>SOLAR<span class="brand-light">LAB</span><small>태양 흑점 관측 실험실</small></span></a>
+    <nav class="mode-tabs" aria-label="실험 모드"><button id="observationTab" class="active" aria-pressed="true">01 <span>NASA 관측</span></button><button id="modelTab" aria-pressed="false">02 <span>자전 시뮬레이션</span></button></nav>
+    <button id="guideOpen" class="plain-button guide-button"><span aria-hidden="true">⌘</span> 탐구 가이드</button>
+  </header>
+  <main>
+    <div class="workspace">
+      <aside class="control-rail">
+        <p class="eyebrow">EXPERIMENT CONTROLS</p>
+        <h1>흑점으로 읽는<br>태양의 자전</h1>
+        <p class="rail-intro" id="railIntro">같은 흑점을 날짜별로 선택하고, 태양 표면에서의 이동을 측정하세요.</p>
+        <section class="control-section"><div class="section-label"><span class="number">01</span><h2>추적할 흑점</h2></div>
+          <div class="track-buttons" role="group" aria-label="추적 그룹"><button data-track="A" class="selected" aria-pressed="true"><span class="swatch a"></span>A</button><button data-track="B" aria-pressed="false"><span class="swatch b"></span>B</button><button data-track="C" aria-pressed="false"><span class="swatch c"></span>C</button></div>
+          <p class="help">A·B·C는 직접 붙이는 추적 이름입니다.</p>
+        </section>
+        <section id="observationControls" class="control-section"><div class="section-label"><span class="number">02</span><h2>영상 분석</h2></div>
+          <label class="range-label" for="threshold">검출 임계값 <output id="thresholdValue">0.72</output></label><input id="threshold" type="range" min="0.45" max="0.9" step="0.01" value="0.72">
+          <p class="help">주변 광구 대비 밝기. 높이면 작은 후보까지 검출됩니다.</p>
+          <label class="range-label" for="minArea">최소 후보 크기 <output id="minAreaValue">6 px</output></label><input id="minArea" type="range" min="3" max="40" step="1" value="6">
+          <button id="detectButton" class="action-button full">흑점 후보 검출</button>
+          <p class="help">후보 원 안의 흑점을 클릭해 측정점을 기록하세요.</p>
+        </section>
+        <section id="modelControls" class="control-section" hidden><div class="section-label"><span class="number">02</span><h2>물리 모형</h2></div>
+          <label for="rotationLaw" class="field-label">자전 방식</label><select id="rotationLaw"><option value="differential">차등 자전 · Howard</option><option value="rigid">강체 자전 · Carrington</option></select>
+          <label class="range-label" for="latitude">선택 흑점의 위도 <output id="latitudeValue">18°</output></label><input id="latitude" type="range" min="-65" max="65" step="1" value="18">
+          <label class="range-label" for="tilt">태양 북극의 기울기 B₀ <output id="tiltValue">0°</output></label><input id="tilt" type="range" min="-7.25" max="7.25" step="0.25" value="0">
+          <button id="exampleButton" class="action-button full">모형 예시 측정 채우기</button><p class="help">합성 흑점 위치에 작은 측정 오차를 더한 예시입니다.</p>
+        </section>
+        <section class="control-section"><div class="section-label"><span class="number">03</span><h2>표시와 측정</h2></div>
+          <label class="check"><input id="showGrid" type="checkbox" checked><span>태양 위도·경도 격자</span></label>
+          <label class="check"><input id="showCandidates" type="checkbox" checked><span>흑점 후보 표시</span></label>
+          <label class="check"><input id="showTrail" type="checkbox" checked><span>이전 측정 경로</span></label>
+          <label class="check"><input id="limbFilter" type="checkbox" checked><span>가장자리 측정 제외 · ρ &gt; 0.9</span></label>
+          <div class="button-pair"><button id="undoButton" class="quiet-button">현재 점 삭제</button><button id="clearButton" class="quiet-button">선택 그룹 비우기</button></div>
+        </section>
+        <div class="source-note"><span class="source-tag">교육용 분석</span><p>NASA 공식 서비스가 아닙니다. 관측 영상과 합성 모형은 모드별로 구분됩니다.</p><button id="methodOpen" class="text-button">계산 방법과 자료 출처</button></div>
+      </aside>
+      <section class="observation-stage" aria-label="태양 관측 화면">
+        <div class="stage-top"><div><span class="eyebrow" id="instrumentLabel">SDO / HMI CONTINUUM</span><div class="stage-title" id="stageTitle">2017년 7월 8일 <span>12:00 UTC</span></div></div><span class="data-badge" id="dataBadge">실제 관측 영상</span></div>
+        <div class="viewer" id="viewer">
+          <canvas id="sunCanvas" width="1024" height="1024" aria-label="태양 영상. 흑점을 클릭하면 현재 날짜의 위치가 기록됩니다." role="img"></canvas>
+          <div id="magnifier" class="magnifier" hidden><canvas id="zoomCanvas" width="240" height="240" aria-label="포인터 주변 흑점 확대 영상" role="img"></canvas><span>흑점 확대</span></div>
+          <div class="viewer-scale"><span>1 태양 반지름</span><span>≈ 696,000 km</span></div>
+          <div class="orientation north">N</div><div class="orientation west">W</div>
+          <div class="frame-counter" id="frameCounter">04 / 10</div>
+          <div class="loading-note" id="loadingNote" role="status">관측 영상 준비 중</div>
+        </div>
+        <div class="readout"><span id="pointerReadout">흑점 위로 포인터를 옮겨 좌표를 확인하세요.</span><span id="detectReadout">후보 검출 대기</span></div>
+        <div class="time-deck"><div class="playback"><button id="prevButton" class="icon-button" aria-label="이전 날짜">◀</button><button id="playButton" class="play-button" aria-label="날짜 재생">▶</button><button id="nextButton" class="icon-button" aria-label="다음 날짜">▶</button><label class="speed-label" for="playSpeed">재생<select id="playSpeed"><option value="1400">느리게</option><option value="800" selected>보통</option><option value="400">빠르게</option></select></label><span id="timeLabel" class="time-label">7월 8일</span></div>
+          <label class="sr-only" for="timeline">관측 날짜</label><input id="timeline" type="range" min="0" max="9" step="1" value="3"><div class="time-extents"><span id="timeStart">2017.07.05</span><span id="timeEnd">2017.07.14</span></div>
+          <div class="filmstrip" id="filmstrip" aria-label="날짜 선택"></div>
+        </div>
+        <div class="measurement-prompt"><span class="prompt-number">+</span><p id="clickInstruction"><strong>흑점의 중심을 클릭하세요.</strong> 날짜를 바꾸고 같은 흑점을 다시 선택하면 이동 경로가 만들어집니다.</p></div>
+      </section>
+      <aside class="analysis-rail" aria-label="측정 분석 결과">
+        <div class="analysis-heading"><span class="eyebrow">LIVE ANALYSIS</span><h2>그룹 <span id="analysisTrack">A</span> <span class="small-chip" id="pointCount">0점</span></h2></div>
+        <div class="metric-grid"><div class="metric"><span>평균 태양 위도</span><strong id="meanLatitude">—</strong><small>투영 보정 후</small></div><div class="metric"><span>항성 자전주기</span><strong id="siderealPeriod">—</strong><small>먼 별을 기준으로</small></div></div>
+        <div class="secondary-metrics"><div><span>회합 자전주기</span><b id="synodicPeriod">—</b></div><div><span>관측 각속도</span><b id="angularSpeed">—</b></div><div><span>회귀 R²</span><b id="fitQuality">—</b></div></div>
+        <section class="plot-section"><div class="plot-heading"><h3>경도 변화</h3><span id="fitBadge">측정 2점부터</span></div><canvas id="longitudePlot" width="600" height="400" aria-label="시간에 따른 태양 흑점 경도와 선형 회귀 그래프" role="img"></canvas><p class="help">중앙 자오선 기준 경도 · 서쪽 +<br>직선의 기울기에서 관측 각속도를 구합니다.</p></section>
+        <div class="analysis-insight" id="analysisInsight" aria-live="polite">다른 날짜에서 같은 흑점을 3회 이상 측정해 보세요.</div>
+        <div id="areaReadout" class="area-readout" hidden></div>
+        <section class="records"><div class="plot-heading"><h3>측정 기록</h3><button id="exportButton" class="text-button">CSV 저장</button></div><div class="table-wrap"><table><thead><tr><th>날짜</th><th>위도</th><th>경도</th><th>μ</th></tr></thead><tbody id="measurementRows"><tr><td colspan="4" class="empty-cell">아직 측정한 점이 없습니다.</td></tr></tbody></table></div></section>
+        <section id="modelComparison" class="plot-section" hidden><div class="plot-heading"><h3>위도에 따른 자전</h3><span>항성 기준</span></div><canvas id="rotationPlot" width="600" height="320" aria-label="위도에 따른 모형 자전주기 그래프" role="img"></canvas></section>
+      </aside>
+    </div>
+    <section class="mission-strip"><span class="eyebrow">TRY THIS</span><button data-mission="rotation"><span>01</span><strong>태양의 하루는 며칠일까?</strong><small>관측 흑점 1개를 5일 이상 추적</small></button><button data-mission="differential"><span>02</span><strong>위도가 높으면 더 느릴까?</strong><small>위도가 다른 모형 흑점 A·B·C 비교</small></button><button data-mission="projection"><span>03</span><strong>가장자리에서는 왜 오차가 커질까?</strong><small>격자와 측정점의 투영 효과 확인</small></button></section>
+  </main>
+  <footer><span>SOLAR LAB <span class="footer-divider">/</span> 교육과정 연계 탐구 · [12행우02-01]</span><span>Courtesy of NASA/SDO and the AIA, EVE, and HMI science teams.</span></footer>
+  <dialog id="guideDialog"><div class="dialog-heading"><span class="eyebrow">FIELD GUIDE</span><button class="dialog-close icon-button" aria-label="가이드 닫기">×</button></div><h2>흑점으로 태양의 자전을 측정하기</h2><ol class="guide-steps"><li><strong>추적할 흑점을 고르세요.</strong><p>NASA 관측에서 ‘흑점 후보 검출’을 누르세요. 그룹 A를 선택하고, 주변 무늬가 뚜렷한 흑점의 중심을 클릭합니다.</p></li><li><strong>날짜를 바꾸고 같은 흑점을 찾으세요.</strong><p>최소 3일, 가능하면 5일 이상 측정하세요. 날짜마다 같은 흑점의 같은 부분을 찍어야 합니다. 한 그룹에는 날짜별로 한 점이 저장됩니다.</p></li><li><strong>그래프의 기울기를 읽으세요.</strong><p>앱은 화면 좌표를 태양 표면의 위도·경도로 보정합니다. 경도와 시간의 회귀 기울기 ω에서 회합주기 360/ω를 구합니다.</p></li><li><strong>관측과 모형을 비교하세요.</strong><p>자전 시뮬레이션에서 A·B·C의 위도를 다르게 설정하세요. 모형 예시를 채우고 각 그룹의 항성 자전주기를 비교해 차등 자전을 설명합니다.</p></li></ol><div class="guide-question"><b>탐구 질문</b><p>측정한 위도는 날짜마다 비슷한가요? 위도가 크게 변한다면 다른 흑점을 찍었거나 위치를 잘못 잡았을 수 있습니다. 가장자리 점을 제외하면 자전주기와 R²가 어떻게 달라지나요?</p></div></dialog>
+  <dialog id="methodDialog"><div class="dialog-heading"><span class="eyebrow">METHOD & SOURCES</span><button class="dialog-close icon-button" aria-label="계산 방법 닫기">×</button></div><h2>측정값이 만들어지는 방법</h2><h3>실제 관측</h3><p>2017년 7월 5–14일, 약 12:00 UTC의 NASA/SDO HMI 1024 px 색상 강도 영상입니다. 원본 영상은 앱에 포함되어 인터넷 없이도 표시됩니다. 후보는 영상의 고리별 밝기 중앙값으로 주변 감광을 줄인 뒤, 임계값보다 어두운 연결된 화소를 찾습니다. 이 개수는 국제 흑점수가 아닙니다.</p><h3>좌표 보정</h3><p>태양 중심과 반지름을 영상에서 추정하고 태양 북쪽이 위라는 가정으로 직교 투영을 역변환합니다. 태양 중심 위도 B₀는 날짜별 지구 관측자 근사값을 씁니다. NASA 둘러보기 JPG 기반 교육용 추정이며, 정밀 연구에는 FITS의 WCS와 관측자 정보를 사용해야 합니다.</p><pre>x = (화소 x − 중심 x) / R
+y = (중심 y − 화소 y) / R
+z = √(1 − x² − y²)
+위도 = asin(y cos B₀ + z sin B₀)
+경도 = atan2(x, z cos B₀ − y sin B₀)</pre><h3>자전주기</h3><p>회귀 각속도는 지구에서 보이는 회합 각속도입니다. 지구의 평균 공전 속도 360/365.256°/day를 더하면 항성 각속도의 근사값을 얻습니다. 같은 흑점의 추적과 단조 증가 경도가 필요하며, 가장자리 ρ &gt; 0.9 측정은 기본으로 회귀에서 제외합니다.</p><pre>P회합 = 360 / ω관측
+P항성 = 360 / (ω관측 + 360/365.256)</pre><h3>자전 시뮬레이션</h3><p>Howard 모형: ω = 2.894 − 0.428 sin²φ − 0.370 sin⁴φ [μrad/s]. deg/day 변환 후 지구 공전 속도를 뺀 값으로 흑점을 움직입니다. 강체 모형은 14.1844°/day입니다. 흑점 밝기·크기·수명은 단순화했으며 모형 예시는 실제 측정이 아닙니다.</p><p class="source-links"><a href="https://sdo.gsfc.nasa.gov/data/dataaccess.php" target="_blank" rel="noreferrer">NASA SDO 자료</a><a href="https://sdo.gsfc.nasa.gov/data/rules.php" target="_blank" rel="noreferrer">SDO 자료 이용 기준</a><a href="https://docs.sunpy.org/en/stable/generated/api/sunpy.sun.models.differential_rotation.html" target="_blank" rel="noreferrer">SunPy 자전 모형</a></p></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
+
