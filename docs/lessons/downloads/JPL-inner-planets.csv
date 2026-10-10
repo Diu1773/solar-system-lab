@@ -1,0 +1,5 @@
+﻿planet,a_AU,eccentricity,sidereal_T_year,a_source,T_source,a_epoch,retrieved,note
+수성,0.38709927,0.20563593,0.2408467,https://ssd.jpl.nasa.gov/planets/approx_pos.html,https://ssd.jpl.nasa.gov/planets/phys_par.html,"J2000 mean elements, Table 1; approximation 1800–2050",2026-10-10,
+금성,0.72333566,0.00677672,0.61519726,https://ssd.jpl.nasa.gov/planets/approx_pos.html,https://ssd.jpl.nasa.gov/planets/phys_par.html,"J2000 mean elements, Table 1; approximation 1800–2050",2026-10-10,
+지구*,1.00000261,0.01671123,1.0000174,https://ssd.jpl.nasa.gov/planets/approx_pos.html,https://ssd.jpl.nasa.gov/planets/phys_par.html,"J2000 mean elements, Table 1; approximation 1800–2050",2026-10-10,"지구의 a·e는 Earth/Moon barycenter, T는 Earth. 두 표의 정의·근사가 달라 작은 비율 차이가 생긴다."
+화성,1.52371034,0.0933941,1.8808476,https://ssd.jpl.nasa.gov/planets/approx_pos.html,https://ssd.jpl.nasa.gov/planets/phys_par.html,"J2000 mean elements, Table 1; approximation 1800–2050",2026-10-10,

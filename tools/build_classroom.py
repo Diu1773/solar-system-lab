@@ -178,6 +178,7 @@ FITS 원본과 전체 앱은 이 가벼운 키트에 포함되지 않습니다. 
     guide = (CLASS / 'index.html').read_text(encoding='utf-8')
     kit_guide = guide.replace('href="../#', 'href="' + LAB_URL + '#')
     kit_guide = kit_guide.replace('href="downloads/solar-system-lab-class-kit.zip"', 'href="' + CLASS_URL + 'downloads/solar-system-lab-class-kit.zip"')
+    kit_guide = kit_guide.replace('href="../lessons/', 'href="' + LAB_URL + 'lessons/')
     kit_file = CLASS / 'downloads' / 'solar-system-lab-class-kit.zip'
     with ZipFile(kit_file, 'w', ZIP_DEFLATED, compresslevel=7) as archive:
         for filename in ['class.css','class.js','worksheet.html','worksheet.css','class-qr.png','sun-observation.jpg']:

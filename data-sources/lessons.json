@@ -1,0 +1,123 @@
+{
+  "version": "2026-10-10",
+  "audience": "대학 태양계천문학·예비 교사 / 고등학교 탐구 수업으로 조정 가능",
+  "duration": "기본 50분 + 선택 심화 30–50분",
+  "method": "자료 기반 탐구 · 예측–측정–비교–설명",
+  "organization": "2–3인 1모둠: 조작·기록·근거 검토 역할 교대",
+  "formatReference": {"title": "경기도교육청, 2021 초등학교 경기도안전교육과정(5~6학년군), 인쇄 5쪽 / PDF 8쪽", "url": "https://www.goe.go.kr/resource/old/BBSMSTR_000000030062/BBS_202112300900521790.pdf", "note": "학습주제·목표·성취기준·단원, 도입–전개–정리 및 평가, 교사용 Tip이라는 과정안 구조를 참고했다. 천문학 수업 내용·발문·시간·평가표는 새로 설계했다."},
+  "curriculumSource": {"title":"교육부 고시 제2022-33호, 별책 9 과학과 교육과정", "url":"https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0"},
+  "lessons": {
+    "sunspot": {
+      "number": "01", "title": "태양흑점 분석 활동", "unit": "태양의 관측과 자전", "question": "날짜별 흑점의 이동으로 태양의 자전주기를 어떻게 추정할까?",
+      "alignment": "행성우주과학 [12행우02-01]: 태양의 현상·관측 자료 비교. 흑점 이동과 자전주기 탐구에 연결한다. 정량 회귀와 회합·항성 주기 구분은 학생 수준에 따라 심화한다.",
+      "objectives": ["영상에서 같은 흑점을 식별하고 5개 날짜의 위치와 사용 여부를 기록한다.","경도–시간 그래프의 기울기와 단위로 회합 자전주기를 추정한다.","가장자리 투영·좌표 보정·흑점 변화가 결과에 미치는 영향을 근거와 함께 설명한다."],
+      "prior": "태양의 자전, 각도·위도·경도, 그래프 기울기, 주기 = 360° / 각속도",
+      "materials": "모둠별 브라우저가 있는 컴퓨터, 학생 활동지, 계산기. 교사는 영상 로딩과 좌표 보정을 미리 확인한다.",
+      "data": {"kind":"실제 관측 영상 → 교육용 좌표 측정", "name":"NASA SDO/HMI 연속광 JPG 10장", "period":"2017.07.05–07.14, 약 12:00 UTC", "units":"화소 px; 표면 좌표 deg; 경과 시간 day; 주기 day", "processing":"1024 px 영상에서 원반 중심·반지름을 추정하고 B0 근사로 표면 좌표를 변환한다. 관측 날짜의 경과일에 경도를 선형 적합한다.", "limits":"북쪽 위 방향 가정·교육용 원반 보정이며 정밀 WCS 분석이 아니다. 한 흑점의 짧은 기록으로 위도별 차등 자전을 입증할 수 없다.", "credit":"NASA/SDO and the AIA, EVE, and HMI science teams. 출처·관측일을 유지한다.", "url":"https://sdo.gsfc.nasa.gov/data/dataaccess.php"},
+      "steps": [
+        {"stage":"도입","minutes":5,"content":"예측·문제 제시","teacher":"서로 다른 날짜의 태양 영상을 제시하고 이동의 원인을 묻는다.","student":"흑점 이동의 원인과 예상 방향을 쓰고 같은 흑점의 식별 기준을 제안한다.","question":"흑점이 이동한 것과 다른 흑점을 골랐다는 것을 어떻게 구분할까?","resource":"날짜·UTC 표시 확인","assessment":"이동 원인과 식별 근거를 구별하는가?"},
+        {"stage":"전개 1","minutes":5,"content":"자료·좌표 확인","teacher":"실제 영상과 자전 모형을 구분하고 원반 좌표·표면 좌표의 차이를 안내한다.","student":"출처·관측일·단위를 기록하고 A 그룹을 같은 흑점의 기록 이름으로 정한다.","question":"화소 위치를 그대로 각속도라고 불러도 될까?","resource":"NASA 관측 모드; 그룹 이름은 사용자가 정함","assessment":"관측량과 변환한 좌표를 구분하는가?"},
+        {"stage":"전개 2","minutes":15,"content":"같은 흑점 5일 추적","teacher":"날짜를 바꾸며 같은 특징을 찾도록 돕고 가장자리·식별 불확실점을 표시하게 한다.","student":"5개 날짜에서 같은 흑점을 클릭해 기록한다. 날짜별 위치·위도·경도와 제외 이유를 확인한다.","question":"모양이 바뀌거나 가장자리로 간 점은 그대로 써도 될까?","resource":"관측 영상·경도 그래프; ρ > 0.9 점 필터","assessment":"동일 대상 5점과 사용 기준을 기록했는가?"},
+        {"stage":"전개 3","minutes":10,"content":"기울기·주기 비교","teacher":"기울기 deg/day와 360/기울기의 관계를 설명하고 필터 전후를 비교하게 한다.","student":"측정값을 활동지로 가져온다. 기울기·회합 주기를 적고 가장자리 포함·제외 결과를 비교한다.","question":"기울기가 더 크면 주기는 어떻게 변할까?","resource":"선형 적합; n·R²·사용 점 확인","assessment":"단위가 있는 주기 계산과 비교가 타당한가?"},
+        {"stage":"전개 4","minutes":8,"content":"모둠 비교·오차","teacher":"모둠 간 값이 다른 이유를 측정 대상·좌표 보정·시간 범위로 나눠 토의하게 한다.","student":"다른 모둠과 근거를 비교하고 오차 원인 두 가지와 개선 방법을 제안한다.","question":"비슷한 값이 나왔다는 것만으로 정확하다고 할 수 있을까?","resource":"모둠별 그래프","assessment":"측정 절차에 연결된 오차를 설명하는가?"},
+        {"stage":"정리·평가","minutes":7,"content":"근거를 든 결론","teacher":"주장–관측 근거–추론을 점검하고 출구 질문을 제시한다.","student":"자전주기 결론·한계·개선안을 작성하고 그래프와 활동지를 제출한다.","question":"이번 자료만으로 태양 전체의 차등 자전을 결론 낼 수 있을까?","resource":"학생 활동지·평가표","assessment":"주장과 자료의 범위를 일치시켰는가?"}
+      ],
+      "procedure": ["NASA 관측 모드에서 같은 흑점을 찾아 5개 날짜를 클릭한다. 화면에 나타난 경도 부호를 그대로 사용한다.","분석 도구의 가장자리 제외 설정을 확인하고 경도–시간 그래프를 읽는다.","‘측정값 가져오기’로 위치·적합을 활동지에 넣는다. 포함·제외 조건을 바꾸고 다시 가져와 결과를 비교한다.","회합 주기와 항성 주기를 구분한다. 기본 제출은 회합 주기이며, 항성 주기는 지구 공전 보정이 들어간 심화 결과이다."],
+      "fields": [
+        {"id":"prediction","label":"예측과 같은 흑점의 식별 기준"},
+        {"id":"selection","label":"사용한 날짜·흑점 특징·제외한 점과 이유"},
+        {"id":"calculation","label":"기울기 (deg/day), 회합 주기 (day), 포함·제외 조건의 차이"},
+        {"id":"claim","label":"주장: 이 자료에서 추정한 자전주기"},
+        {"id":"evidence","label":"근거·추론: 어떤 측정값과 그래프가 주장을 뒷받침하는가?"},
+        {"id":"limits","label":"오차 원인 두 가지와 각각의 개선 방법"}
+      ],
+      "recordColumns": ["관측일·UTC","t (day)","위도 (deg)","경도 (deg)","ρ","사용 여부"],
+      "blankRows":5,
+      "submission":"5일 이상 측정표, 경도–시간 그래프, 단위가 있는 주기 계산, 근거와 오차를 포함한 결론",
+      "rubric":[{"item":"동일 대상 추적·기록","points":3,"full":"날짜·좌표·사용 기준이 있는 5점 이상","partial":"3–4점 또는 식별·사용 기준 일부 누락"},{"item":"계산·단위","points":3,"full":"기울기와 회합 주기의 관계·단위가 정확함","partial":"계산 과정 또는 단위 일부 누락"},{"item":"관측 근거","points":2,"full":"그래프·필터 비교를 결론에 연결함","partial":"값을 제시하나 비교 이유가 부족함"},{"item":"오차·개선","points":2,"full":"구체적 오차 두 가지와 개선안을 연결함","partial":"오차를 일반적으로만 언급함"}],
+      "misconceptions":[{"wrong":"움직이는 모든 검은 점은 같은 흑점이다.","support":"주변 무늬·상대 위치·날짜 순서로 대상의 연속성을 확인하게 한다."},{"wrong":"화소 이동 속도는 곧 표면 각속도이다.","support":"같은 각도 이동의 투영 길이가 가장자리에서 줄어드는 모형을 보여 준다."},{"wrong":"한 그룹의 주기만으로 차등 자전을 확인했다.","support":"여러 위도의 독립 관측이 더 필요하다는 점을 결론에 쓰게 한다."}],
+      "extension":"30–50분: 회합·항성 주기를 비교하고 차등 자전 모형의 여러 위도를 추적한다. 별도의 2011.06.07 HMI 자기장 FITS에서 Gauss·부호·헤더를 읽는다. 2017년 JPG와 다른 날짜·관측량임을 명시한다.",
+      "exit":"가장자리 측정 하나를 추가하거나 제외하면 주기 추정이 달라질 수 있는 이유는?",
+      "references":[{"title":"NASA/SOHO · Differential Rotation (9–12학년 관측 활동)","url":"https://soho.nascom.nasa.gov/explore/lessons/diffrot9_12.html"},{"title":"The Schools’ Observatory · Solar Rotation Activity Sheet","url":"https://www.schoolsobservatory.org/sites/default/files/activ/solarrotation/Solar-Rotation-Activity-Sheet.pdf"}]
+    },
+    "asteroid": {
+      "number":"02","title":"소행성 밝기 분석 활동","unit":"소천체의 관측과 자료 해석","question":"소행성의 밝기 변화에서 어떤 자전주기가 관측을 잘 설명할까?",
+      "alignment":"행성우주과학 [12행우01-04] 소천체 자료 해석에 연결한다. 지상 측광은 탐사선 관측과 구분한다. 주기 적합·3D 모형 비교는 대학 전공 확장 활동이며 성취기준의 필수 3D 역산 과제가 아니다.",
+      "objectives":["실제 측광의 대상·시각·상대 강도와 처리 방법을 설명한다.","세 개 이상의 시험 주기를 위상 그래프·잔차로 비교해 주기 후보를 선택한다.","관측 간격과 형상·반사율·시선의 모호성이 추론에 주는 한계를 설명한다."],
+      "prior":"소행성의 자전·공전 구분, 주기, 상대 밝기와 등급, 그래프 읽기",
+      "materials":"모둠별 브라우저가 있는 컴퓨터, 활동지, 계산기. 기본 수업은 Pallas 1971년 측광을 사용한다.",
+      "data":{"kind":"실제 측광 자료 → 등급·위상·곡선 적합","name":"DAMIT (2) Pallas, curve_id 26·27·28, 155점","period":"1971.11.28–30; 선택 가능한 전체 관측은 1956·1965·1971년","units":"빛 도달 시간 보정 JD (day), 상대 강도 F, 등급 mag, 시험 주기 hour","processing":"m = −2.5 log10 F; φ = frac[24(JD−JD0)/P]. 회차별 영점과 2차 푸리에 계수를 동시에 비가중 적합한다.","limits":"오차 열이 없고 관측에 빈 시간이 있다. 최소 잔차 후보가 유일한 항성 주기·3D 모양을 확정하지 않는다.","credit":"DAMIT / Charles University / 원 관측자. CC BY 4.0; 원자료 설명과 인용 유지.","url":"https://damit.cuni.cz/projects/damit/asteroids/view/101"},
+      "steps":[
+        {"stage":"도입","minutes":5,"content":"밝기 변화 예측","teacher":"밝기가 변하는 소행성을 제시하고 자전 외의 원인도 묻는다.","student":"모양·반사율·관측 방향을 포함한 두 가설을 적는다.","question":"밝기 변화가 크면 무조건 길쭉한 소행성일까?","resource":"팔라스 관측 그래프","assessment":"두 가지 이상의 설명을 제안하는가?"},
+        {"stage":"전개 1","minutes":7,"content":"측광 자료 확인","teacher":"대상 번호와 회차 ID, JD·상대 강도·등급을 구별해 안내한다.","student":"1971년 3회차·155점의 출처와 단위를 쓰고 자료 처리식을 확인한다.","question":"26·27·28은 소행성 번호일까, 관측 회차일까?","resource":"DAMIT CSV·자료 설명","assessment":"대상과 회차, 시각·밝기 단위를 구분하는가?"},
+        {"stage":"전개 2","minutes":10,"content":"시간 그래프 읽기","teacher":"원시 시각 보기로 날짜별 관측과 빈 구간을 살피게 한다.","student":"관측이 연속적이지 않은 구간과 밝기 변화 범위를 기록한다.","question":"밤 사이의 빈 시간에는 몇 번 회전했을까?","resource":"시간 보기·회차별 색","assessment":"관측 범위와 빈 구간을 근거로 말하는가?"},
+        {"stage":"전개 3","minutes":13,"content":"세 주기 비교","teacher":"시험 주기를 바꾸고 위상 겹침과 잔차를 함께 비교하게 한다.","student":"최소 세 주기에서 ‘현재 후보 기록’을 누른다. P/2·P·2P 또는 다른 후보를 비교해 선택한다.","question":"RMS가 작다는 것만으로 유일한 답이라고 할 수 있을까?","resource":"위상 곡선·후보 검색; 기본 푸리에 차수 2","assessment":"동일 자료·설정에서 세 후보를 비교했는가?"},
+        {"stage":"전개 4","minutes":8,"content":"추론의 범위","teacher":"비슷한 밝기 곡선을 만드는 다른 모양·반사율 예를 토의하게 한다.","student":"선택 후보의 근거와 대안, 더 필요한 자료를 적는다.","question":"이 광도곡선으로 소행성의 모든 면을 복원했을까?","resource":"3D 모형은 선택 심화","assessment":"주기 후보와 유일한 형상 복원을 구분하는가?"},
+        {"stage":"정리·평가","minutes":7,"content":"결론·제출","teacher":"주기 비교표와 관측 근거를 점검하고 출구 질문을 제시한다.","student":"주기 후보·비교 그래프·한계를 활동지로 제출한다.","question":"관측할 밤을 하나 더 고른다면 어떤 점을 개선하고 싶을까?","resource":"활동지·평가표","assessment":"근거와 한계를 함께 제시하는가?"}
+      ],
+      "procedure":["실제 광도곡선 모드에서 1971년 회차 26·27·28을 선택한다. 시간 보기에서 자료의 빈 구간을 먼저 확인한다.","위상 보기로 바꾸고 시험 주기 세 가지 이상을 비교한다. ‘현재 후보 기록’은 P·RMS·진폭·자료 수·푸리에 차수를 함께 저장한다.","후보 검색은 탐색을 돕는 도구이다. P/2와 2P도 비교하고 가장 작은 잔차 후보를 유일한 정답으로 단정하지 않는다.","기본 수업의 측광은 FITS 영상이 아니다. 별도 FITS 6장은 다른 대상 138205 (2000 EZ148)이므로 팔라스 측광과 합치지 않는다."],
+      "fields":[{"id":"prediction","label":"밝기 변화의 가능한 원인 두 가지"},{"id":"selection","label":"사용 자료·회차·점 수·시간의 빈 구간"},{"id":"calculation","label":"위상·등급 변환식과 주기 비교 조건"},{"id":"claim","label":"주장: 내가 선택한 주기 후보 (h)"},{"id":"evidence","label":"근거·추론: 다른 두 후보보다 적절한 이유"},{"id":"limits","label":"다른 가능한 설명·추론의 한계·추가 관측 계획"}],
+      "recordColumns":["관측 묶음","P (h)","RMS (mag)","진폭 (mag)","점 수","푸리에 차수"],"blankRows":3,
+      "submission":"세 주기 비교표, 위상 그래프, 선택 후보의 근거, 유일한 주기·모양을 확정하지 못하는 이유",
+      "rubric":[{"item":"자료·단위 이해","points":2,"full":"대상·회차·시간·상대 밝기를 정확히 구분함","partial":"출처 또는 단위 일부 누락"},{"item":"후보 비교","points":3,"full":"동일 조건에서 세 후보와 RMS·그래프를 기록함","partial":"두 후보만 비교하거나 비교 조건 누락"},{"item":"선택 근거","points":3,"full":"위상 겹침·잔차·관측 간격을 함께 해석함","partial":"최소 RMS라는 이유만 제시함"},{"item":"모호성·한계","points":2,"full":"대안 설명과 필요한 추가 자료를 제시함","partial":"한계를 일반적으로만 언급함"}],
+      "misconceptions":[{"wrong":"밝기 변화 주기는 곧 공전주기이다.","support":"시간 단위와 자전·공전의 규모를 비교하게 한다."},{"wrong":"가장 작은 RMS면 실제 주기가 확정된다.","support":"P/2·2P와 관측 회차 선택의 영향을 확인하게 한다."},{"wrong":"한 광도곡선으로 유일한 3D 형상을 복원한다.","support":"고정한 축비·시선·반사율 가정과 적합한 변수를 따로 쓰게 한다."}],
+      "extension":"30–50분: 타원체의 a/b·위상만 적합하고 고정한 c/b·시선·균일 반사율을 기록한다. 문헌 메시와 비교하되 새 형상 역산이라고 부르지 않는다. 별도 FITS 6장에서는 헤더·이동 천체·배경 제거·비교별 측광을 실습한다. 여섯 점만으로 주기·형상을 확정하지 않는다.",
+      "exit":"현재 주기와 두 배 주기가 비슷하게 잘 맞을 수 있는 이유는?",
+      "references":[{"title":"NASA JPL · How to Explore an Asteroid","url":"https://www.jpl.nasa.gov/edu/resources/lesson-plan/how-to-explore-an-asteroid/"},{"title":"The Schools’ Observatory · Keep Watch on Asteroids (별도 FITS 관측 활동)","url":"https://www.schoolsobservatory.org/things-to-do/keep-watch-asteroids"}]
+    },
+    "spectrum": {
+      "number":"03","title":"태양 스펙트럼 분석 활동","unit":"스펙트럼으로 추론하는 구성 물질","question":"태양빛의 흡수선에서 어떤 원소의 흔적을 찾을 수 있을까?",
+      "alignment":"통합과학1 [10통과1-02-01]: 스펙트럼으로 천체의 구성 물질 추론. 선 중심·깊이의 정량 측정과 등가폭은 학생 수준에 따라 심화한다.",
+      "objectives":["아틀라스의 파장 단위를 Å에서 nm로 변환하고 정규화 강도를 설명한다.","세 흡수선의 최소 표본 파장·깊이를 측정해 기준 파장과 비교한다.","원소 식별의 근거와 혼합선·정규화·분해능에 따른 한계를 설명한다."],
+      "prior":"연속·방출·흡수 스펙트럼, 원소의 선 스펙트럼, 파장과 단위, 비율",
+      "materials":"모둠별 브라우저가 있는 컴퓨터, 활동지. 기본 자료는 BASS2000 가시광 태양 아틀라스의 Na D·Hα이다.",
+      "data":{"kind":"실제 관측 아틀라스 → 구간 선택·정규화 강도 측정","name":"BASS2000 / Jungfraujoch Solar Atlas (Delbouille, Roland & Neven, 1973)","period":"공개 가시광 태양 아틀라스; 개별 표본에 UTC 시각은 제공되지 않음","units":"원자료 Å·강도 수치; 화면 nm·국소 정규화 강도 I; 구간 등가폭 nm","processing":"파장은 Å/10, 강도는 원 수치/10000. 선택 범위의 최소 표본, 깊이 1−Imin/Ic, 사다리꼴 등가폭을 계산한다.","limits":"국소 정규화 자료로 절대 플럭스·온도를 복원하지 않는다. 최소 표본은 정밀 보정 선 중심이 아니다. 선 깊이는 함량에 단순 비례하지 않는다.","credit":"BASS2000 / Observatoire de Paris; Delbouille, Roland & Neven (1973). 제공 아틀라스와 원 출처 인용 유지.","url":"https://bass2000.obspm.fr/solar_spect.php"},
+      "steps":[
+        {"stage":"도입","minutes":5,"content":"흡수선 예측","teacher":"연속 무지개와 태양 스펙트럼을 제시하고 어두운 선의 원인을 묻는다.","student":"흡수선이 생기는 이유와 원소 식별에 필요한 근거를 예측한다.","question":"색이 어둡다는 정보만으로 원소를 알 수 있을까?","resource":"실제 Na D 구간","assessment":"파장의 비교가 필요함을 말하는가?"},
+        {"stage":"전개 1","minutes":7,"content":"원자료·단위","teacher":"ASCII·Å·정규화 강도를 안내하고 5890 Å의 단위 변환을 묻는다.","student":"자료 출처와 변환식을 쓰고 정규화 강도가 절대 플럭스가 아님을 기록한다.","question":"5890 Å는 몇 nm인가? 강도 1은 무엇을 뜻할까?","resource":"원자료 CSV·화면 단위","assessment":"Å/10과 국소 정규화를 설명하는가?"},
+        {"stage":"전개 2","minutes":15,"content":"세 흡수선 측정","teacher":"한 선씩 좁은 구간을 선택하고 최소 표본·깊이를 기록하도록 안내한다.","student":"Na D2·D1과 Hα를 각각 측정한다. 범위·연속광·최소 파장을 기록해 활동지로 가져온다.","question":"두 나트륨 선을 한 구간에 넣으면 어떤 최소값만 남을까?","resource":"측정 구간 선택·연속광 Ic","assessment":"서로 다른 세 선을 개별 구간으로 기록했는가?"},
+        {"stage":"전개 3","minutes":11,"content":"기준선 비교","teacher":"기준 공기 파장과 비교하도록 안내하고 차이가 바로 도플러 속도인지 묻는다.","student":"기준 파장과 측정 파장의 차이를 구해 H·Na 후보를 설명한다.","question":"한 선의 위치만 맞으면 확실한 원소 식별일까?","resource":"Na D2 588.9950, D1 589.5924, Hα 656.2808 nm","assessment":"여러 선의 일치를 근거로 제시하는가?"},
+        {"stage":"전개 4","minutes":6,"content":"해석의 한계","teacher":"경계·연속광·혼합선이 측정에 주는 영향을 토의하게 한다.","student":"선이 깊을수록 원소가 반드시 많다는 주장과 정규화로 온도를 구하는 주장을 검토한다.","question":"이 아틀라스만으로 태양의 절대 밝기·온도를 구할 수 있을까?","resource":"경계·Ic 조건 변경","assessment":"자료 처리에 연결된 한계를 설명하는가?"},
+        {"stage":"정리·평가","minutes":6,"content":"원소 후보 결론","teacher":"측정표·기준선·주장의 연결을 점검한다.","student":"세 선 비교표·그래프·원소 후보와 한계를 제출한다.","question":"흡수선 깊이와 함량을 같은 비율로 해석하면 왜 곤란할까?","resource":"학생 활동지·평가표","assessment":"측정과 해석의 범위를 구분하는가?"}
+      ],
+      "procedure":["실제 가시광 스펙트럼 모드에서 Na D 구간을 연다. 원자료 Å를 nm로 바꾸는 식을 확인한다.","D2·D1·Hα 빠른 구간 버튼을 하나씩 사용하거나 경계를 직접 정한다. 각 선을 개별 기록하고 연속광 Ic를 남긴다.","세 측정값을 활동지로 가져온 뒤 기준선과 차이를 계산한다. 측정값은 구간의 최소 표본이며 보간·정밀 속도 보정 결과가 아니다.","등가폭은 심화 지표이다. Birr FITS는 2011년 전파 시간–주파수 자료이며 가시광 원소 식별 자료와 다른 관측이다."],
+      "fields":[{"id":"prediction","label":"흡수선이 생기는 이유·원소 식별에 필요한 근거"},{"id":"selection","label":"아틀라스 출처·Å→nm 변환·정규화 강도의 의미"},{"id":"calculation","label":"Na D2·D1·Hα 기준 파장과 차이 (nm), 경계·Ic 조건"},{"id":"claim","label":"주장: 자료에서 추론한 원소 후보"},{"id":"evidence","label":"근거·추론: 어떤 선들의 일치가 원소 후보를 뒷받침하는가?"},{"id":"limits","label":"혼합선·분해능·연속광 선택의 영향과 추가 확인 방법"}],
+      "recordColumns":["선·구간","최소 λ (nm)","깊이 (%)","Ic","구간 W (nm)","기준 λ (nm)"],"blankRows":3,
+      "submission":"세 선 측정표, 파장–강도 그래프, 기준 파장 비교, 원소 후보와 해석 한계",
+      "rubric":[{"item":"측정·단위","points":3,"full":"세 선을 개별 측정하고 파장·강도 단위를 설명함","partial":"두 선만 측정하거나 단위 일부 누락"},{"item":"기준선 비교","points":3,"full":"기준 파장과 측정 차이를 적고 여러 선을 비교함","partial":"한 선만 비교하거나 차이 누락"},{"item":"물리적 설명","points":2,"full":"흡수와 원소 후보를 관측 근거로 연결함","partial":"원소 이름만 나열함"},{"item":"해석 한계","points":2,"full":"정규화·혼합선·경계의 영향을 구체적으로 설명함","partial":"함량·온도를 자료 이상으로 단정함"}],
+      "misconceptions":[{"wrong":"흡수선이 깊으면 원소 함량도 같은 비율로 많다.","support":"온도·이온화·선 형성·연속광 등의 조건이 영향을 준다는 점을 설명한다."},{"wrong":"선의 최소 표본과 정밀 선 중심은 같다.","support":"표본 간격·혼합선·파장 보정이 필요함을 확인하게 한다."},{"wrong":"FITS여야 실제 관측 자료이다.","support":"이 관측 아틀라스의 원형식은 ASCII임을 원자료와 함께 보여 준다."}],
+      "extension":"30–50분: 적분 경계·Ic에 따른 등가폭 차이, 합성 모형에서 분해능에 따른 이중선 혼합을 비교한다. 별도 Birr 전파 FITS의 관측일·시간·주파수·계수값을 읽는다. 파장 보정 없이 최소 표본 차이를 정밀 도플러 속도로 해석하지 않는다.",
+      "exit":"정규화 강도 1이 태양의 절대 복사량을 뜻하지 않는 이유는?",
+      "references":[{"title":"NASA JPL · Using Light to Study Planets","url":"https://www.jpl.nasa.gov/edu/resources/lesson-plan/using-light-to-study-planets/"},{"title":"NASA eClips · Educator Guides (스펙트럼 교육 자료)","url":"https://science.nasa.gov/eclips/guides/"}]
+    },
+    "kepler": {
+      "number":"04","title":"행성 궤도 분석 활동","unit":"태양의 중력과 케플러 법칙","question":"공개 행성 자료의 장반경·공전주기는 케플러 법칙과 얼마나 맞을까?",
+      "alignment":"행성우주과학 [12행우01-03]: 태양의 중력과 케플러 법칙으로 태양계 천체의 운동 설명. 자료 해석과 변인 통제에 연결한다.",
+      "objectives":["기관의 장반경·주기 자료와 법칙으로 계산한 모형 결과를 구분한다.","같은 시간의 쓸고 간 면적과 네 행성의 T²/a³을 비교한다.","모형에 이미 들어 있는 법칙을 독립 관측 검증으로 해석하지 않고 자료의 근사를 설명한다."],
+      "prior":"타원의 초점·장반경·이심률, 공전주기, 거듭제곱, 그래프·비례 관계",
+      "materials":"모둠별 브라우저가 있는 컴퓨터, 학생 활동지, 계산기. 공개 행성 자료 표·CSV와 교육용 2체 모형을 사용한다.",
+      "data":{"kind":"기관 공개 궤도·주기 자료 + 법칙을 구현한 물리 모형","name":"JPL J2000 평균 궤도 요소와 Sidereal Orbital Period 표의 수성·금성·지구·화성","period":"장반경·이심률: J2000 평균 요소 표(1800–2050 근사). 공전주기: JPL 물리량 표. 수집 2026-10-10.","units":"장반경 AU, 이심률 무차원, 공전주기 year, 면적 AU²","processing":"서로 다른 공개 표의 a·e·T를 전사해 T²/a³을 계산한다. 모형은 T = √(a³/M★)와 케플러 방정식을 사용한다.","limits":"기관 자료는 관측을 바탕으로 정리한 값이며 원시 FITS가 아니다. 지구의 a·e는 지구–달 질량중심, 주기는 지구 값이다. 서로 다른 표의 근사·기준으로 작은 차이가 난다. 모형은 독립 관측 검증이 아니다.","credit":"NASA JPL Solar System Dynamics. 두 원 표의 출처·J2000 기준·전사 날짜 유지.","url":"https://ssd.jpl.nasa.gov/planets/approx_pos.html"},
+      "steps":[
+        {"stage":"도입","minutes":5,"content":"공전·속력 예측","teacher":"태양 가까이에서 속력이 어떨지, 멀리 있는 행성의 주기가 어떨지 묻는다.","student":"거리·속력·주기에 관한 예측을 쓰고 변인을 정한다.","question":"태양에서 멀어질수록 주기는 얼마나 커질까?","resource":"타원 궤도 화면","assessment":"장반경과 이심률의 영향을 구분해 예측하는가?"},
+        {"stage":"전개 1","minutes":7,"content":"자료와 모형 구별","teacher":"JPL 두 표와 J2000 기준, 모형의 계산식을 안내한다.","student":"출처·단위·기준과 지구 자료의 근사를 기록한다.","question":"화면에서 계산된 주기는 독립 관측값일까?","resource":"행성 자료 표·출처 카드","assessment":"기관 자료와 모형 결과를 구분하는가?"},
+        {"stage":"전개 2","minutes":13,"content":"같은 시간의 면적","teacher":"이심률이 큰 모형에서 근일점·원일점의 같은 Δt를 비교하게 한다.","student":"장반경·이심률·중심 질량을 기록하고 두 면적·이동 길이의 차이를 비교한다.","question":"같은 시간에 이동 길이는 달라도 면적은 어떤가?","resource":"면적 표시; Δt = T/18","assessment":"속력 변화와 면적 속도 일정함을 설명하는가?"},
+        {"stage":"전개 3","minutes":12,"content":"공개 값의 제3법칙 비교","teacher":"네 행성의 a³·T²·비율과 그래프를 구하게 한다.","student":"공개 표를 활동지로 가져와 계산하고 T²–a³ 관계를 해석한다.","question":"T²/a³의 작은 차이는 무엇 때문일까?","resource":"JPL 값·산점도·CSV","assessment":"단위·계산·공개 자료의 관계를 타당하게 읽는가?"},
+        {"stage":"전개 4","minutes":7,"content":"검증의 의미","teacher":"모형의 공식과 공개 자료 비교가 각각 무엇을 보여 주는지 묻는다.","student":"법칙이 들어 있는 모형 결과와 기관 값의 비교를 구분해 결론을 다듬는다.","question":"공식으로 만든 그래프가 공식을 증명할 수 있을까?","resource":"2체 근사·질량 조건","assessment":"모형의 가정과 독립 검증을 구분하는가?"},
+        {"stage":"정리·평가","minutes":6,"content":"결론·전이","teacher":"이심률만 바꿀 때 주기의 변화를 출구 질문으로 묻는다.","student":"면적 비교·행성 표·그래프·한계를 포함해 제출한다.","question":"a와 중심 질량을 고정하고 e만 바꾸면 주기가 바뀔까?","resource":"학생 활동지·평가표","assessment":"통제 변인을 명시하고 법칙을 적용하는가?"}
+      ],
+      "procedure":["행성 공개 자료 표의 두 출처와 기준을 확인한다. 수성·금성·지구·화성의 a·e·T를 기록한다.","2체 모형에서 a = 1.5 AU, e = 0.45, M★ = 1 M☉로 시작한다. 같은 Δt = T/18의 두 면적과 이동 길이를 비교한다.","‘측정값 가져오기’는 JPL 공개 자료 네 행성과 현재 모형의 설정·면적을 별도 표로 가져온다. T²–a³ 그래프를 읽는다.","공개 값의 비율은 근사적으로 비교한다. 모형 주기는 법칙에서 계산되므로 독립 관측으로 법칙을 입증했다고 쓰지 않는다."],
+      "fields":[{"id":"prediction","label":"장반경·이심률을 바꾸면 주기·속력이 어떻게 될까?"},{"id":"selection","label":"공개 자료 두 출처·기준·단위와 모형의 통제 변인"},{"id":"calculation","label":"같은 Δt의 두 면적·이동 길이 비교와 T²/a³ 해석"},{"id":"claim","label":"주장: 공개 행성 자료가 보이는 관계"},{"id":"evidence","label":"근거·추론: 표·그래프와 케플러 법칙의 연결"},{"id":"limits","label":"기관 자료의 근사·모형 가정·독립 검증과의 차이"}],
+      "recordColumns":["행성 (기관 값)","a (AU)","e","T (year)","a³ (AU³)","T²/a³ (year²/AU³)"],"blankRows":4,
+      "submission":"네 행성 공개 자료·비율 계산표, T²–a³ 그래프, 같은 시간 면적 비교, 모형과 자료의 한계",
+      "rubric":[{"item":"자료·단위","points":2,"full":"기관 자료와 모형·기준·단위를 구분함","partial":"출처 또는 기준 일부 누락"},{"item":"계산·그래프","points":3,"full":"네 행성 비율과 면적 비교·그래프를 기록함","partial":"계산·그래프 일부 누락"},{"item":"법칙 해석","points":3,"full":"변인 통제와 면적·주기 관계를 설명함","partial":"그래프 추세만 서술함"},{"item":"근사·검증 범위","points":2,"full":"모형의 내장 법칙과 공개 자료 비교를 구분함","partial":"모형을 독립 관측 검증으로 해석함"}],
+      "misconceptions":[{"wrong":"이심률이 커지면 반드시 공전주기도 커진다.","support":"a·중심 질량을 고정한 채 e만 바꿔 비교하게 한다."},{"wrong":"같은 시간에는 같은 길이를 이동한다.","support":"근일점·원일점의 경로 길이와 쓸고 간 면적을 따로 보게 한다."},{"wrong":"모형이 법칙을 독립적으로 입증한다.","support":"주기 계산식이 이미 법칙을 사용한다는 점을 명시하게 한다."}],
+      "extension":"30–50분: 중심 질량을 바꿔 T²/a³의 변화를 비교한다. 소행성 JPL 궤도 요소의 epoch·TDB를 읽고 기관의 요소와 모형 현재 위치를 구분한다. 정밀 현재 위치·섭동을 다루려면 별도의 Horizons 자료가 필요하다.",
+      "exit":"장반경과 중심 질량을 고정하고 이심률만 바꾸면 무엇이 변하고 무엇이 유지될까?",
+      "references":[{"title":"NASA · Orbits and Kepler’s Laws","url":"https://science.nasa.gov/solar-system/orbits-and-keplers-laws/"},{"title":"JPL · Approximate Positions of the Planets (Table 1)","url":"https://ssd.jpl.nasa.gov/planets/approx_pos.html"},{"title":"JPL · Planetary Physical Parameters (Sidereal Orbital Period)","url":"https://ssd.jpl.nasa.gov/planets/phys_par.html"}]
+    }
+  },
+  "planetCatalog": {
+    "retrieved":"2026-10-10", "aSource":"https://ssd.jpl.nasa.gov/planets/approx_pos.html", "periodSource":"https://ssd.jpl.nasa.gov/planets/phys_par.html", "epoch":"J2000 mean elements, Table 1; approximation 1800–2050", "note":"지구의 a·e는 Earth/Moon barycenter, T는 Earth. 두 표의 정의·근사가 달라 작은 비율 차이가 생긴다.",
+    "rows":[{"name":"수성","a":0.38709927,"e":0.20563593,"T":0.2408467},{"name":"금성","a":0.72333566,"e":0.00677672,"T":0.61519726},{"name":"지구*","a":1.00000261,"e":0.01671123,"T":1.0000174},{"name":"화성","a":1.52371034,"e":0.09339410,"T":1.8808476}]
+  }
+}

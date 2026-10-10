@@ -1,0 +1,24 @@
+태양계천문학 수업 세트 · 2026.10.10
+네 활동마다 교사용 수업지도안(과정안·평가표·자료 출처)과 학생 활동지를 제공합니다.
+기본 활동은 50분, FITS·3D·등가폭 등은 별도 심화 30–50분으로 제안합니다.
+
+실습실: https://diu1773.github.io/solar-system-lab/
+수업 공유·Codex 활용: https://diu1773.github.io/solar-system-lab/class/
+전체 소스·실제 FITS: https://github.com/Diu1773/solar-system-lab
+
+각 탭 → 수업 안내 → 교사용 지도안 / 학생 활동지 / 분석 도구.
+분석 도구에서 측정한 후 학생 활동지로 값을 가져오세요.
+활동지 글과 기록은 해당 브라우저에만 저장됩니다. JSON 백업·CSV·그래프 PNG·작성 활동지 인쇄를 지원합니다.
+이 묶음의 PDF는 빈 활동지입니다. 작성한 결과는 웹 활동지에서 인쇄/PDF로 저장합니다.
+
+자료 범위
+태양: NASA/SDO HMI 2017 JPG 실제 영상; 교육용 좌표 보정.
+소행성: DAMIT Pallas 1971 실제 측광 155점; CC BY 4.0. SOURCE.txt 유지.
+별도 소행성 FITS는 138205 (2000 EZ148); The Schools’ Observatory/LJMU, CC BY-NC 4.0.
+스펙트럼: BASS2000 가시광 아틀라스, 원형식 ASCII. 별도 Birr FITS는 전파 자료.
+행성: JPL 두 공개 표의 J2000 평균 a·e와 항성 주기; 원시 FITS가 아님.
+2체 궤도·타원체·합성 스펙트럼은 교육용 모형이며 관측과 구분합니다.
+
+교과서 판본·쪽수는 해당 교수자의 교재에 맞춰 보완합니다.
+경기도교육청 과정안의 구성, NASA·Schools’ Observatory 활동 사례를 참고해 새로 설계한 수업 제안입니다.
+공식 NASA·교육부·OpenAI 서비스가 아닙니다. 원문 내용·원 PDF는 재배포하지 않습니다.
