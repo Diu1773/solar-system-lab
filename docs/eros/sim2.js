@@ -75,7 +75,7 @@ document.getElementById('autoFit').onclick=()=>{const ph=phases(modelPeriod()),t
 ['claim','evid','diffWhy','aiNote'].forEach(f=>{const el=document.getElementById(f);if(S[f])el.value=S[f];el.oninput=()=>save({[f]:el.value})});
 const best=()=>{const L=S.logM||[];return L.length?L.reduce((a,b)=>b.rms<a.rms?b:a):S.model};
 function drawSum(){const bm=best(),l1=Store.get().l1||{},mp=modelPeriod();
-  const rows=[['1차시 예측',l1.guess?hm(l1.guess):'—'],['접기로 찾은 주기',(S.P||P).toFixed(3)+' h'],['AI 주기와 판정',S.aiP?(+S.aiP).toFixed(3)+' h · '+({ai:'AI 값',double:'두 배',other:'다른 값'}[S.judge]||'—'):'—'],['모형 a/b',bm?bm.ab.toFixed(2)+' (θ '+bm.th+'°, 차 '+bm.rms.toFixed(3)+')':'—']];
+  const rows=[['1차시 예측',l1.guess?hm(l1.guess):'—'],['주기 맞추기로 찾은 주기',(S.P||P).toFixed(3)+' h'],['AI 주기와 판정',S.aiP?(+S.aiP).toFixed(3)+' h · '+({ai:'AI 값',double:'두 배',other:'다른 값'}[S.judge]||'—'):'—'],['모형 a/b',bm?bm.ab.toFixed(2)+' (θ '+bm.th+'°, 차 '+bm.rms.toFixed(3)+')':'—']];
   document.getElementById('sum2').innerHTML=rows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join('');
   const cmp=[['자전주기 (h)',mp,NEAR.P],['길쭉한 정도 a/b',bm?bm.ab:0,NEAR.ab]];
   document.getElementById('cmp').innerHTML=cmp.map(([n,a,b])=>{const mx=Math.max(a,b)*1.1||1;return `<span>${n}</span><div><div class="track"><i style="width:${a/mx*100}%;background:#141414"></i></div><div class="track" style="margin-top:4px"><i style="width:${b/mx*100}%;background:#c9c6be"></i></div></div><div><b style="display:block">${a?a.toFixed(3):'—'}</b><b style="display:block;color:var(--muted)">${b.toFixed(3)}</b></div>`}).join('')+'<span></span><span class="note">위: 나 · 아래: NEAR 슈메이커(34.4 × 11.2 km, 5.270 h)</span><span></span>'}

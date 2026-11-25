@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>1차시 탐구 시뮬레이터 · 소행성의 밝기 변화</title>
-<link rel="stylesheet" href="eros.css?v=13">
-<script defer src="data/eros-data.js?v=13"></script>
-<script defer src="eros.js?v=13"></script>
-<script defer src="sim1.js?v=13"></script>
+<link rel="stylesheet" href="eros.css?v=14">
+<script defer src="data/eros-data.js?v=14"></script>
+<script defer src="eros.js?v=14"></script>
+<script defer src="sim1.js?v=14"></script>
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -22,17 +22,17 @@
   </div>
 
   <div class="stepper" aria-label="1차시 단계">
-    <button type="button"><span class="n">1</span><span class="t">하룻밤 기록 재기</span></button>
+    <button type="button"><span class="n">1</span><span class="t">하룻밤 기록 측정</span></button>
     <button type="button"><span class="n">2</span><span class="t">세 가설 모형 돌려 보기</span></button>
     <button type="button"><span class="n">3</span><span class="t">자전주기 예측</span></button>
   </div>
 
   <section class="step">
-    <div class="step-title"><h2>하룻밤 기록 재기</h2><small>1975년 1월 23일 · 146점 · DAMIT</small></div>
+    <div class="step-title"><h2>하룻밤 기록 측정</h2><small>1975년 1월 23일 · 146점 · DAMIT</small></div>
     <p class="ask">밝은 꼭대기는 몇 번이고, 이웃한 꼭대기 사이는 몇 시간인가요?</p>
     <div class="grid wide">
       <div class="box">
-        <canvas id="night" class="plot" height="400" aria-label="1975년 1월 23일 에로스 광도곡선. A, B 선을 끌어 시간을 잰다."></canvas>
+        <canvas id="night" class="plot" height="400" aria-label="1975년 1월 23일 에로스 광도곡선. A, B 선을 끌어 시간을 측정한다."></canvas>
         <p class="note" id="readout" style="margin:8px 0 0">빨간 A·B 선을 끌어 꼭대기에 맞추세요. 점에 마우스를 올리면 시각과 밝기가 보입니다.</p>
       </div>
       <div class="box">
