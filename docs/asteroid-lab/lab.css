@@ -13,10 +13,11 @@
 .story-date{margin:1.55rem 0 .4rem;color:var(--green);font-weight:800;font-size:.96rem}
 .sky-pair{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1rem 0 .15rem}
 .sky-pair figcaption{font-size:.85rem;color:var(--mute);margin-top:.2rem}
-.sky{position:relative;height:112px;background:radial-gradient(circle at 21% 30%,#d9e6de 0 2px,transparent 3px),radial-gradient(circle at 53% 57%,#d9e6de 0 2px,transparent 3px),radial-gradient(circle at 82% 41%,#d9e6de 0 2px,transparent 3px),#152321}
-.sky-point{position:absolute;color:#f5bc79;font-weight:800;line-height:1}
+.sky{position:relative;height:112px;background:#152321}
+.sky-point{position:absolute;color:#d9e6de;font-weight:700;line-height:1}
 .sky-point::before{content:'';display:inline-block;width:5px;height:5px;vertical-align:middle;margin-right:5px;border-radius:50%;background:currentColor}
 .sky-point.first{left:28%;top:72%}.sky-point.second{left:60%;top:22%}
+.sky-point.point-a{left:21%;top:31%}.sky-point.point-c{left:49%;top:56%}.sky-point.point-d{left:80%;top:45%}
 .prose>details{margin:1.15rem 0 0;border-top:1px solid var(--line);padding-top:.7rem}
 .activity-brief{margin:.15rem 0 1.1rem;max-width:830px}
 .activity-brief h2{font-size:1.47rem;margin-bottom:.38rem}

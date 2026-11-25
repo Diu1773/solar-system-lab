@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="팔라스 발견과 측광 연구를 읽고 같은 실제 자료로 자전주기를 추론하는 고등학교 행성우주과학 수업">
 <title>팔라스 관측실</title>
-<link rel="stylesheet" href="lab.css?v=4">
+<link rel="stylesheet" href="lab.css?v=5">
 <script defer src="../observation-math.js"></script>
 <script defer src="../shape-math.js?v=4"></script>
 <script defer src="asteroid-render.js?v=4"></script>
@@ -23,13 +23,14 @@
   <article id="history" class="reading">
     <div class="chapter"><p class="kicker">도입 · 8분</p><h2>별처럼 보이는<br>움직이는 점</h2></div>
     <div class="prose"><p class="story-date">1801년 1월 1일 · 이탈리아 팔레르모</p>
-    <p>주세페 피아치는 별의 위치를 기록하던 중 낯선 빛점 하나를 만났습니다. 처음 본 모습은 여느 별과 비슷했습니다. 날짜를 바꿔 다시 기록하니 주변 별에 대한 그 점의 위치가 달라졌습니다. 그 빛점은 훗날 <strong>세레스</strong>라는 이름을 얻었습니다.</p>
+    <p>주세페 피아치는 별의 위치를 기록하던 중 낯선 빛점 하나를 만났습니다. 처음 본 모습은 여느 별과 비슷했습니다. 피아치처럼 날짜를 바꿔 남긴 두 관측 기록을 살펴봅시다.</p>
     <div class="sky-pair">
-      <figure><div class="sky" aria-label="세 개의 배경별과 점 A가 왼쪽 아래에 있습니다." role="img"><span class="sky-point first">A</span></div><figcaption>첫날</figcaption></figure>
-      <figure><div class="sky" aria-label="배경별은 그대로이고 점 A는 오른쪽 위로 이동했습니다." role="img"><span class="sky-point second">A</span></div><figcaption>다른 날</figcaption></figure>
+      <figure><div class="sky" aria-label="A 왼쪽 위, B 왼쪽 아래, C 중앙, D 오른쪽 가운데" role="img"><span class="sky-point point-a">A</span><span class="sky-point point-b first">B</span><span class="sky-point point-c">C</span><span class="sky-point point-d">D</span></div><figcaption>첫날</figcaption></figure>
+      <figure><div class="sky" aria-label="A 왼쪽 위, B 오른쪽 위, C 중앙, D 오른쪽 가운데" role="img"><span class="sky-point point-a">A</span><span class="sky-point point-b second">B</span><span class="sky-point point-c">C</span><span class="sky-point point-d">D</span></div><figcaption>다른 날</figcaption></figure>
     </div>
     <p class="minor">발견 방법을 살펴보는 설명 그림</p>
-    <p class="question">두 기록에서 점 A는 어떻게 달라졌나요? 어떤 점을 다음 날 다시 관측할지 활동지에 쓰세요.</p>
+    <p class="question">어떤 점을 다음 날 다시 관측할까요? 두 기록에서 발견한 차이를 활동지에 쓰고 짝의 설명과 비교하세요.</p>
+    <details><summary>피아치가 알아낸 것</summary><p>그림에서 B의 위치가 옮겨 갔습니다. 피아치가 발견한 점도 여러 날에 걸쳐 주변 별에 대한 위치가 달라졌습니다. 별처럼 보였던 그 천체는 훗날 <strong>세레스</strong>라는 이름을 얻었습니다.</p></details>
     <p class="story-date">1802년 3월 28일 · 독일 브레멘</p>
     <p>하인리히 올베르스가 세레스를 관측하다가 그 근처에서 또 하나의 움직이는 점을 찾았습니다. 그가 슈뢰터와 남긴 편지에는 별처럼 보이는 새 천체의 움직임이 기록되어 있습니다. 이 두 번째 발견이 <strong>팔라스</strong>입니다. <a href="https://makingscience.royalsociety.org/items/ap_7_12/unpublished-letters-on-astronomical-discoveries-from-schroeter-johann-hieronymus-schroter-and-heinrich-wilhelm-matthias-olbers">1802년 관측 편지</a></p>
     <p>당시에는 세레스와 팔라스를 행성 목록에 올리기도 했습니다. 윌리엄 허셜은 망원경에서 별처럼 보인다는 이유로 이 작은 천체에 ‘asteroid’라는 이름을 제안했습니다. 오늘날 팔라스는 주 소행성대의 소행성이고, 같은 소행성대에 있는 세레스는 왜소행성으로 분류됩니다. <a href="https://aa.usno.navy.mil/faq/minorplanets">미 해군천문대 발견사</a> · <a href="https://science.nasa.gov/mission/dawn/science/ceres/">NASA의 세레스 분류</a></p>
@@ -42,7 +43,8 @@
     <p>Schroll, Haupt, Maitzen은 1968·1969년 관측에서 얻은 주기 후보를 확인하기 위해 1971년 관측까지 함께 분석했습니다. 수업에서는 DAMIT에 보존된 <strong>1971년 세 회차, 155점</strong>을 열고 어떤 주기가 세 밤의 밝기 변화를 함께 설명하는지 비교합니다. <a href="https://doi.org/10.1016/0019-1035(76)90191-3">1976년 연구 논문</a></p>
     <table><thead><tr><th scope="col">회차</th><th scope="col">관측일</th><th scope="col">표본</th></tr></thead><tbody><tr><th scope="row">26</th><td>11월 28일</td><td>41점</td></tr><tr><th scope="row">27</th><td>11월 29일</td><td>91점</td></tr><tr><th scope="row">28</th><td>11월 30일</td><td>23점</td></tr></tbody></table>
     <h3>세 밤을 한 바퀴에 포개기</h3>
-    <p>첫 관측 이후 18시간이 지났다고 가정해 봅시다. 주기가 6시간이면 3바퀴를 돌아 위상은 <strong>0</strong>입니다. 주기가 8시간이면 2바퀴와 ¼바퀴를 돌아 위상은 <strong>0.25</strong>입니다. 실제 자료에서도 같은 관측점이 주기 가정에 따라 서로 다른 위치에 놓입니다. 세 밤의 밝고 어두운 구간이 한 곡선에 가까워지는 주기를 찾아보세요.</p>
+    <p>첫 관측 이후 18시간이 지났다고 가정해 봅시다. 주기가 6시간이면 3바퀴를 돌아 한 바퀴 안의 위치인 <strong>위상</strong>은 0입니다. 주기가 8시간이라면 위상은 얼마일까요? 활동지에 먼저 풀어 보세요.</p>
+    <details><summary>8시간을 가정한 풀이</summary><p>18시간을 8시간으로 나누면 2.25바퀴입니다. 완전히 돈 두 바퀴를 빼면 위상은 0.25입니다. 실제 그래프에서도 주기를 바꿀 때 관측점의 위상이 달라집니다.</p></details>
     <details><summary>활동을 마친 뒤 논문 결과 확인</summary><p>연구진이 보고한 관측 기준 회합 자전주기는 7시간 48분 27초입니다. 연구진은 세 해의 자료를 사용했고, 수업에서는 1971년 세 밤으로 추정합니다.</p></details>
     <p class="minor">CSV의 JD는 빛 도달 시간을 보정한 날짜 단위 시각입니다. 강도는 상대값입니다.</p>
     <div class="links"><a class="primary" href="#period">1971년 관측 열기</a><a href="../class/data/pallas-1971.csv" download>CSV 내려받기</a><a href="https://damit.cuni.cz/projects/damit/light_curves/exportAllForAsteroid/101/json">DAMIT 원자료</a></div></div>
