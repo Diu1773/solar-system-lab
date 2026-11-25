@@ -2,9 +2,33 @@ const byId = id => document.getElementById(id);
 const state = { sessions: [], period: 7.8, view: 'time', search: null, fit: null, model: null, records: [], playing: false };
 const shape = { a: 1.12, c: .9, aspect: 90, offset: 20 };
 const colors = ['#168a78', '#a44785', '#2669b1'];
-const lightColors = ['#77e1ce', '#efafda', '#99c5ff'];
 const ids = ['time', 'phase', 'search'];
 const number = (value, digits = 3) => value.toFixed(digits);
+const notebookKey = 'pallas-1971-notebook-v2';
+let periodRecords = [];
+let inspectedPoint = null;
+let chartFrame = null;
+let animationFrame = 0;
+
+function route() {
+  const hash = location.hash.slice(1);
+  const stage = ['period', 'shape', 'ai'].includes(hash) ? hash : null;
+  const page = stage ? 'sim' : hash === 'lesson' ? 'lesson' : 'materials';
+  for (const id of ['materials', 'lesson', 'sim']) byId(id).hidden = id !== page;
+  for (const id of ['period', 'shape', 'ai']) byId(id).hidden = id !== stage;
+  for (const link of document.querySelectorAll('[data-nav],[data-stage]')) {
+    const selected = link.dataset.nav === (stage ? 'lab' : page) || link.dataset.stage === stage;
+    if (selected) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  }
+  if (stage !== 'shape' && state.playing) byId('play').click();
+  requestAnimationFrame(() => {
+    if (hash === 'history' || hash === 'research') byId(hash).scrollIntoView();
+    else if (hash !== 'main') window.scrollTo({ top: 0 });
+  });
+}
+window.addEventListener('hashchange', route);
+byId('print-lesson').onclick = () => window.print();
 
 function readSessions(csv) {
   const groups = new Map();
@@ -34,8 +58,8 @@ function plot(canvas, series, labels, options = {}) {
   const [y0, y1] = options.y || [minY - pad, maxY + pad];
   const x = v => left + (right - left) * (v - x0) / (x1 - x0 || 1);
   const y = v => options.invert ? top + (bottom - top) * (v - y0) / (y1 - y0) : bottom - (bottom - top) * (v - y0) / (y1 - y0);
-  ctx.fillStyle = options.dark ? '#c5dfdc' : '#435d65';
-  ctx.strokeStyle = options.dark ? '#37575e' : '#dbe7e4'; ctx.lineWidth = 1; ctx.font = '17px system-ui';
+  ctx.fillStyle = options.dark ? '#c5dfdc' : '#4d5c53';
+  ctx.strokeStyle = options.dark ? '#37575e' : '#dedbcf'; ctx.lineWidth = 1; ctx.font = '17px system-ui';
   for (let i = 0; i <= 5; i++) {
     const vx = x0 + (x1 - x0) * i / 5, vy = y0 + (y1 - y0) * i / 5;
     ctx.beginPath(); ctx.moveTo(x(vx), top); ctx.lineTo(x(vx), bottom); ctx.moveTo(left, y(vy)); ctx.lineTo(right, y(vy)); ctx.stroke();
@@ -52,6 +76,15 @@ function plot(canvas, series, labels, options = {}) {
       ctx.beginPath(); ctx.arc(x(u), y(v), 3.8, 0, 2 * Math.PI); ctx.fill();
     }
   }
+  if (options.marker) {
+    const [u, v] = options.marker;
+    ctx.strokeStyle = '#9a421f'; ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(x(u), top); ctx.lineTo(x(u), bottom); ctx.stroke();
+    if (Number.isFinite(v)) {
+      ctx.fillStyle = '#fffaf1'; ctx.beginPath(); ctx.arc(x(u), y(v), 5.5, 0, 2 * Math.PI); ctx.fill(); ctx.stroke();
+    }
+  }
+  return { x0, x1, left, right };
 }
 
 function drawPeriod() {
@@ -62,20 +95,52 @@ function drawPeriod() {
     byId('period-label').textContent = '시험 주기와 적합 잔차';
     const points = search?.grid.filter(p => Number.isFinite(p.rms)).map(p => [p.p, p.rms]) || [];
     const candidates = search?.candidates.map(p => [p.period, p.rms]) || [];
-    plot(canvas, [{ points, color: '#168a78', line: true }, { points: candidates, color: '#a44785' }], ['시험 주기 (시간)', '잔차 RMS (mag)'], { x: [2, 16] });
+    chartFrame = plot(canvas, [{ points, color: '#168a78', line: true }, { points: candidates, color: '#a44785' }], ['시험 주기 (시간)', '잔차 RMS (mag)'], { x: [2, 16], marker: [state.period, state.fit.rms] });
+    byId('point-readout').textContent = '현재 시험 주기 ' + number(state.period) + ' h · RMS ' + number(fit.rms, 4) + ' mag';
     legend.textContent = '낮은 지점일수록 현재 적합에서 관측값에 가깝습니다.';
     return;
   }
   const phase = view === 'phase';
+  const point = inspectedPoint;
+  const mark = point ? (phase ? [point.phase, point.adjusted] : [point.t, point.flux]) : undefined;
   byId('period-label').textContent = phase ? '접은 위상과 상대 등급' : '시간과 상대 강도';
   const series = state.sessions.map((s, i) => ({
     color: colors[i],
     points: fit.points.filter(p => p.session === s.id).map(p => phase ? [p.phase, p.adjusted] : [p.t, p.flux])
   }));
   if (phase) series.unshift({ color: '#9c5621', line: true, points: fit.curve.map((v, i) => [i / (fit.curve.length - 1), v]) });
-  plot(canvas, series, phase ? ['회전 위상 (한 바퀴 = 1)', '상대 등급 (위쪽이 밝음)'] : ['첫 관측 이후 시간 (h)', '상대 강도 F'], { x: phase ? [0, 1] : undefined, invert: phase });
+  chartFrame = plot(canvas, series, phase ? ['회전 위상 (한 바퀴 = 1)', '상대 등급 (위쪽이 밝음)'] : ['첫 관측 이후 시간 (h)', '상대 강도 F'], { x: phase ? [0, 1] : undefined, invert: phase, marker: mark });
+  byId('point-readout').textContent = point
+    ? '회차 ' + point.session + ' · JD ' + number(point.jd, 6) + ' · F ' + number(point.flux, 5) + (phase ? ' · 위상 ' + number(point.phase) : '')
+    : '그래프를 가리키거나, 그래프에 초점을 맞추고 ← →로 관측점을 읽으세요.';
   legend.textContent = '초록 회차 26 (41점) · 보라 회차 27 (91점) · 파랑 회차 28 (23점)' + (phase ? ' · 갈색 선은 적합 곡선' : '');
 }
+
+function orderedObservations() {
+  if (!state.fit || state.view === 'search') return [];
+  const key = state.view === 'phase' ? 'phase' : 't';
+  return state.fit.points.slice().sort((a, b) => a[key] - b[key]);
+}
+byId('period-plot').onpointermove = event => {
+  if (!chartFrame || state.view === 'search') return;
+  const bounds = event.currentTarget.getBoundingClientRect();
+  const pixel = (event.clientX - bounds.left) * event.currentTarget.width / bounds.width;
+  if (pixel < chartFrame.left || pixel > chartFrame.right) return;
+  const target = chartFrame.x0 + (chartFrame.x1 - chartFrame.x0) * (pixel - chartFrame.left) / (chartFrame.right - chartFrame.left);
+  const key = state.view === 'phase' ? 'phase' : 't';
+  const point = state.fit.points.reduce((near, next) => Math.abs(next[key] - target) < Math.abs(near[key] - target) ? next : near);
+  if (point !== inspectedPoint) { inspectedPoint = point; drawPeriod(); }
+};
+byId('period-plot').onkeydown = event => {
+  if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+  const rows = orderedObservations();
+  if (!rows.length) return;
+  event.preventDefault();
+  const index = Math.max(0, rows.indexOf(inspectedPoint));
+  const next = { ArrowLeft: index - 1, ArrowRight: index + 1, Home: 0, End: rows.length - 1 }[event.key];
+  inspectedPoint = rows[Math.max(0, Math.min(next, rows.length - 1))];
+  drawPeriod();
+};
 
 function drawMesh() {
   const canvas = byId('mesh'), ctx = canvas.getContext('2d'), { width, height } = canvas;
@@ -111,11 +176,18 @@ function updateModel() {
   byId('shape-period').textContent = number(state.period) + ' h';
   byId('shape-rms').textContent = number(model.rms, 4) + ' mag';
   byId('amplitude').textContent = number(model.amplitude, 4) + ' mag';
-  const series = state.sessions.map((s, i) => ({ color: lightColors[i], points: model.points.filter(p => p.session === s.id).map(p => [p.phase, p.adjusted]) }));
-  series.unshift({ color: '#ffc577', line: true, points: model.curve.map((v, i) => [i / (model.curve.length - 1), v]) });
-  plot(byId('model-plot'), series, ['회전 위상', '상대 등급 (위쪽이 밝음)'], { x: [0, 1], dark: true, invert: true });
-  drawMesh();
+  drawModel();
   updatePrompt();
+}
+
+function drawModel() {
+  if (!state.model) return;
+  const model = state.model;
+  const phase = Number(byId('spin').value);
+  const series = state.sessions.map((s, i) => ({ color: colors[i], points: model.points.filter(p => p.session === s.id).map(p => [p.phase, p.adjusted]) }));
+  series.unshift({ color: '#9c5621', line: true, points: model.curve.map((v, i) => [i / (model.curve.length - 1), v]) });
+  plot(byId('model-plot'), series, ['회전 위상', '상대 등급 (위쪽이 밝음)'], { x: [0, 1], invert: true, marker: [phase, ShapeMath.rawMag(phase, shape) - model.mean] });
+  drawMesh();
 }
 
 function updatePrompt() {
@@ -132,6 +204,7 @@ function updatePrompt() {
 }
 
 function setView(view) {
+  inspectedPoint = null;
   state.view = view;
   for (const id of ids) byId(id + '-view').setAttribute('aria-pressed', String(id === view));
   drawPeriod();
@@ -145,6 +218,7 @@ function setPeriod(period, view) {
   byId('count').textContent = (state.fit?.points.length || 0) + '점';
   setView(view || state.view);
   updateModel();
+  storeNotebook();
 }
 
 function deferred(button, operation) {
@@ -181,7 +255,13 @@ byId('half').onclick = () => setPeriod(state.search.candidates[0].period / 2, 'p
 byId('double').onclick = () => setPeriod(state.search.candidates[0].period * 2, 'phase');
 byId('axis').oninput = e => { if (state.sessions.length) { shape.a = +e.target.value; updateModel(); } };
 byId('aspect').oninput = e => { if (state.sessions.length) { shape.aspect = +e.target.value; updateModel(); } };
-byId('spin').oninput = drawMesh;
+for (const button of document.querySelectorAll('[data-aspect]')) button.onclick = () => {
+  if (!state.sessions.length) return;
+  byId('aspect').value = button.dataset.aspect;
+  shape.aspect = +button.dataset.aspect;
+  updateModel();
+};
+byId('spin').oninput = drawModel;
 byId('optimize').onclick = event => {
   const button = event.currentTarget;
   button.textContent = '적합 중…';
@@ -191,29 +271,64 @@ byId('optimize').onclick = event => {
   });
 };
 byId('record').onclick = () => {
-  state.records.push({ ...shape, period: state.period, rms: state.model.rms });
-  const rows = state.records.map(r => {
+  const same = state.records.some(r => r.aspect === shape.aspect && r.a === shape.a && r.offset === shape.offset && r.period === state.period);
+  if (!same) state.records.push({ a: shape.a, c: shape.c, aspect: shape.aspect, offset: shape.offset, period: state.period, rms: state.model.rms });
+  refreshNotebook(); storeNotebook();
+  byId('record').textContent = same ? '이미 기록한 모형' : '탐구 노트에 기록됨';
+  window.setTimeout(() => { byId('record').textContent = '현재 모형 기록'; }, 1100);
+};
+byId('record-period').onclick = () => {
+  if (!state.fit) return;
+  const same = periodRecords.some(row => Math.abs(row.period - state.period) < 1e-5);
+  if (!same) periodRecords.push({ period: state.period, rms: state.fit.rms });
+  refreshNotebook(); storeNotebook();
+  byId('record-period').textContent = same ? '이미 기록한 주기' : '탐구 노트에 기록됨';
+  window.setTimeout(() => { byId('record-period').textContent = '현재 주기 기록'; }, 1100);
+};
+function replaceRecords(target, rows, empty, columns) {
+  const elements = (rows.length ? rows : [[empty]]).map(values => {
     const tr = document.createElement('tr');
-    for (const value of [r.aspect + '°', number(r.a), number(r.period), number(r.rms, 4)]) {
+    for (const value of values) {
       const td = document.createElement('td'); td.textContent = value; tr.append(td);
     }
+    if (!rows.length) tr.firstElementChild.colSpan = columns;
     return tr;
   });
-  byId('records').replaceChildren(...rows);
+  byId(target).replaceChildren(...elements);
+}
+function refreshNotebook() {
+  replaceRecords('records', state.records.map(r => [r.aspect + '°', number(r.a), number(r.period), number(r.rms, 4)]), '회전 모형에서 서로 다른 조건을 기록하세요.', 4);
+  replaceRecords('period-records', periodRecords.map(r => [number(r.period), number(r.rms, 4)]), '관측과 주기에서 시험 주기를 기록하세요.', 2);
+  byId('period-log-note').textContent = periodRecords.length === 1 ? '근거를 쓰려면 다른 후보도 하나 기록하세요.' : '';
   updatePrompt();
-};
+}
+function storeNotebook() {
+  try { localStorage.setItem(notebookKey, JSON.stringify({ period: state.period, periodRecords, models: state.records, evidence: byId('evidence').value })); }
+  catch { /* A blocked local store still allows exporting the current notebook. */ }
+}
+function loadNotebook() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(notebookKey) || '{}');
+    if (Number.isFinite(saved.period)) state.period = saved.period;
+    if (Array.isArray(saved.periodRecords)) periodRecords = saved.periodRecords.filter(r => r && Number.isFinite(r.period) && Number.isFinite(r.rms));
+    if (Array.isArray(saved.models)) state.records = saved.models.filter(r => r && [r.aspect,r.a,r.period,r.rms].every(Number.isFinite));
+    if (typeof saved.evidence === 'string') byId('evidence').value = saved.evidence;
+  } catch { /* Ignore stale or unavailable local records. */ }
+}
+byId('evidence').oninput = storeNotebook;
 byId('play').onclick = () => {
   state.playing = !state.playing;
   const button = byId('play'); button.setAttribute('aria-pressed', String(state.playing));
   button.textContent = state.playing ? '일시정지' : '회전 재생';
+  cancelAnimationFrame(animationFrame);
   if (!state.playing) return;
   let last = performance.now();
   function tick(now) {
     if (!state.playing) return;
     byId('spin').value = (+byId('spin').value + Math.min(60, now - last) / 7300) % 1;
-    last = now; drawMesh(); requestAnimationFrame(tick);
+    last = now; drawModel(); animationFrame = requestAnimationFrame(tick);
   }
-  requestAnimationFrame(tick);
+  animationFrame = requestAnimationFrame(tick);
 };
 byId('copy').onclick = async () => {
   const prompt = byId('prompt');
@@ -221,14 +336,14 @@ byId('copy').onclick = async () => {
   catch { prompt.focus(); prompt.select(); byId('ai-status').textContent = '선택된 요청문을 복사하세요.'; }
 };
 byId('save').onclick = () => {
-  const report = { dataset: 'DAMIT (2) Pallas, 1971, 26–28', periodHours: state.period, rmsMag: state.fit?.rms ?? null, models: state.records, evidence: byId('evidence').value };
+  const report = { dataset: 'DAMIT (2) Pallas, 1971, 26–28', periodHours: state.period, rmsMag: state.fit?.rms ?? null, periodComparisons: periodRecords, models: state.records, evidence: byId('evidence').value };
   const url = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' }));
   const link = document.createElement('a'); link.href = url; link.download = '팔라스_탐구기록.json'; link.click();
   window.setTimeout(() => URL.revokeObjectURL(url), 5000);
 };
 
 async function initialize() {
-  updatePrompt();
+  loadNotebook(); refreshNotebook(); route();
   try {
     const response = await fetch('../class/data/pallas-1971.csv');
     if (!response.ok) throw new Error('CSV를 열 수 없습니다.');
@@ -236,7 +351,7 @@ async function initialize() {
     if (!state.sessions.length) throw new Error('유효한 관측값이 없습니다.');
     setPeriod(state.period, 'time');
     byId('period-status').textContent = '관측 공백을 먼저 찾으세요.';
-    for (const id of ['search', 'optimize', 'record']) byId(id).disabled = false;
+    for (const id of ['search', 'optimize', 'record', 'record-period']) byId(id).disabled = false;
   } catch (error) { byId('period-status').textContent = '관측 자료를 불러오지 못했습니다. ' + error.message; }
 }
 initialize();

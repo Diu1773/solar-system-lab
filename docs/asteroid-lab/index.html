@@ -3,38 +3,102 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="팔라스 실제 관측값으로 자전주기를 추정하고 회전 타원체를 비교하는 고등학교 행성우주과학 실습">
-<title>소행성 탐사 실습 | 팔라스의 자전</title>
-<link rel="stylesheet" href="lab.css">
+<meta name="description" content="팔라스 발견과 측광 연구를 읽고 같은 실제 자료로 자전주기를 추론하는 고등학교 행성우주과학 수업">
+<title>팔라스 관측실</title>
+<link rel="stylesheet" href="lab.css?v=2">
 <script defer src="../observation-math.js"></script>
 <script defer src="../shape-math.js"></script>
-<script defer src="lab.js"></script>
+<script defer src="lab.js?v=2"></script>
 </head>
 <body>
-<header class="top"><a class="brand" href="#top">소행성 탐사 실습</a><nav aria-label="실습 바로가기"><a href="#period">주기</a><a href="#shape">3D 모형</a><a href="#ai">AI로 해석</a><a href="#lesson">지도안</a></nav></header>
-<main id="top">
-<section class="hero">
-<div><p class="eyebrow">고등학교 행성우주과학 · 팔라스 (2)</p><h1>밝기의 반복에서<br>자전을 읽다</h1><p class="lead">1971년 세 번의 실제 관측으로 자전주기 후보를 비교하고, 회전 타원체로 밝기 변화를 설명해 보세요.</p><a class="button primary" href="#period">관측 자료 열기</a><a class="textlink" href="#lesson">수업지도안</a></div>
-<div class="hero-data"><span>관측 아카이브</span><strong>155<span>점</span></strong><p>1971년 11월 28–30일<br>팔라스 지상 상대 광도</p><a href="../class/data/pallas-1971.csv" download>실제 관측 CSV ↓</a></div>
+<a class="skip" href="#main">본문으로</a>
+<header class="bar"><div class="shell header"><a class="wordmark" href="#materials">팔라스 관측실</a><nav aria-label="수업 메뉴"><a href="#lesson" data-nav="lesson">수업지도안</a><a href="#materials" data-nav="materials">수업자료</a><a href="#period" data-nav="lab">시뮬레이터</a></nav></div></header>
+<main id="main" class="shell">
+<section id="materials" class="page" aria-labelledby="materials-title">
+  <div class="opening">
+    <div class="opening-text"><p class="kicker">행성우주과학 · 1차시</p><h1 id="materials-title">팔라스는 얼마나<br>빠르게 돌까?</h1><p>1971년 세 밤의 밝기 기록으로 천문학자가 자전을 알아낸 방법을 따라갑니다.</p><a class="primary" href="#history">발견 이야기부터</a></div>
+    <figure class="opening-image"><img src="media/eso-asteroids.jpg" alt="ESO 망원경으로 관측한 소행성 네 개. 팔라스는 오른쪽 아래에 있다."><figcaption>오른쪽 아래가 (2) 팔라스 · VLT/SPHERE. <a href="https://www.eso.org/public/images/potw1749a/">ESO/Vernazza et al.</a></figcaption></figure>
+  </div>
+  <article id="history" class="reading">
+    <div class="chapter"><p class="kicker">도입 · 8분</p><h2>별처럼 보이는<br>움직이는 점</h2></div>
+    <div class="prose"><p>팔라스는 태양 주위를 도는 소행성입니다. 화성과 목성 사이의 주 소행성대에 있고, 지상 망원경에서는 별처럼 작은 빛점으로 보일 수 있습니다. 역사적으로 천문학자들은 여러 밤의 별자리 위치를 비교해, 배경별 사이를 움직이는 천체를 찾아냈습니다.</p>
+    <figure class="figure"><img src="media/ceres-dawn.jpg" alt="탐사선 Dawn으로 촬영한 세레스 원반과 밝은 반점"><figcaption>Dawn 탐사선이 촬영한 세레스, 2015년. <a href="https://science.nasa.gov/image-detail/ceres-dawn-pia19562-16x9/">NASA/JPL-Caltech/UCLA/MPS/DLR/IDA</a></figcaption></figure>
+    <dl class="timeline"><div><dt>1801</dt><dd>피아치가 세레스를 발견합니다. 오늘날 세레스는 왜소행성으로 분류됩니다. <a href="https://science.nasa.gov/mission/dawn/science/ceres/">NASA</a></dd></div><div><dt>1802</dt><dd>올베르스가 팔라스를 발견합니다. 관측자가 발견할 때 본 것은 위치가 달라지는 작은 빛점이었습니다. <a href="https://www.nasa.gov/wp-content/uploads/2025/07/a-history-of-near-earth-object-research-sp-4235.pdf">NASA 관측사</a></dd></div></dl>
+    <p class="question">위치의 변화가 공전의 단서라면, 같은 빛점의 밝기 변화는 무엇의 단서일까요?</p></div>
+  </article>
+  <article class="reading" id="research">
+    <div class="chapter"><p class="kicker">연구 사례 · 12분</p><h2>세 해의 관측에서<br>반복을 찾다</h2></div>
+    <div class="prose"><p>Schroll, Haupt, Maitzen은 1968·1969·1971년 팔라스 측광을 분석했습니다. 1971년 라실라 관측은 앞서 얻은 주기를 확인하는 데 쓰였습니다. 논문에서 보고한 관측 기준 회합 자전주기는 <strong>7시간 48분 27초</strong>입니다. <a href="https://doi.org/10.1016/0019-1035(76)90191-3">1976년 논문</a></p>
+    <p>우리는 DAMIT에 보존된 그 연구의 <strong>1971년 세 회차, 155점</strong>을 사용합니다. 관측 사이에는 빈 시간이 있습니다. 시험 주기를 정하고 시간을 한 바퀴 안의 위치인 <strong>위상</strong>으로 접으면 다른 밤의 점을 같은 축에서 비교할 수 있습니다.</p>
+    <table><thead><tr><th scope="col">회차</th><th scope="col">관측일</th><th scope="col">표본</th></tr></thead><tbody><tr><th scope="row">26</th><td>11월 28일</td><td>41점</td></tr><tr><th scope="row">27</th><td>11월 29일</td><td>91점</td></tr><tr><th scope="row">28</th><td>11월 30일</td><td>23점</td></tr></tbody></table>
+    <p class="minor">CSV의 JD는 빛 도달 시간을 보정한 날짜 단위 시각입니다. 강도는 상대값입니다. 웹에서는 동일한 자료로 시험 주기별 곡선을 맞춰 잔차를 비교합니다.</p>
+    <div class="links"><a class="primary" href="#period">1971년 관측 열기</a><a href="../class/data/pallas-1971.csv" download>CSV 내려받기</a><a href="https://damit.cuni.cz/projects/damit/light_curves/exportAllForAsteroid/101/json">DAMIT 원자료</a></div></div>
+  </article>
 </section>
-<section id="period" class="activity">
-<div class="section-head"><p class="eyebrow">1차시 · 실제 데이터</p><h2>자전주기 후보 비교</h2><p>시간 그래프에서 관측 공백을 찾은 뒤, 주기를 바꿔 같은 회전 위치의 점이 얼마나 모이는지 비교하세요.</p></div>
-<div class="workspace">
-<div class="plot"><div class="plot-head"><h3 id="period-label">시간과 상대 강도</h3><div class="segmented" aria-label="그래프 보기"><button id="time-view" type="button" aria-pressed="true">관측 시간</button><button id="phase-view" type="button" aria-pressed="false">접은 위상</button><button id="search-view" type="button" aria-pressed="false">주기별 잔차</button></div></div><canvas id="period-plot" width="900" height="470" role="img" aria-label="팔라스 실제 광도곡선"></canvas><p id="legend" class="caption">점 색은 서로 다른 관측 회차입니다.</p></div>
-<aside class="controls"><h3>시험 주기</h3><label for="trial">주기 (시간)</label><input id="trial" type="number" min="2" max="16" step="0.001" value="7.8"><button id="search" class="button primary" type="button" disabled>실제 자료에서 후보 찾기</button><p id="period-status" role="status">관측 자료 불러오는 중…</p><div id="candidates" class="choices"></div><div class="segmented" aria-label="최저 후보와 배수 비교"><button id="half" type="button" disabled>P / 2</button><button id="double" type="button" disabled>2P</button></div><dl class="metrics"><div><dt>현재 잔차 RMS</dt><dd id="rms">—</dd></div><div><dt>사용한 관측점</dt><dd id="count">—</dd></div></dl></aside>
-</div>
-<p class="method">상대 강도를 등급으로 바꾼 뒤 회차별 영점과 2차 푸리에 곡선을 함께 맞춥니다. 같은 자료·방법에서는 RMS가 작을수록 점과 곡선이 가깝습니다.</p>
+<section id="lesson" class="page guide" aria-labelledby="lesson-title" hidden>
+  <div class="page-head"><p class="kicker">교사용 · 50분 × 2차시</p><h1 id="lesson-title">수업지도안</h1><p>고등학교 행성우주과학 · 우주탐사와 행성계</p></div>
+  <div class="guide-grid"><div class="chapter"><h2>교육과정</h2></div><div class="prose"><p><strong>[12행우01-04]</strong> 행성과 소천체를 구분하고 소천체 탐사 자료에서 특징을 추론하는 기준을 바탕으로, 지상 측광을 해석하는 활동으로 확장합니다. <a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0">교육부 고시 제2022-33호 별책 9</a></p><h3>학습목표</h3><ol><li>실제 광도곡선에서 시험 주기를 둘 이상 비교하고 자전주기 추정의 근거를 설명한다.</li><li>타원체의 축비와 시선을 바꿔 관측값과 비교하고 어떤 형상까지 추론할 수 있는지 설명한다.</li></ol></div></div>
+  <div class="guide-grid"><div class="chapter"><h2>1차시</h2><p>관측에서 자전주기 추론</p></div><div class="prose">
+  <table><thead><tr><th>시간</th><th>교사 활동과 학생 작업</th></tr></thead><tbody>
+  <tr><th scope="row">8분</th><td><a href="#history">발견 이야기</a>에서 세레스와 팔라스를 소개합니다. 학생은 공전으로 바뀌는 위치와 자전으로 달라질 수 있는 밝기를 구분합니다.</td></tr>
+  <tr><th scope="row">12분</th><td><a href="#research">연구 사례</a>에서 1976년 논문과 세 밤의 원자료를 연결합니다. 학생은 관측 사이에 생긴 공백과 JD·상대 강도를 확인합니다.</td></tr>
+  <tr><th scope="row">22분</th><td><a href="#period">광도곡선 실습</a>에서 위상 접기를 시범으로 보입니다. 학생은 시험 주기 두 개 이상의 그래프와 잔차를 비교해 기록합니다.</td></tr>
+  <tr><th scope="row">8분</th><td>학생이 선택한 주기와 근거 한 문장을 공유합니다. 관측 공백에서 놓친 회전 수를 어떻게 구별할지 발문합니다.</td></tr></tbody></table>
+  </div></div>
+  <div class="guide-grid"><div class="chapter"><h2>2차시</h2><p>모형 비교와 AI 해석</p></div><div class="prose">
+  <table><thead><tr><th>시간</th><th>교사 활동과 학생 작업</th></tr></thead><tbody>
+  <tr><th scope="row">5분</th><td>비슷한 밝기 변화를 만드는 모형이 여러 개일지 예상합니다.</td></tr>
+  <tr><th scope="row">20분</th><td><a href="#shape">회전 타원체</a>에서 1차시 주기를 불러옵니다. 시선 90°와 45°의 적합을 각각 저장하고 축비와 잔차를 대조합니다.</td></tr>
+  <tr><th scope="row">15분</th><td><a href="#ai">AI 답변 검토</a>에서 공개 CSV와 요청문을 사용합니다. 학생은 AI 주장 한 문장을 선택해 수치·단위와 대조하고 수정합니다.</td></tr>
+  <tr><th scope="row">10분</th><td>학생은 비교 기록을 제출하고 형상 추론을 개선할 추가 관측을 제안합니다.</td></tr></tbody></table>
+  <h3>평가와 준비물</h3><p>브라우저, 제공 CSV, 수업에서 허용하는 생성형 AI. 후보 두 개 이상을 같은 조건에서 비교했는지, 수치·단위를 인용했는지, 모형의 한계를 설명했는지 봅니다. AI에 접속할 수 없다면 준비된 예시 문장을 검토하게 합니다.</p><button id="print-lesson" type="button">지도안 인쇄</button></div></div>
 </section>
-<section id="shape" class="activity">
-<div class="section-head"><p class="eyebrow">2차시 · 모형 비교</p><h2>회전 타원체의 밝기 예측</h2><p>같은 주기에서 시선 각도를 바꿔 두 번 적합하고, 다른 축비가 비슷한 잔차를 만드는지 확인하세요.</p></div>
-<div class="workspace"><div class="plot dark"><div class="plot-head"><h3>타원체와 관측 광도곡선</h3><button class="subtle" id="play" type="button" aria-pressed="false">회전 재생</button></div><canvas id="mesh" width="900" height="280" role="img" aria-label="회전 타원체의 시선 방향 투영"></canvas><label class="phase-label" for="spin">회전 위상 <input id="spin" type="range" min="0" max="1" value="0.15" step="0.001"></label><canvas id="model-plot" width="900" height="330" role="img" aria-label="팔라스 관측점과 타원체 예측곡선"></canvas><p class="caption">색 점은 실제 관측, 금색 선은 타원체 예측입니다.</p></div>
-<aside class="controls"><h3>모형 조건</h3><p>선택한 주기 <strong id="shape-period">—</strong></p><label for="axis">축비 a/b <output id="axis-value"></output></label><input id="axis" type="range" min="1" max="1.8" step=".002" value="1.12"><label for="aspect">자전축과 시선 사이 각도 <output id="aspect-value"></output></label><input id="aspect" type="range" min="5" max="90" step="1" value="90"><button id="optimize" class="button primary" type="button" disabled>이 시선에서 모형 맞추기</button><button id="record" class="button" type="button" disabled>모형 조건 기록</button><dl class="metrics"><div><dt>모형 잔차 RMS</dt><dd id="shape-rms">—</dd></div><div><dt>예측 진폭</dt><dd id="amplitude">—</dd></div></dl><p class="caption">c/b = 0.90 고정. 적합은 a/b와 회전 시작각을 탐색합니다.</p></aside></div>
-<div class="table-wrap"><table><thead><tr><th>시선</th><th>축비 a/b</th><th>주기 (h)</th><th>RMS (mag)</th></tr></thead><tbody id="records"><tr><td colspan="4">모형 두 개를 기록해 비교하세요.</td></tr></tbody></table></div>
-<p class="method">밝기가 보이는 면적에 비례한다고 가정합니다. 균일한 반사율과 태양·관측자가 같은 방향이라는 근사에서 얻은 모형입니다. 실제 크기와 표면 모양을 정하려면 관측 조건이 다른 자료가 더 필요합니다. <a href="https://damit.cuni.cz/projects/damit/asteroid_models/view/101">문헌 팔라스 모형</a></p>
+<section id="sim" class="page" aria-labelledby="sim-title" hidden>
+  <div class="page-head compact"><p class="kicker">1971년 11월 28–30일 · 팔라스</p><h1 id="sim-title">팔라스 광도곡선 분석</h1></div>
+  <nav class="worknav" aria-label="분석 단계"><a href="#period" data-stage="period">01 관측과 주기</a><a href="#shape" data-stage="shape">02 회전 모형</a><a href="#ai" data-stage="ai">03 AI 검토와 기록</a></nav>
+  <section id="period" class="stage" aria-label="관측과 주기">
+  <div class="bench">
+    <div class="chart">
+      <div class="chart-tools"><div class="segmented" aria-label="그래프 보기"><button id="time-view" type="button" aria-pressed="true">관측 시간</button><button id="phase-view" type="button" aria-pressed="false">접은 위상</button><button id="search-view" type="button" aria-pressed="false">주기별 잔차</button></div><a href="../class/data/pallas-1971.csv" download>원자료 CSV ↓</a></div>
+      <h2 id="period-label">시간과 상대 강도</h2>
+      <p id="point-readout" class="readout">그래프에 마우스를 올리거나, 그래프에 초점을 맞추고 ← →를 누르세요.</p>
+      <canvas id="period-plot" width="900" height="470" tabindex="0" role="img" aria-label="팔라스 광도곡선. 방향키로 관측점을 읽습니다."></canvas><p id="legend" class="minor"></p>
+    </div>
+    <aside class="rail"><h2>시험 주기</h2><p>밤 사이의 공백을 찾고, 서로 다른 주기로 접어 점의 모임을 비교하세요.</p>
+      <label for="trial">주기 (시간)</label><input id="trial" type="number" min="2" max="16" step="0.001" value="7.8">
+      <button id="search" type="button" disabled>2–16시간 후보 탐색</button><p id="period-status" role="status">관측 자료를 여는 중…</p>
+      <div id="candidates" class="choices"></div><div class="segmented" aria-label="배수 주기 비교"><button id="half" type="button" disabled>P / 2</button><button id="double" type="button" disabled>2P</button></div>
+      <dl class="metrics"><div><dt>잔차 RMS</dt><dd id="rms">—</dd></div><div><dt>관측점</dt><dd id="count">—</dd></div></dl><button id="record-period" type="button" class="primary" disabled>현재 주기 기록</button>
+    </aside>
+  </div>
+  <div class="inset"><details><summary>분석 원리와 한계</summary><p>강도를 등급으로 바꿔 회차별 영점과 2차 푸리에 곡선을 함께 맞춥니다. 같은 자료와 방법에서 RMS가 작을수록 점과 곡선이 가깝습니다. 이 값은 주기의 불확실성이 아닙니다. 주기의 절반이나 두 배도 비교하세요.</p></details><a href="#research">연구 사례 다시 읽기</a><a href="#shape">이 주기로 모형 비교</a></div>
+  </section>
+  <section id="shape" class="stage" aria-label="회전 모형" hidden>
+    <div class="bench"><div class="chart">
+      <div class="chart-tools"><h2>회전 타원체</h2><button id="play" type="button" aria-pressed="false">회전 재생</button></div>
+      <div class="mesh"><canvas id="mesh" width="900" height="280" role="img" aria-label="회전 타원체의 시선 방향 투영"></canvas><label for="spin">회전 위상 <input id="spin" type="range" min="0" max="1" value=".15" step=".001"></label></div>
+      <canvas id="model-plot" width="900" height="330" role="img" aria-label="관측점과 타원체 예측곡선"></canvas><p class="minor">색 점은 관측값, 황토색 선은 타원체 예측입니다.</p>
+    </div><aside class="rail"><h2>모형 조건</h2><p>선택 주기 <strong id="shape-period">—</strong></p>
+      <label for="axis">축비 a/b <output id="axis-value"></output></label><input id="axis" type="range" min="1" max="1.8" step=".002" value="1.12">
+      <label for="aspect">자전축과 시선 각도 <output id="aspect-value"></output></label><input id="aspect" type="range" min="5" max="90" step="1" value="90">
+      <div class="segmented" aria-label="비교할 시선"><button type="button" data-aspect="90">90°</button><button type="button" data-aspect="45">45°</button></div>
+      <button id="optimize" type="button" disabled>이 시선에서 적합</button><button id="record" type="button" class="primary" disabled>현재 모형 기록</button>
+      <dl class="metrics"><div><dt>모형 RMS</dt><dd id="shape-rms">—</dd></div><div><dt>예측 진폭</dt><dd id="amplitude">—</dd></div></dl><p>c/b 0.90 고정. 적합 시 축비와 시작각을 함께 바꿉니다.</p>
+    </aside></div>
+    <div class="inset"><details><summary>모형 가정과 실제 형상 연구</summary><p>표면 반사율을 일정하게 두고 시선 방향의 투영 면적에서 밝기를 계산합니다. 태양과 관측자가 같은 방향이라는 근사를 씁니다. 실제 형상 연구는 다른 관측 기하의 여러 광도곡선과 산란 모형을 사용합니다. <a href="https://doi.org/10.1016/S0019-1035(03)00146-5">Torppa 외(2003)</a> · <a href="https://damit.cuni.cz/projects/damit/asteroid_models/view/101">문헌 형상</a></p></details><a href="#ai">비교 기록 열기</a></div>
+  </section>
+  <section id="ai" class="stage notebook" aria-labelledby="notebook-title" hidden>
+    <h2 id="notebook-title">탐구 노트</h2>
+    <div class="log"><h3>내가 남긴 주기</h3><div class="scroll"><table><thead><tr><th scope="col">시험 주기 (h)</th><th scope="col">RMS (mag)</th></tr></thead><tbody id="period-records"></tbody></table></div><p class="minor" id="period-log-note"></p><a href="#period">주기 비교로</a></div>
+    <div class="log"><h3>내가 남긴 모형</h3><div class="scroll"><table><thead><tr><th scope="col">시선</th><th scope="col">a/b</th><th scope="col">주기 (h)</th><th scope="col">RMS (mag)</th></tr></thead><tbody id="records"></tbody></table></div><a href="#shape">모형 비교로</a></div>
+    <div class="log"><h3>AI 답변 검토</h3><p>수업에서 사용하는 AI에 공개 CSV와 요청문을 넣고, 답변의 근거를 아래에 남기세요.</p>
+    <details><summary>현재 비교값을 넣은 요청문</summary><label for="prompt" class="visually-hidden">AI 분석 요청문</label><textarea id="prompt" readonly rows="8"></textarea><button id="copy" type="button">요청문 복사</button> <a href="../class/data/pallas-1971.csv" download>CSV 받기</a></details>
+    <details><summary>AI 접속 없이 검토할 문장</summary><p>“7.80시간에서 잔차가 작으므로 팔라스의 실제 3D 모양도 하나로 결정된다.” 이 주장 중 관측에 맞는 부분과 수정해야 할 부분을 가려보세요.</p></details>
+    <label for="evidence">AI의 주장 · 대조한 수치 · 수정한 결론</label><textarea id="evidence" rows="5"></textarea><button id="save" type="button" class="primary">탐구 기록 내려받기</button><p id="ai-status" role="status" class="minor"></p></div>
+  </section>
 </section>
-<section id="ai" class="activity"><div class="section-head"><p class="eyebrow">2차시 · AI와 데이터 해석</p><h2>AI 답변을 관측값과 대조</h2><p>CSV와 아래 요청문을 수업에서 허용한 AI에 함께 넣으세요. AI가 적은 수치와 단위, 결론의 범위를 웹 실습 결과와 대조합니다.</p></div><div class="ai-grid"><div><label for="prompt">현재 비교값을 반영한 분석 요청문</label><textarea id="prompt" readonly rows="9"></textarea><button id="copy" class="button primary" type="button">요청문 복사</button><a class="textlink" href="../class/data/pallas-1971.csv" download>CSV 받기</a></div><div><label for="evidence">내 검토 기록</label><textarea id="evidence" rows="9" placeholder="AI 주장 한 문장\n내가 대조한 수치·단위\n유지하거나 수정한 문장과 이유"></textarea><button id="save" class="button" type="button">내 비교 기록 저장</button><p id="ai-status" role="status" class="caption"></p></div></div></section>
-<section id="lesson" class="activity lesson"><div class="section-head"><p class="eyebrow">교사용 · 중간발표 1</p><h2>수업지도안 요약</h2><p>2022 개정 고등학교 행성우주과학 · 우주탐사와 행성계 · 50분 × 2차시</p></div><h3>성취기준</h3><p><strong>[12행우01-04]</strong> 행성과 소천체의 정의를 구분하고, 소천체 탐사 자료에서 특징을 추론한다. 이 수업은 지상 측광 자료로 특징을 추론하는 확장 활동이다. <a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&boardSeq=93458&lev=0">교육부 고시 제2022-33호 별책 9</a></p><h3>학습목표</h3><ol><li>실제 광도곡선에서 주기 후보를 둘 이상 비교하고 자전주기 추정 근거를 설명한다.</li><li>타원체의 축비와 시선을 바꿔 밝기 변화를 비교하고 자료에서 추론할 수 있는 범위를 설명한다.</li></ol><h3>차시 구성</h3><div class="table-wrap"><table><thead><tr><th>차시</th><th>수업 흐름</th><th>산출물</th></tr></thead><tbody><tr><th>1 · 자전주기</th><td>소천체·자전 질문 8분, 자료와 관측 공백 12분, 후보별 위상·RMS 22분, 근거 정리 8분</td><td>후보 둘 이상의 비교와 선택 근거</td></tr><tr><th>2 · 모형과 AI</th><td>복습 5분, 시선·축비 비교 20분, AI 답변 검토 15분, 결론 공유 10분</td><td>두 모형의 조건·잔차, AI 주장 검토, 관측 한계</td></tr></tbody></table></div><h3>평가</h3><p>같은 자료에서 후보를 비교했는지, 수치와 단위를 근거로 결론을 썼는지, 형상 추론의 한계를 설명했는지 확인한다. AI 접속이 어려우면 교사가 준비한 답변을 같은 기준으로 검토한다.</p></section>
 </main>
-<footer>관측 자료: Schroll 외(1976), DAMIT / Charles University, CC BY 4.0. <a href="https://damit.cuni.cz/projects/damit/light_curves/exportAllForAsteroid/101/json">원자료</a> · 개발 박민준</footer>
+<footer class="shell foot"><span>팔라스 관측실 · 박민준</span><a href="https://damit.cuni.cz/projects/damit/light_curves/exportAllForAsteroid/101/json">관측 자료 DAMIT · CC BY 4.0</a><a href="#lesson">수업지도안</a></footer>
+<noscript>관측 그래프와 기록을 사용하려면 JavaScript를 켜 주세요.</noscript>
 </body>
 </html>
