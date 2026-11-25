@@ -1,5 +1,5 @@
 const byId = id => document.getElementById(id);
-const state = { sessions: [], period: 7.8, view: 'time', search: null, fit: null, model: null, records: [], playing: false };
+const state = { sessions: [], period: 6, view: 'time', search: null, fit: null, model: null, records: [], playing: false };
 const shape = { a: 1.12, c: .9, aspect: 90, offset: 20 };
 const colors = ['#168a78', '#a44785', '#2669b1'];
 const ids = ['time', 'phase', 'search'];
@@ -12,6 +12,7 @@ let animationFrame = 0;
 
 function route() {
   const hash = location.hash.slice(1);
+  if (hash === 'main') return;
   const stage = ['period', 'shape', 'ai'].includes(hash) ? hash : null;
   const page = stage ? 'sim' : hash === 'lesson' ? 'lesson' : 'materials';
   for (const id of ['materials', 'lesson', 'sim']) byId(id).hidden = id !== page;

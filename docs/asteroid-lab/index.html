@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="팔라스 발견과 측광 연구를 읽고 같은 실제 자료로 자전주기를 추론하는 고등학교 행성우주과학 수업">
 <title>팔라스 관측실</title>
-<link rel="stylesheet" href="lab.css?v=2">
+<link rel="stylesheet" href="lab.css?v=3">
 <script defer src="../observation-math.js"></script>
 <script defer src="../shape-math.js"></script>
-<script defer src="lab.js?v=2"></script>
+<script defer src="lab.js?v=3"></script>
 </head>
 <body>
 <a class="skip" href="#main">본문으로</a>
 <header class="bar"><div class="shell header"><a class="wordmark" href="#materials">팔라스 관측실</a><nav aria-label="수업 메뉴"><a href="#lesson" data-nav="lesson">수업지도안</a><a href="#materials" data-nav="materials">수업자료</a><a href="#period" data-nav="lab">시뮬레이터</a></nav></div></header>
-<main id="main" class="shell">
+<main id="main" class="shell" tabindex="-1">
 <section id="materials" class="page" aria-labelledby="materials-title">
   <div class="opening">
     <div class="opening-text"><p class="kicker">행성우주과학 · 1차시</p><h1 id="materials-title">팔라스는 얼마나<br>빠르게 돌까?</h1><p>1971년 세 밤의 밝기 기록으로 천문학자가 자전을 알아낸 방법을 따라갑니다.</p><a class="primary" href="#history">발견 이야기부터</a></div>
@@ -65,7 +65,7 @@
       <canvas id="period-plot" width="900" height="470" tabindex="0" role="img" aria-label="팔라스 광도곡선. 방향키로 관측점을 읽습니다."></canvas><p id="legend" class="minor"></p>
     </div>
     <aside class="rail"><h2>시험 주기</h2><p>밤 사이의 공백을 찾고, 서로 다른 주기로 접어 점의 모임을 비교하세요.</p>
-      <label for="trial">주기 (시간)</label><input id="trial" type="number" min="2" max="16" step="0.001" value="7.8">
+      <label for="trial">주기 (시간)</label><input id="trial" type="number" min="2" max="16" step="0.001" value="6">
       <button id="search" type="button" disabled>2–16시간 후보 탐색</button><p id="period-status" role="status">관측 자료를 여는 중…</p>
       <div id="candidates" class="choices"></div><div class="segmented" aria-label="배수 주기 비교"><button id="half" type="button" disabled>P / 2</button><button id="double" type="button" disabled>2P</button></div>
       <dl class="metrics"><div><dt>잔차 RMS</dt><dd id="rms">—</dd></div><div><dt>관측점</dt><dd id="count">—</dd></div></dl><button id="record-period" type="button" class="primary" disabled>현재 주기 기록</button>
