@@ -21,8 +21,8 @@ function Stepper(root,onShow){
     steps.forEach((s,k)=>s.hidden=k!==cur);
     btns.forEach((b,k)=>{b.toggleAttribute('aria-current',k===cur);if(k===cur)b.setAttribute('aria-current','step');b.classList.toggle('done',k<cur)});
     if(prev)prev.disabled=cur===0;
-    if(next){next.disabled=cur===steps.length-1;next.textContent=cur===steps.length-1?'마지막 단계':'다음 단계 →'}
-    if(count)count.textContent=cur+' / '+(steps.length-1);
+    if(next){next.disabled=cur===steps.length-1;next.textContent='다음 →'}
+    if(count)count.textContent=(cur+1)+' / '+steps.length;
     if(push!==false)history.replaceState(null,'','#s'+cur);
     onShow&&onShow(cur,steps[cur]);
     if(push!==false){const top=root.querySelector('.stepper').getBoundingClientRect().top+window.scrollY-70;if(window.scrollY>top)window.scrollTo({top,behavior:'smooth'})}
@@ -43,25 +43,25 @@ class Plot{
     this.layers=[];this.resize();
     new ResizeObserver(()=>{this.resize();this.draw()}).observe(canvas);
   }
-  resize(){const r=this.c.getBoundingClientRect();const dpr=window.devicePixelRatio||1;if(!this.c.dataset.h)this.c.dataset.h=this.c.getAttribute('height')||320;const w=Math.max(200,r.width),h=+this.c.dataset.h;
+  resize(){const dpr=window.devicePixelRatio||1;if(!this.c.dataset.h)this.c.dataset.h=this.c.getAttribute('height')||320;const w=Math.max(200,this.c.offsetWidth||this.c.getBoundingClientRect().width),h=+this.c.dataset.h;
     this.c.style.height=h+'px';this.c.width=w*dpr;this.c.height=h*dpr;this.w=w;this.h=h;this.ctx.setTransform(dpr,0,0,dpr,0,0)}
   setRange(x0,x1,y0,y1){this.x0=x0;this.x1=x1;this.y0=y0;this.y1=y1}
   X(x){const p=this.o.pad;return p.l+(x-this.x0)/(this.x1-this.x0)*(this.w-p.l-p.r)}
   Y(y){const p=this.o.pad;let t=(y-this.y0)/(this.y1-this.y0);if(this.o.invertY)t=1-t;return this.h-p.b-t*(this.h-p.t-p.b)}
   invX(px){const p=this.o.pad;return this.x0+(px-p.l)/(this.w-p.l-p.r)*(this.x1-this.x0)}
   draw(){
-    const g=this.ctx,p=this.o.pad;g.clearRect(0,0,this.w,this.h);
+    const g=this.ctx,p=this.o.pad,fs=this.o.fs||1;g.clearRect(0,0,this.w,this.h);
     g.fillStyle='#ffffff';g.fillRect(0,0,this.w,this.h);
-    g.font='12px Pretendard,"Noto Sans KR",sans-serif';g.textBaseline='middle';
+    g.font=(12*fs)+'px Pretendard,"Noto Sans KR",sans-serif';g.textBaseline='middle';
     const xs=this.o.xstep||niceStep(this.x1-this.x0,8),ys=this.o.ystep||niceStep(Math.abs(this.y1-this.y0),5);
     g.strokeStyle='#efede8';g.lineWidth=1;g.fillStyle='#6f6f6f';
-    for(let x=Math.ceil(this.x0/xs)*xs;x<=this.x1+1e-9;x+=xs){const X=Math.round(this.X(x))+.5;g.beginPath();g.moveTo(X,p.t);g.lineTo(X,this.h-p.b);g.stroke();g.textAlign='center';g.fillText(this.o.xfmt?this.o.xfmt(x):+x.toFixed(6),X,this.h-p.b+14)}
+    for(let x=Math.ceil(this.x0/xs)*xs;x<=this.x1+1e-9;x+=xs){const X=Math.round(this.X(x))+.5;g.beginPath();g.moveTo(X,p.t);g.lineTo(X,this.h-p.b);g.stroke();g.textAlign='center';g.fillText(this.o.xfmt?this.o.xfmt(x):+x.toFixed(6),X,this.h-p.b+14*fs)}
     const ylo=Math.min(this.y0,this.y1),yhi=Math.max(this.y0,this.y1);
     for(let y=Math.ceil(ylo/ys)*ys;y<=yhi+1e-9;y+=ys){const Y=Math.round(this.Y(y))+.5;g.beginPath();g.moveTo(p.l,Y);g.lineTo(this.w-p.r,Y);g.stroke();g.textAlign='right';g.fillText(this.o.yfmt?this.o.yfmt(y):(+y.toFixed(3)).toString(),p.l-8,Y)}
     g.strokeStyle='#9a978f';g.strokeRect(p.l+.5,p.t+.5,this.w-p.l-p.r,this.h-p.t-p.b);
-    g.fillStyle='#3b3b3b';g.font='500 12.5px Pretendard,"Noto Sans KR",sans-serif';g.textAlign='center';
-    g.fillText(this.o.xlabel,p.l+(this.w-p.l-p.r)/2,this.h-10);
-    g.save();g.translate(14,p.t+(this.h-p.t-p.b)/2);g.rotate(-Math.PI/2);g.fillText(this.o.ylabel,0,0);g.restore();
+    g.fillStyle='#3b3b3b';g.font='500 '+(12.5*fs)+'px Pretendard,"Noto Sans KR",sans-serif';g.textAlign='center';
+    g.fillText(this.o.xlabel,p.l+(this.w-p.l-p.r)/2,this.h-10*fs);
+    g.save();g.translate(14*fs,p.t+(this.h-p.t-p.b)/2);g.rotate(-Math.PI/2);g.fillText(this.o.ylabel,0,0);g.restore();
     g.save();g.beginPath();g.rect(p.l,p.t,this.w-p.l-p.r,this.h-p.t-p.b);g.clip();
     for(const L of this.layers)L(g,this);
     g.restore();
@@ -109,7 +109,7 @@ function makeMesh(nu,nv,rough){
 const MESH_ROCK=makeMesh(48,24,.045),MESH_SMOOTH=makeMesh(48,24,0);
 function renderBody(canvas,opt){
   const o=Object.assign({ab:2.4,bc:1,theta:90,phase:0,mode:'ellipsoid',dark:.35,scale:1},opt);
-  const dpr=window.devicePixelRatio||1,r=canvas.getBoundingClientRect(),W=Math.max(120,r.width);if(!canvas.dataset.h)canvas.dataset.h=canvas.getAttribute('height')||260;const H=+canvas.dataset.h;
+  const dpr=window.devicePixelRatio||1,W=Math.max(120,canvas.offsetWidth||canvas.getBoundingClientRect().width);if(!canvas.dataset.h)canvas.dataset.h=canvas.getAttribute('height')||260;const H=+canvas.dataset.h;
   canvas.style.height=H+'px';canvas.width=W*dpr;canvas.height=H*dpr;const g=canvas.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);
   g.fillStyle='#05070a';g.fillRect(0,0,W,H);
   const th=o.theta*Math.PI/180,ob=[Math.sin(th),0,Math.cos(th)],right=[0,1,0],up=[-Math.cos(th),0,Math.sin(th)];
@@ -154,9 +154,18 @@ function bodyFlux(opt){
   return F;
 }
 
+
+/* Two equal spheres orbiting each other, seen edge-on: drawing and visible area. */
+function binaryFlux(phase){const r=1,d=1.35*Math.cos(2*Math.PI*phase)*2;const s=Math.abs(d);let over=0;if(s<2*r)over=2*r*r*Math.acos(s/(2*r))-(s/2)*Math.sqrt(4*r*r-s*s);return 2*Math.PI*r*r-over}
+function renderBinary(canvas,phase,label){const dpr=window.devicePixelRatio||1,W=Math.max(120,canvas.offsetWidth||canvas.getBoundingClientRect().width);if(!canvas.dataset.h)canvas.dataset.h=canvas.getAttribute('height')||260;const H=+canvas.dataset.h;
+  canvas.style.height=H+'px';canvas.width=W*dpr;canvas.height=H*dpr;const g=canvas.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.fillStyle='#05070a';g.fillRect(0,0,W,H);
+  const R=Math.min(W,H)*.17,w=2*Math.PI*phase,x=1.35*2*Math.cos(w)*R,z=Math.sin(w);const bodies=[[x,z],[-x,-z]].sort((a,b)=>a[1]-b[1]);
+  for(const [bx] of bodies){const cx=W/2+bx,cy=H/2;const gr=g.createRadialGradient(cx-R*.35,cy-R*.35,R*.1,cx,cy,R);gr.addColorStop(0,'rgb(215,208,196)');gr.addColorStop(1,'rgb(70,66,60)');g.fillStyle=gr;g.beginPath();g.arc(cx,cy,R,0,6.3);g.fill()}
+  g.fillStyle='#b9b6ae';g.font='12px Pretendard,sans-serif';g.textAlign='left';g.fillText(label||'',10,16)}
+
 function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type||'text/plain'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 function hm(h){const t=Math.round(Math.abs(h)*60);return (h<0?'-':'')+Math.floor(t/60)+'시간 '+String(t%60).padStart(2,'0')+'분'}
 
-window.Eros={Store,toast,Stepper,Plot,fourierFit,ellipsoidMag,renderBody,bodyFlux,frac,download,hm,solve};
+window.Eros={Store,toast,Stepper,Plot,fourierFit,ellipsoidMag,renderBody,bodyFlux,binaryFlux,renderBinary,frac,download,hm,solve};
 window.NIGHT_COLORS=['#1f4fa8','#c98a10','#2a8a5f','#b8322a','#5b5b5b'];
 })();

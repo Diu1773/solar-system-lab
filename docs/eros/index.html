@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>소행성 관측실</title>
 <meta name="description" content="소행성 433 에로스의 실제 광도곡선으로 자전주기와 모양을 추론하는 고등학교 2차시 데이터 분석 수업">
-<link rel="stylesheet" href="eros.css?v=8">
+<link rel="stylesheet" href="eros.css?v=10">
 </head>
 <body>
 <header class="top"><div class="top-in">
   <a class="brand" href="index.html"><b>소행성 관측실</b><span>Asteroid light-curve lab</span></a>
-  <nav aria-label="수업"><a href="index.html" aria-current="page">처음</a><a href="lesson1.html">1차시</a><a href="lesson2.html">2차시</a><a href="guide.html">교사용</a></nav>
+  <nav aria-label="수업"><a href="index.html" aria-current="page">처음</a><a href="sim1.html">1차시 탐구</a><a href="sim2.html">2차시 탐구</a><a href="guide.html">교사용</a></nav>
 </div></header>
 <main class="wrap">
   <section class="hero">
@@ -26,29 +26,21 @@
     </figure>
   </section>
 
-  <div class="cards">
-    <a class="card" href="lesson1.html">
+  <div class="cards" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+    <div class="card">
       <span class="k">1차시 · 50분</span>
       <h2>소행성의 발견과 이름</h2>
-      <p>1781년 천왕성에서 시작해 세레스·팔라스, ‘asteroid’라는 이름, 1901년의 수수께끼까지 따라갑니다.</p>
-      <ol><li>발견 이야기 9장면</li><li>탐사선이 찍은 소행성</li><li>하룻밤 광도곡선 읽기</li><li>두 가설 비교와 자전주기 예측</li></ol>
-      <span class="go">1차시 열기 →</span>
-    </a>
-    <a class="card" href="lesson2.html">
+      <p>1781년 허셜부터 1901년 에로스의 밝기 변화까지, 실제 인물 사진과 탐사선 사진으로 따라가는 수업자료와 하룻밤 관측 기록 탐구</p>
+      <div class="row" style="margin-top:10px"><a class="btn primary" href="lesson1.html">수업자료 (슬라이드)</a><a class="btn" href="sim1.html">탐구 시뮬레이터</a></div>
+    </div>
+    <div class="card">
       <span class="k">2차시 · 50분</span>
-      <h2>자전주기와 모양 추론</h2>
-      <p>천문학자의 방법으로 주기를 접고, AI의 답을 따져 보고, 모형을 맞춥니다.</p>
-      <ol><li>위상 접기로 주기 구하기</li><li>AI 답 검토</li><li>타원체 모형 맞추기</li><li>탐사선 사진과 비교</li></ol>
-      <span class="go">2차시 열기 →</span>
-    </a>
-    <a class="card" href="guide.html">
-      <span class="k">교사용</span>
-      <h2>지도안 · 자료 · 출처</h2>
-      <p>차시별 흐름과 발문, 평가 기준, 예시 결과, 자료 처리 방법과 이미지 출처.</p>
-      <ol><li>성취기준 연계</li><li>차시별 지도 흐름</li><li>평가와 예시 답</li><li>자료·이미지 출처</li></ol>
-      <span class="go">교사용 열기 →</span>
-    </a>
+      <h2>소행성의 자전주기와 모양</h2>
+      <p>다섯 밤의 실제 관측을 위상으로 접어 자전주기를 구하고, AI의 답을 검토하고, 모형으로 모양을 추론해 탐사선 측정과 비교</p>
+      <div class="row" style="margin-top:10px"><a class="btn primary" href="lesson2.html">수업자료 (슬라이드)</a><a class="btn" href="sim2.html">탐구 시뮬레이터</a></div>
+    </div>
   </div>
+  <p class="note" style="margin-top:28px"><a href="guide.html">교사용 지도안 · 자료 처리 · 출처</a> · 수업자료는 ← → 키로 넘기고, 빈칸은 클릭하거나 → 키로 공개</p>
 </main>
 </body>
 </html>

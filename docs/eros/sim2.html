@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2차시 탐구 시뮬레이터 · 자전주기와 모양 추론</title>
+<link rel="stylesheet" href="eros.css?v=10">
+<script defer src="data/eros-data.js?v=10"></script>
+<script defer src="eros.js?v=10"></script>
+<script defer src="sim2.js?v=10"></script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="brand" href="index.html"><b>소행성 관측실</b><span>Asteroid light-curve lab</span></a>
+  <nav aria-label="수업"><a href="index.html">처음</a><a href="sim1.html">1차시 탐구</a><a href="sim2.html" aria-current="page">2차시 탐구</a></nav>
+</div></header>
+
+<main class="wrap" id="lesson">
+  <div class="head">
+    <div class="kicker">2차시 탐구 시뮬레이터</div>
+    <h1>소행성의 자전주기와 모양 추론</h1>
+  </div>
+
+  <div class="stepper" aria-label="2차시 단계">
+    <button type="button"><span class="n">1</span><span class="t">주기 찾기</span></button>
+    <button type="button"><span class="n">2</span><span class="t">AI 답 비교</span></button>
+    <button type="button"><span class="n">3</span><span class="t">모형 맞추기</span></button>
+    <button type="button"><span class="n">4</span><span class="t">결과 기록</span></button>
+  </div>
+
+  <!-- 1 -->
+  <section class="step">
+    <div class="step-title"><h2>주기 찾기</h2><small>1975년 1월 다섯 밤 · 589점</small></div>
+    <div class="grid wide">
+      <div class="box">
+        <div class="row" style="justify-content:space-between;margin-bottom:8px">
+          <div class="choice" id="view" style="margin:0"><label><input type="radio" name="view" value="time">시간 순서</label><label><input type="radio" name="view" value="fold" checked>접어 보기</label></div>
+          <label class="note"><input type="checkbox" id="showFit"> 맞춘 곡선</label>
+        </div>
+        <canvas id="fold" class="plot" height="420" aria-label="다섯 밤의 광도곡선"></canvas>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="box">
+        <h3>주기 P</h3>
+        <div class="ctl" style="margin-top:4px"><label for="pSlider">대략 맞추기 <output id="pOut">4.000 h</output></label><input id="pSlider" type="range" min="2" max="8" step="0.001" value="4"></div>
+        <div class="ctl"><label>정밀하게 맞추기</label></div>
+        <div class="row"><button class="btn sm" data-dp="-0.01">−0.01</button><button class="btn sm" data-dp="-0.001">−0.001</button><button class="btn sm" data-dp="0.001">+0.001</button><button class="btn sm" data-dp="0.01">+0.01</button></div>
+        <div class="row" style="margin-top:10px"><input class="num" id="pNum" type="number" min="2" max="8" step="0.001" value="4"><span class="note">시간 직접 입력</span></div>
+        <div class="meter"><span>흩어짐 (작을수록 잘 모임)</span><strong id="rms">—</strong></div>
+        <button class="btn primary" type="button" id="recP" style="width:100%;margin-top:12px">이 주기 기록</button>
+        <table class="log" style="margin-top:10px"><thead><tr><th>주기 (h)</th><th>흩어짐</th></tr></thead><tbody id="pLog"></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="step" hidden>
+    <div class="step-title"><h2>AI 답 비교</h2></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <h3>AI에게 묻기</h3>
+        <p class="note"><a href="data/eros-1975-five-nights.csv" download>다섯 밤 CSV</a>와 아래 요청문을 학교에서 허용한 AI에 넣으세요.</p>
+        <textarea id="prompt" rows="5" readonly></textarea>
+        <div class="row" style="margin-top:8px"><button class="btn sm" type="button" id="copyPrompt">요청문 복사</button></div>
+        <div class="row" style="margin-top:16px"><input class="num" id="aiP" type="number" step="0.001" placeholder="AI 주기"><span class="note">시간</span><button class="btn sm" type="button" id="foldAi">AI 값으로 접기</button></div>
+        <p class="note" style="margin-top:12px">AI를 쓸 수 없으면: 흔한 주기 분석(사인 곡선 하나 맞추기)의 답 <button class="btn sm" type="button" id="useLs">2.633시간 불러오기</button></p>
+      </div>
+      <div class="box">
+        <h3>두 주기로 접은 모습</h3>
+        <canvas id="cmpA" class="plot" height="180"></canvas><p class="note" id="cmpALabel" style="margin:4px 0 10px"></p>
+        <canvas id="cmpB" class="plot" height="180"></canvas><p class="note" id="cmpBLabel" style="margin:4px 0 0"></p>
+      </div>
+    </div>
+    <div class="box" style="margin-top:20px">
+      <h3>판정</h3>
+      <div class="choice" id="judge"><label><input type="radio" name="judge" value="ai">AI 값이 자전주기</label><label><input type="radio" name="judge" value="double">AI 값의 두 배가 자전주기</label><label><input type="radio" name="judge" value="other">다른 값</label></div>
+      <textarea id="judgeWhy" rows="2" style="margin-top:10px" placeholder="근거: 흩어짐 비교 + 길쭉한 돌은 한 바퀴에 몇 번 밝아지나"></textarea>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="step" hidden>
+    <div class="step-title"><h2>모형 맞추기</h2><small>길쭉한 정도와 위상을 조절해 관측 곡선에 맞추기</small></div>
+    <div class="grid wide">
+      <div class="box">
+        <div class="row" style="align-items:stretch;gap:14px">
+          <div style="flex:0 0 250px;max-width:100%"><canvas id="body" height="220" style="width:100%"></canvas><button class="btn sm" type="button" id="mplay" style="margin-top:8px">회전 재생</button></div>
+          <div style="flex:1;min-width:260px"><canvas id="mfit" class="plot" height="320"></canvas></div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="ctl" style="margin-top:0"><label for="ab">길쭉한 정도 a/b <output id="abO"></output></label><input id="ab" type="range" min="1" max="4" step="0.01" value="1.5"></div>
+        <div class="ctl"><label for="ph0">위상 맞춤 <output id="ph0O"></output></label><input id="ph0" type="range" min="0" max="1" step="0.002" value="0"></div>
+        <div class="meter"><span>모형과 관측의 차</span><strong id="mrms">—</strong></div>
+        <p class="note" id="mPeriod"></p>
+        <button class="btn primary" type="button" id="recM" style="width:100%;margin-top:8px">이 모형 기록</button>
+        <details><summary>더 해 보기: 보는 방향</summary>
+          <div class="ctl"><label for="th">자전축과 시선의 각 θ <output id="thO"></output></label><input id="th" type="range" min="5" max="90" step="1" value="85"></div>
+          <p class="note">1975년 1월 지구는 에로스를 θ ≈ 85°(거의 적도 쪽)에서 보았다. θ를 바꿔도 비슷하게 맞출 수 있는지 확인하기.</p>
+          <button class="btn sm" type="button" id="autoFit">이 θ에서 자동 맞춤</button>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="step" hidden>
+    <div class="step-title"><h2>결과 기록</h2></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <h3>나의 결과와 탐사선 측정</h3>
+        <table class="log"><tbody id="sum2"></tbody></table>
+        <div class="compare" id="cmp" style="margin-top:16px"></div>
+      </div>
+      <div class="box">
+        <label class="note" for="claim">에로스의 자전주기와 모양</label><textarea id="claim" rows="2"></textarea>
+        <label class="note" for="evid">근거가 된 자료와 측정</label><textarea id="evid" rows="2"></textarea>
+        <label class="note" for="diffWhy">모형의 a/b가 탐사선 값과 다른 이유</label><textarea id="diffWhy" rows="2"></textarea>
+        <label class="note" for="aiNote">AI 답에서 받아들인 것과 고친 것</label><textarea id="aiNote" rows="2"></textarea>
+        <div class="row" style="margin-top:12px"><button class="btn primary" type="button" id="print2">기록 인쇄 · PDF</button><button class="btn" type="button" id="saveJson">기록 파일 저장</button></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot no-print">
+    <button class="btn" type="button" data-prev>← 이전</button>
+    <span class="count"></span>
+    <button class="btn primary" type="button" data-next>다음 →</button>
+  </div>
+</main>
+</body>
+</html>

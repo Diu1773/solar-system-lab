@@ -185,5 +185,71 @@
   "desc": "Observatory Johann Hieronymus Schröter",
   "w": 369,
   "h": 267
+ },
+ "ida-dactyl": {
+  "file": "ida-dactyl.jpg",
+  "title": "File:Ida and Dactyl by Galileo (P-44131).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ida_and_Dactyl_by_Galileo_(P-44131).jpg",
+  "license": "Public domain",
+  "artist": "NASA/JPL",
+  "date": "1993-08-28",
+  "desc": "Galileo false-color image of asteroid 243 Ida and its small satellite Dactyl (at right). The images used to make this picture were taken about 14 minutes before closest approach from a distance of rou",
+  "w": 1220,
+  "h": 858
+ },
+ "ida-rotation": {
+  "file": "ida-rotation.jpg",
+  "title": "File:PIA00070 Asteroid Ida Rotation Sequence.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:PIA00070_Asteroid_Ida_Rotation_Sequence.jpg",
+  "license": "Public domain",
+  "artist": "NASA/JPL",
+  "date": "1996-02-01",
+  "desc": "This montage of 14 images (the time order is right to left, bottom to top) shows Ida as it appeared in the field of view of Galileo's camera on August 28, 1993. Asteroid Ida rotates once every 4 hours",
+  "w": 1100,
+  "h": 880
+ },
+ "didymos": {
+  "file": "didymos.png",
+  "title": "File:Didymos dimorphos 2309 092622.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Didymos_dimorphos_2309_092622.png",
+  "license": "Public domain",
+  "artist": "DART - DRACO camera",
+  "date": "2022-09-26",
+  "desc": "An image of Didymos and Dimorphos taken by DART en route to impact. 7:09 PM EDT.",
+  "w": 246,
+  "h": 233
+ },
+ "mars": {
+  "file": "mars.jpg",
+  "title": "File:Mars Rotate (True Color).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mars_Rotate_(True_Color).jpg",
+  "license": "Public domain",
+  "artist": "NASA",
+  "date": "2010-12-20 10:22",
+  "desc": "Collection: NASA Scientific Visualization Studio Collection\nTitle: Mars Rotate (True Color)\nInstrument: MGS/MOLA\nDescription: Mars true color globe showing Hellas Basin\nCompleted: -05-24\nCredit: *Plea",
+  "w": 2560,
+  "h": 1920
+ },
+ "jupiter": {
+  "file": "jupiter.jpg",
+  "title": "File:Jupiter in true color.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Jupiter_in_true_color.jpg",
+  "license": "Public domain",
+  "artist": "NASA",
+  "date": "2001-01-30",
+  "desc": "This true-color simulated view of Jupiter is composed of 4 images taken by NASA's Cassini spacecraft on December 7, 2000. To illustrate what Jupiter would have looked like if the cameras had a field-o",
+  "w": 1117,
+  "h": 1080
+ },
+ "mars-hst": {
+  "file": "mars-hst.jpg",
+  "title": "File:Mars in opposition 2016.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mars_in_opposition_2016.jpg",
+  "license": "CC BY 4.0",
+  "artist": "NASA, ESA, the Hubble Heritage Team (STScI/AURA), J. Bell (ASU), and M. Wolff (Space Science Institute)",
+  "date": "2016-05-19 19:00:00",
+  "desc": "This image shows our neighbouring planet Mars, as it was observed shortly before opposition in 2016 by the NASA/ESA Hubble Space Telescope. Some prominent features of the planet are clearly visible: t",
+  "w": 1280,
+  "h": 1280
  }
 }
