@@ -26,7 +26,7 @@ cv.addEventListener('pointerdown',e=>{const [x]=px(e);const dA=Math.abs(x-night.
 cv.addEventListener('pointermove',e=>{const [x,y]=px(e);
   if(drag){cur[drag]=Math.max(5,Math.min(11.25,+night.invX(x).toFixed(3)));drawNight();return}
   let best=-1,bd=144;for(let i=0;i<T.length;i++){const d=(night.X(T[i])-x)**2+(night.Y(M[i])-y)**2;if(d<bd){bd=d;best=i}}
-  if(best!==hover){hover=best;drawNight();document.getElementById('readout').textContent=best>=0?`세계시 ${hm(T[best]).replace('시간','시')} · 밝기 ${M[best].toFixed(3)} 등급`:'빨간 A·B 선을 끌어 꼭대기에 맞추세요.'}});
+  if(best!==hover){hover=best;drawNight();document.getElementById('readout').textContent=best>=0?`세계시 ${hm(T[best]).replace('시간','시')} · 밝기 ${M[best].toFixed(3)} 등급`:'빨간 A·B 선을 끌어 극대에 맞추기'}});
 cv.addEventListener('pointerup',()=>{drag=null;save({A:cur.A,B:cur.B})});
 document.querySelectorAll('[data-nudge]').forEach(b=>b.onclick=()=>{const [k,s]=b.dataset.nudge.split(',');cur[k]=+(cur[k]+(+s)/60).toFixed(4);drawNight();save({A:cur.A,B:cur.B})});
 const bind=(id,key,num)=>{const el=document.getElementById(id);if(st[key]!=null)el.value=st[key];el.oninput=()=>save({[key]:num?+el.value:el.value})};
@@ -61,7 +61,7 @@ document.querySelectorAll('.hyp3 [data-k]').forEach(el=>{const k=el.dataset.k;
 function updateGuess(){const s=Store.get().l1||{};const g=document.getElementById('guess');const n={1:+s.nA||1,2:+s.nB||2,3:+s.nC||2}[s.hyp];
   if(s.dt&&s.hyp){const P=s.dt*n;save({guess:P});g.textContent=hm(P)}else g.textContent=s.dt?'2단계에서 가설을 고르세요':'1단계에서 시간을 기록하세요'}
 function drawSum(){updateGuess();const s=Store.get().l1||{};const names={1:'① 무늬가 있는 공',2:'② 길쭉한 돌',3:'③ 쌍소행성'};
-  const rows=[['밝은 꼭대기 수',s.peaks??'—'],['밝기 차',s.amp!=null?s.amp+' 등급':'—'],['밝기가 변하는 모양',{smooth:'부드럽게',sharp:'갑자기'}[s.shape]||'—'],['꼭대기 사이 시간',s.dt?hm(s.dt):'—'],['고른 가설',names[s.hyp]||'—']];
+  const rows=[['극대 횟수',s.peaks??'—'],['밝기 차',s.amp!=null?s.amp+' 등급':'—'],['밝기 변화 양상',{smooth:'부드럽게',sharp:'갑자기'}[s.shape]||'—'],['극대 사이 시간',s.dt?hm(s.dt):'—'],['고른 가설',names[s.hyp]||'—']];
   document.getElementById('sum1').innerHTML=rows.map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join('')}
 document.getElementById('print1').onclick=()=>{const secs=[...document.querySelectorAll('section.step')];const was=secs.map(s=>s.hidden);secs.forEach(s=>s.hidden=false);window.print();secs.forEach((s,k)=>s.hidden=was[k])};
 

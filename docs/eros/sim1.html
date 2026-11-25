@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>1차시 탐구 시뮬레이터 · 소행성의 밝기 변화</title>
-<link rel="stylesheet" href="eros.css?v=14">
-<script defer src="data/eros-data.js?v=14"></script>
-<script defer src="eros.js?v=14"></script>
-<script defer src="sim1.js?v=14"></script>
+<link rel="stylesheet" href="eros.css?v=15">
+<script defer src="data/eros-data.js?v=15"></script>
+<script defer src="eros.js?v=15"></script>
+<script defer src="sim1.js?v=15"></script>
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -29,22 +29,22 @@
 
   <section class="step">
     <div class="step-title"><h2>하룻밤 기록 측정</h2><small>1975년 1월 23일 · 146점 · DAMIT</small></div>
-    <p class="ask">밝은 꼭대기는 몇 번이고, 이웃한 꼭대기 사이는 몇 시간인가요?</p>
+    <p class="ask">극대의 횟수와 이웃한 극대 사이의 시간 측정</p>
     <div class="grid wide">
       <div class="box">
         <canvas id="night" class="plot" height="400" aria-label="1975년 1월 23일 에로스 광도곡선. A, B 선을 끌어 시간을 측정한다."></canvas>
-        <p class="note" id="readout" style="margin:8px 0 0">빨간 A·B 선을 끌어 꼭대기에 맞추세요. 점에 마우스를 올리면 시각과 밝기가 보입니다.</p>
+        <p class="note" id="readout" style="margin:8px 0 0">빨간 A·B 선을 끌어 극대에 맞추기 점에 마우스를 올리면 시각과 밝기가 보입니다.</p>
       </div>
       <div class="box">
         <h3>B − A</h3>
         <div class="meter" style="border:0;padding-top:0;margin-top:0"><span>시간 차</span><strong id="dt">—</strong></div>
         <div class="row"><button class="btn sm" type="button" data-nudge="A,-1">A ←</button><button class="btn sm" type="button" data-nudge="A,1">A →</button><button class="btn sm" type="button" data-nudge="B,-1">B ←</button><button class="btn sm" type="button" data-nudge="B,1">B →</button></div>
         <p class="note">버튼 한 번에 1분</p>
-        <div class="ctl"><label for="peaks">밝은 꼭대기 수</label><input class="num" id="peaks" type="number" min="0" max="9" step="1"></div>
+        <div class="ctl"><label for="peaks">극대 횟수</label><input class="num" id="peaks" type="number" min="0" max="9" step="1"></div>
         <div class="ctl"><label for="amp">가장 밝을 때와 어두울 때의 차 (등급)</label><input class="num" id="amp" type="number" min="0" max="3" step="0.05"></div>
-        <div class="ctl"><label>밝기가 변하는 모양</label></div>
+        <div class="ctl"><label>밝기 변화 양상</label></div>
         <div class="choice" id="shape"><label><input type="radio" name="shape" value="smooth">부드럽게 오르내림</label><label><input type="radio" name="shape" value="sharp">평평하다가 갑자기 떨어짐</label></div>
-        <button class="btn primary" type="button" id="saveRead" style="margin-top:14px;width:100%">꼭대기 사이 시간 기록</button>
+        <button class="btn primary" type="button" id="saveRead" style="margin-top:14px;width:100%">극대 사이 시간 기록</button>
         <p class="note" id="savedRead"></p>
       </div>
     </div>
@@ -52,27 +52,27 @@
 
   <section class="step" hidden>
     <div class="step-title"><h2>세 가설 모형 돌려 보기</h2><small>지구에서 본 모습과 밝기</small></div>
-    <p class="ask">모형을 한 바퀴 돌리면서 가장 밝아지는 횟수와 밝기가 변하는 모양을 확인하세요.</p>
+    <p class="ask">세 모형의 한 바퀴 동안 극대 횟수와 밝기 변화 양상 비교</p>
     <div class="row" style="margin-top:22px;gap:16px;align-items:center">
       <div class="ctl" style="flex:1;min-width:260px;margin:0"><label for="spin">회전 <output id="spinv">0°</output></label><input id="spin" type="range" min="0" max="360" step="1" value="0"></div>
       <button class="btn" type="button" id="play">천천히 돌리기</button>
     </div>
     <div class="hyp3">
       <div><canvas id="bA" height="230"></canvas><h3>① 무늬가 있는 공</h3><div class="lum"><span>밝기</span><strong id="lA">—</strong></div>
-        <div class="ctl"><label>한 바퀴에 밝아지는 횟수</label><input class="num" data-k="nA" type="number" min="0" max="6"></div>
+        <div class="ctl"><label>한 바퀴 동안 극대 횟수</label><input class="num" data-k="nA" type="number" min="0" max="6"></div>
         <div class="choice" data-k="sA"><label><input type="radio" name="sA" value="smooth">부드럽게</label><label><input type="radio" name="sA" value="sharp">갑자기</label></div></div>
       <div><canvas id="bB" height="230"></canvas><h3>② 길쭉한 돌</h3><div class="lum"><span>밝기</span><strong id="lB">—</strong></div>
-        <div class="ctl"><label>한 바퀴에 밝아지는 횟수</label><input class="num" data-k="nB" type="number" min="0" max="6"></div>
+        <div class="ctl"><label>한 바퀴 동안 극대 횟수</label><input class="num" data-k="nB" type="number" min="0" max="6"></div>
         <div class="choice" data-k="sB"><label><input type="radio" name="sB" value="smooth">부드럽게</label><label><input type="radio" name="sB" value="sharp">갑자기</label></div></div>
       <div><canvas id="bC" height="230"></canvas><h3>③ 쌍소행성</h3><div class="lum"><span>밝기</span><strong id="lC">—</strong></div>
-        <div class="ctl"><label>한 바퀴에 밝아지는 횟수</label><input class="num" data-k="nC" type="number" min="0" max="6"></div>
+        <div class="ctl"><label>한 바퀴 동안 극대 횟수</label><input class="num" data-k="nC" type="number" min="0" max="6"></div>
         <div class="choice" data-k="sC"><label><input type="radio" name="sC" value="smooth">부드럽게</label><label><input type="radio" name="sC" value="sharp">갑자기</label></div></div>
     </div>
     <p class="note">밝기는 그 모형이 가장 밝을 때를 100으로 둔 값. 모형 그림은 설명용.</p>
     <div class="box" style="margin-top:20px">
       <h3>1단계 관측과 맞는 가설</h3>
       <div class="choice" id="hyp"><label><input type="radio" name="hyp" value="1">① 무늬가 있는 공</label><label><input type="radio" name="hyp" value="2">② 길쭉한 돌</label><label><input type="radio" name="hyp" value="3">③ 쌍소행성</label></div>
-      <textarea id="hypWhy" rows="2" style="margin-top:10px" placeholder="근거: 꼭대기 수, 밝기가 변하는 모양"></textarea>
+      <textarea id="hypWhy" rows="2" style="margin-top:10px" placeholder="근거: 극대 횟수, 밝기 변화 양상"></textarea>
     </div>
   </section>
 
@@ -82,7 +82,7 @@
       <div class="box">
         <h3>나의 기록</h3>
         <table class="log"><tbody id="sum1"></tbody></table>
-        <div class="meter"><span>꼭대기 사이 시간 × 한 바퀴에 밝아지는 횟수</span><strong id="guess">—</strong></div>
+        <div class="meter"><span>극대 사이 시간 × 한 바퀴 동안 극대 횟수</span><strong id="guess">—</strong></div>
       </div>
       <div class="box">
         <h3>생각 정리</h3>
