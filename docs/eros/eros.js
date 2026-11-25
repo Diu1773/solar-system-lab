@@ -156,7 +156,7 @@ function bodyFlux(opt){
 
 
 /* Two equal spheres orbiting each other, seen edge-on: drawing and visible area. */
-function binaryFlux(phase){const r=1,d=1.35*Math.cos(2*Math.PI*phase)*2;const s=Math.abs(d);let over=0;if(s<2*r)over=2*r*r*Math.acos(s/(2*r))-(s/2)*Math.sqrt(4*r*r-s*s);return 2*Math.PI*r*r-over}
+function binaryFlux(phase){const r=1,s=Math.abs(5.4*Math.cos(2*Math.PI*phase));let over=0;if(s<2*r)over=2*r*r*Math.acos(s/(2*r))-(s/2)*Math.sqrt(4*r*r-s*s);return 2*Math.PI*r*r-over}
 function renderBinary(canvas,phase,label){const dpr=window.devicePixelRatio||1,W=Math.max(120,canvas.offsetWidth||canvas.getBoundingClientRect().width);if(!canvas.dataset.h)canvas.dataset.h=canvas.getAttribute('height')||260;const H=+canvas.dataset.h;
   canvas.style.height=H+'px';canvas.width=W*dpr;canvas.height=H*dpr;const g=canvas.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.fillStyle='#05070a';g.fillRect(0,0,W,H);
   const R=Math.min(W,H)*.17,w=2*Math.PI*phase,x=1.35*2*Math.cos(w)*R,z=Math.sin(w);const bodies=[[x,z],[-x,-z]].sort((a,b)=>a[1]-b[1]);
