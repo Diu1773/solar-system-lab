@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>교사용 지도안</title>
+<meta name="description" content="에로스 광도곡선 2차시 수업의 지도 흐름, 평가, 자료 처리와 출처">
+<link rel="stylesheet" href="eros.css?v=8">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="brand" href="index.html"><b>소행성 관측실</b><span>Asteroid light-curve lab</span></a>
+  <nav aria-label="수업"><a href="index.html">처음</a><a href="lesson1.html">1차시</a><a href="lesson2.html">2차시</a><a href="guide.html" aria-current="page">교사용</a></nav>
+</div></header>
+<main class="wrap">
+  <div class="head">
+    <div class="kicker">교사용</div>
+    <h1>지도안 · 자료 · 출처</h1>
+    <p>고등학교 행성우주과학 · 2차시(50분 × 2) · 1인 1기기 또는 2인 1기기</p>
+  </div>
+
+  <section class="doc">
+    <h2>수업 개요</h2>
+    <table><tbody>
+      <tr><th>핵심 질문</th><td>망원경으로 점으로만 보이는 소행성의 자전주기와 모양을 밝기 변화로 알아낼 수 있을까?</td></tr>
+      <tr><th>학습 목표</th><td><ol><li>소행성의 발견 과정과 ‘소행성(asteroid)’이라는 이름의 유래를 설명하고, 소행성의 위치·크기·모양의 특징을 말할 수 있다.</li><li>광도곡선에서 극대·극소와 그 시간 간격을 읽고, 소행성의 모양과 밝기 변화를 연결할 수 있다.</li><li>여러 밤의 관측을 위상으로 접어 자전주기를 구하고, 주기 후보를 근거로 판정할 수 있다.</li><li>타원체 모형을 관측에 맞추어 모양을 추론하고, 탐사선 측정값과 비교해 모형의 한계를 설명할 수 있다.</li></ol></td></tr>
+      <tr><th>준비물</th><td>태블릿 또는 PC(브라우저), 학교에서 허용한 생성형 AI(선택). 활동 기록은 각 기기 브라우저에 저장되고 인쇄·PDF로 제출합니다. 서버로 학생 정보를 보내지 않습니다.</td></tr>
+      <tr><th>자료</th><td>(433) 에로스 측광 · DAMIT 공개 자료 6밤 619점(1975년 1월 다섯 밤, 1951년 10월 한 밤)</td></tr>
+    </tbody></table>
+
+    <h3>교육과정 연계 (2022 개정 과학과 · 행성우주과학)</h3>
+    <table><thead><tr><th>성취기준</th><th>이 수업에서 다루는 부분</th></tr></thead><tbody>
+      <tr><th>[12행우01-04]</th><td>행성과 소천체의 정의를 구분하여 이해하고, 소천체 탐사 자료를 통해 이들의 특징을 추론할 수 있다. → 지상 측광 자료로 소행성의 자전과 모양을 추론하고 NEAR 슈메이커 탐사 결과와 비교</td></tr>
+      <tr><th>[12행우01-02]</th><td>태양 활동 감시 시스템과 지구 접근 천체를 비롯한 지구를 위협하는 우주 위험 감시 기술의 중요성을 우주 재난 측면에서 인식할 수 있다. → 첫 지구 접근 소행성 에로스의 발견과 1975년 근접 관측</td></tr>
+      <tr><th>[12행우01-01]</th><td>태양계 탐사선의 활동을 통해 알아낸 성과를 이해하고 … → 소행성 궤도에 처음 들어간 NEAR 슈메이커의 측정값</td></tr>
+      <tr><th>[12행우02-05]</th><td>광도곡선의 특징을 비교하여 … → 광도곡선 읽기(극대·극소, 진폭, 주기)를 소행성 자료에 적용</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="doc">
+    <h2>1차시 · 소행성의 발견과 이름</h2>
+    <table><thead><tr><th>단계</th><th>교사</th><th>학생</th><th>자료 · 유의점</th></tr></thead><tbody>
+      <tr><th>도입<br>15분</th><td>‘발견 이야기’를 전체 화면으로 띄우고 1~6장을 읽어 준다. 2장 “빈자리에 행성이 있을까?”, 5장 “이것들은 행성일까?”를 묻는다.</td><td>장면마다 인물이 무엇을 좋아했고 무엇을 찾았는지 확인한다. 6장에서 asteroid와 소행성의 뜻을 받아 적는다.</td><td>← → 키로 장면 이동. 인물 사진·판화는 모두 당시의 실제 자료.</td></tr>
+      <tr><th>전개 1<br>8분</th><td>1단계 탐사선 사진 네 장을 보여 준다. “크기가 작을수록 모양은?” “세레스는 왜 왜소행성일까?”</td><td>소행성의 위치·크기·모양 특징을 정리하고, 점으로만 보이는 소행성의 모양을 알아낼 방법을 쓴다.</td><td>7~9장(에로스, 1901년 밝기 변화, 1975년 관측)은 이어서 보여 준다.</td></tr>
+      <tr><th>전개 2<br>12분</th><td>9장(1975년)을 보여 주고 2단계로 넘어간다. “밝은 꼭대기는 몇 번? 그 사이는 몇 시간?”</td><td>A·B 선을 이웃한 두 꼭대기에 맞추고 시간 차, 꼭대기 수, 밝기 차를 기록한다.</td><td>등급은 작을수록 밝다. 그래프는 위가 밝게 그렸다. 예시: 꼭대기 2번, 간격 약 2시간 30~40분, 밝기 차 약 1등급.</td></tr>
+      <tr><th>전개 3<br>10분</th><td>3단계 두 모형을 함께 돌려 본다. “한 바퀴 동안 꼭대기가 몇 번 생기나?”</td><td>공 모형(1번)과 길쭉한 모형(2번)을 비교하고, 관측과 맞는 가설과 그 근거를 쓴다. 예측 자전주기가 자동 계산된다.</td><td>모형 그림은 설명용. 두 꼭대기 높이가 비슷하고 1등급에 이르는 변화를 근거로 삼도록 안내한다.</td></tr>
+      <tr><th>정리<br>5분</th><td>학생들의 예측값을 몇 개 받아 칠판에 적는다. 정답은 공개하지 않는다.</td><td>하룻밤 자료의 한계와 더 필요한 자료를 쓴다.</td><td>4단계 기록을 인쇄 또는 PDF로 제출. 기록은 2차시에서 자동으로 불러온다(같은 기기).</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="doc">
+    <h2>2차시 · 다섯 밤의 기록으로 하루와 모양 찾기</h2>
+    <table><thead><tr><th>단계</th><th>교사</th><th>학생</th><th>자료 · 유의점</th></tr></thead><tbody>
+      <tr><th>도입<br>5분</th><td>칠판의 1차시 예측값을 보여 주고 “분 단위까지 맞출 수 있을까?”를 묻는다.</td><td>0~1단계에서 자기 예측과 다섯 밤 자료를 확인한다.</td><td>밤마다 측광 기준점(0점)이 달라 맞추어 둔 자료임을 알린다.</td></tr>
+      <tr><th>전개 1<br>12분</th><td>교사가 먼저 주기를 4시간 → 5시간으로 바꾸며 점이 모이는 모습을 보여 준다. 이후 학생에게 넘긴다.</td><td>2단계에서 주기를 바꿔 가며 흩어짐이 가장 작은 값을 찾고 세 번 이상 기록한다. ±0.001시간 버튼으로 정밀하게 맞춘다.</td><td>예시: 5.266시간에서 흩어짐 약 0.057등급. 0.01시간만 어긋나도 0.14등급으로 커진다.</td></tr>
+      <tr><th>전개 2<br>10분</th><td>AI에게 CSV와 요청문을 넣게 하거나, 3단계의 ‘AI를 쓸 수 없는 교실’ 값(2.633시간)을 쓴다. “AI의 답과 내 답 중 무엇이 한 바퀴일까?”</td><td>두 주기로 접은 모습과 흩어짐을 비교하고, 1차시 모형을 근거로 판정을 쓴다.</td><td>두 값의 흩어짐은 거의 같다. 자료만으로는 정할 수 없고, 길쭉한 물체는 한 바퀴에 두 번 밝아진다는 물리적 근거가 결정한다.</td></tr>
+      <tr><th>전개 3<br>13분</th><td>4단계 모형을 함께 돌려 본 뒤, a/b와 위상 맞춤을 학생이 조절하게 한다. 힌트의 θ = 85°는 필요한 모둠에만 연다.</td><td>a/b, θ, 위상을 조절해 모형과 관측의 차를 줄이고 기록한다. 도전: θ를 75°로 바꿔도 맞출 수 있는지 확인한다.</td><td>예시: θ 85°에서 a/b 약 2.36, 차 0.057등급. θ 75°에서도 a/b 약 2.8로 비슷하게 맞는다.</td></tr>
+      <tr><th>정리<br>10분</th><td>5단계에서 탐사선 사진을 함께 연다. 1931년 망원경 측정과 2000년 NEAR 측정값을 읽어 준다.</td><td>자기 주기·a/b를 NEAR 값(5.270시간, a/b 3.07)과 비교하고 차이의 이유를 쓴다. 6단계 결론(주장·근거·한계·AI 사용)을 작성한다.</td><td>1951년 10월 곡선은 시선 방향에 따라 진폭이 달라지는 사례로 사용한다. 기록 인쇄·PDF 제출.</td></tr>
+    </tbody></table>
+
+    <h3>평가</h3>
+    <table><thead><tr><th>요소</th><th>상</th><th>중</th><th>하</th></tr></thead><tbody>
+      <tr><th>주기 측정</th><td>접기로 5.26~5.27시간을 찾고 흩어짐 기록으로 근거를 제시함</td><td>5.2~5.3시간을 찾음</td><td>후보를 기록하지 못함</td></tr>
+      <tr><th>AI 답 판정</th><td>흩어짐이 같다는 점과 두 번 밝아지는 모양의 물리를 함께 들어 판정함</td><td>둘 중 하나만 근거로 듦</td><td>근거 없이 판정함</td></tr>
+      <tr><th>모형과 한계</th><td>a/b 추정값을 NEAR 값과 비교하고 모형의 가정(반사 방식, 고른 표면, 시선 각)으로 차이를 설명함</td><td>차이를 지적함</td><td>비교하지 않음</td></tr>
+    </tbody></table>
+  </section>
+
+  <section class="doc">
+    <h2>자료 처리와 모형</h2>
+    <ul>
+      <li>원자료: DAMIT, (433) Eros 광도곡선 118개 중 1975-01-19(Millis 외), 01-20(Tedesco), 01-23(Miner &amp; Young), 01-25(Cristescu), 01-29(Scaltriti &amp; Zappala), 1951-10-11(Beyer). 빛 도달 시간을 보정한 JD와 상대 강도 F를 그대로 쓰고 m = −2.5 log<sub>10</sub>F로 바꾸었다.</li>
+      <li>밤마다의 0점: 5.2661시간에서 4차 푸리에 곡선과 밤별 상수를 동시에 맞춘 값을 각 밤에서 뺐다. 학생 화면의 흩어짐은 0점을 고정한 채 접힌 점에 4차 푸리에 곡선을 맞춘 잔차의 제곱평균제곱근(등급)이다.</li>
+      <li>주기: 5.266시간은 1975년 1월 지구에서 본 회합 주기다. NEAR가 측정한 항성 자전주기는 5.27025547시간이다. 단순 사인 한 개 맞춤의 최적값은 2.633시간(절반 주기)이다.</li>
+      <li>모형: 장축 a·중간축 b·단축 c의 삼축 타원체가 c축을 중심으로 돈다. 밝기는 관측자에게 보이는 면적에 비례하고(위상각 0°, 표면 반사율 균일), 시선과 자전축의 각을 θ로 둔다. 같은 모양이라도 실제 표면의 반사 방식, 위상각(1975년 1월 약 9°), 땅콩형 모양은 반영하지 않는다.</li>
+      <li>시선 각: NEAR가 정한 자전축(적경 11.37°, 적위 17.23°)과 DAMIT의 지구 방향 벡터로 계산하면 1975년 1월 약 83~86°, 1951년 10월 11일 약 19°다.</li>
+      <li>내려받기: <a href="data/eros-1975-five-nights.csv" download>다섯 밤 CSV</a> · <a href="data/eros-1975-01-23-one-night.csv" download>1월 23일 하룻밤 CSV</a></li>
+    </ul>
+
+    <h3>역사 서술의 근거</h3>
+    <ul class="credits">
+      <li>허셜의 천왕성 발견(1781.3.13)과 asteroid 명명(1802), 폰 차흐의 ‘하늘 경찰’(1800, 릴리엔탈): 각 인물의 전기</li>
+      <li>세레스 발견(1801.1.1, 팔레르모)·가우스 궤도 계산·폰 차흐 재발견(1801.12.31)·올베르스의 팔라스 발견(1802.3.28): 각 인물의 전기와 Piazzi, <i>Della scoperta del nuovo pianeta Cerere Ferdinandea</i>(1802)</li>
+      <li>에로스 발견(1898.8.13, 베를린 우라니아, G. Witt): “Discovery Circumstances of the First Near-Earth Asteroid (433) Eros”, <i>Acta Historica Astronomiae</i> 15, 210 (2002)</li>
+      <li>밝기 변화 발표: E. von Oppolzer, <i>Astronomische Nachrichten</i> 154, 309 (1901)</li>
+      <li>1931년 장축 직접 측정: van den Bos &amp; Finsen (1931)</li>
+      <li>NEAR 슈메이커: 2000.2.14 궤도 진입, 크기 34.4 × 11.2 × 11.2 km, 자전주기 5.27025547 h (Miller 외, <i>Icarus</i> 155, 2002)</li>
+    </ul>
+
+    <h3>이미지 출처</h3>
+    <ul class="credits">
+      <li>주세페 피아치 초상, F. Bordiga 판화(1808) · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Giuseppe_Piazzi.jpg">Wikimedia Commons</a></li>
+      <li>팔레르모 천문대 원형 기기 · Archipenzolo · CC BY-SA 3.0 · <a href="https://commons.wikimedia.org/wiki/File:Strumento_osservatorio_astronomico_Palazzo_dei_Normanni.jpg">Wikimedia Commons</a></li>
+      <li>카를 프리드리히 가우스, C. A. Jensen(1840) · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Carl_Friedrich_Gauss_1840_by_Jensen.jpg">Wikimedia Commons</a></li>
+      <li>프란츠 폰 차흐, G. Zumpe 판화 · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Franz_Xaver_von_Zach_portrait_by_Zumpe.jpg">Wikimedia Commons</a></li>
+      <li>하인리히 빌헬름 올베르스 · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Heinrich_Wilhelm_Olbers.jpg">Wikimedia Commons</a></li>
+      <li>구스타프 비트, Adolf Halwas 사진 · Public domain · <a href="https://commons.wikimedia.org/wiki/File:GustavWitt.jpg">Wikimedia Commons</a></li>
+      <li>베를린 우라니아 천문대(1888) · CC0 · <a href="https://commons.wikimedia.org/wiki/File:Urania.Sternwarte.png">Wikimedia Commons</a></li>
+      <li>에곤 폰 오폴처(1899) · University of Innsbruck · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/File:Egon_von_Oppolzer_Universit%C3%A4t_Innsbruck.jpg">Wikimedia Commons</a></li>
+      <li>피아치의 1802년 책 삽화 · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Della_scoperta_del_nuovo_pianeta_Cerere_Ferdinandea_p1.jpg">Wikimedia Commons</a></li>
+      <li>NEAR 슈메이커가 촬영한 에로스 모자이크 · NASA/JPL/JHUAPL · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Eros_-_PIA02923_(color).jpg">Wikimedia Commons</a></li>
+      <li>세레스·베스타(Dawn, NASA/JPL-Caltech/UCLA/MPS/DLR/IDA), 이다(Galileo, NASA/JPL), 베누(OSIRIS-REx, NASA/Goddard/University of Arizona) · Public domain · Wikimedia Commons</li>
+      <li>윌리엄 허셜, L. F. Abbott(1785) · Public domain · <a href="https://commons.wikimedia.org/wiki/File:William_Herschel01.jpg">Wikimedia Commons</a> · 릴리엔탈 천문대 판화(1805) · Public domain · <a href="https://commons.wikimedia.org/wiki/File:Lilienthaler_Sternwarte.jpg">Wikimedia Commons</a></li>
+      <li>측광 자료 · DAMIT, Astronomical Institute of Charles University (J. Ďurech, V. Sidorin) · CC BY 4.0 · <a href="https://damit.cuni.cz/projects/damit/asteroids/view/1714">DAMIT</a></li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

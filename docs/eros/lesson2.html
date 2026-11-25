@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2차시 · 다섯 밤의 기록으로 모양 찾기</title>
+<meta name="description" content="1975년 다섯 밤의 에로스 광도곡선으로 자전주기를 분 단위까지 구하고, 타원체 모형으로 모양을 추론한 뒤 탐사선 사진과 비교한다">
+<link rel="stylesheet" href="eros.css?v=8">
+<script defer src="data/eros-data.js?v=8"></script>
+<script defer src="eros.js?v=8"></script>
+<script defer src="lesson2.js?v=8"></script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="brand" href="index.html"><b>소행성 관측실</b><span>Asteroid light-curve lab</span></a>
+  <nav aria-label="수업"><a href="index.html">처음</a><a href="lesson1.html">1차시</a><a href="lesson2.html" aria-current="page">2차시</a><a href="guide.html">교사용</a></nav>
+</div></header>
+
+<main class="wrap" id="lesson">
+  <div class="head">
+    <div class="kicker">2차시 · 50분</div>
+    <h1>다섯 밤의 기록으로 에로스의 하루와 모양 찾기</h1>
+    <p>1975년 1월, 세 나라 천문학자가 남긴 다섯 밤의 기록을 겹쳐 자전주기를 분 단위까지 구합니다. 그 곡선에 모형을 맞춰 모양을 추론하고, 25년 뒤 탐사선이 찍은 사진과 비교합니다.</p>
+  </div>
+
+  <div class="stepper" aria-label="2차시 단계">
+    <button type="button"><span class="n">0</span><span class="t">오늘의 질문</span></button>
+    <button type="button"><span class="n">1</span><span class="t">다섯 밤 자료</span></button>
+    <button type="button"><span class="n">2</span><span class="t">주기 접기</span></button>
+    <button type="button"><span class="n">3</span><span class="t">AI 답 검토</span></button>
+    <button type="button"><span class="n">4</span><span class="t">모형 맞추기</span></button>
+    <button type="button"><span class="n">5</span><span class="t">탐사선과 비교</span></button>
+    <button type="button"><span class="n">6</span><span class="t">기록</span></button>
+  </div>
+
+  <!-- 0 -->
+  <section class="step">
+    <div class="step-title"><span class="tag">0단계</span><h2>오늘의 질문</h2><small>지난 시간 예측에서 시작</small></div>
+    <p class="ask">에로스의 하루는 정확히 몇 시간 몇 분일까? 밝기 곡선만으로 모양까지 알 수 있을까?</p>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <div class="sub">1차시 기록</div>
+        <h3>내가 예측한 자전주기</h3>
+        <div class="meter" style="border:0"><span id="l1src">하룻밤 기록에서</span><strong id="l1guess">—</strong></div>
+        <p class="note">하룻밤 기록은 한 바퀴 남짓만 담고 있어 분 단위로 정하기 어렵습니다. 오늘은 열흘에 걸친 다섯 밤을 함께 씁니다.</p>
+      </div>
+      <div class="box">
+        <div class="sub">오늘 쓰는 자료</div>
+        <h3>1975년 1월 에로스 측광 다섯 밤</h3>
+        <table class="log"><thead><tr><th>밤</th><th>날짜 (세계시)</th><th>관측자</th><th>점</th></tr></thead><tbody id="nightTable"></tbody></table>
+        <p class="note" style="margin-top:8px">출처: DAMIT (카렐대학교 천문연구소) · CC BY 4.0. 강도를 상대 등급으로 바꾸었습니다. <a href="data/eros-1975-five-nights.csv" download>CSV 내려받기</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section class="step" hidden>
+    <div class="step-title"><span class="tag">1단계</span><h2>다섯 밤 자료</h2><small>시간 순서 그대로 보기</small></div>
+    <p class="ask">밤과 밤 사이에 에로스는 몇 바퀴를 돌았을까? 그 수를 모르는데 다섯 밤을 어떻게 이어 붙일까?</p>
+    <div class="box" style="margin-top:18px">
+      <canvas id="raw" class="plot" height="340" aria-label="다섯 밤 관측을 시간 순으로 그린 그래프"></canvas>
+      <div class="legend" id="rawLegend"></div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <h3>점이 모여 있는 다섯 덩어리</h3>
+        <p class="note">낮에는 관측할 수 없어 밤마다 몇 시간씩만 기록이 있습니다. 1월 19일부터 29일까지 약 250시간, 그동안 에로스는 수십 바퀴를 돌았습니다. 밤마다 쓴 망원경과 측광기가 달라 밝기의 기준점(0점)을 밤마다 맞추었습니다.</p>
+      </div>
+      <div class="box">
+        <h3>접기의 생각</h3>
+        <p class="note">주기 <b>P</b>를 가정하고, 각 관측 시각을 P로 나눈 <b>나머지</b>만 남깁니다. 이것이 <b>위상</b>(한 바퀴 안의 위치, 0~1)입니다. P가 맞으면 다섯 밤의 점이 한 곡선 위에 겹치고, 틀리면 흩어집니다.</p>
+        <p class="note">예) P = 5시간, 관측 시각 23시간 → 23 ÷ 5 = 4.6바퀴 → 위상 0.6</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="step" hidden>
+    <div class="step-title"><span class="tag">2단계</span><h2>주기 접기</h2><small>천문학자가 쓰는 위상 겹치기</small></div>
+    <p class="ask">다섯 밤의 점이 가장 깔끔하게 한 곡선으로 겹치는 주기는?</p>
+    <div class="grid wide">
+      <div class="box">
+        <canvas id="fold" class="plot" height="400" aria-label="가정한 주기로 접은 광도곡선"></canvas>
+        <div class="row" style="justify-content:space-between;margin-top:8px">
+          <div class="legend" id="foldLegend" style="margin:0"></div>
+          <label class="note"><input type="checkbox" id="twoCycles" checked> 두 바퀴 이어 보기</label>
+        </div>
+      </div>
+      <div class="box">
+        <div class="sub">가정한 주기</div>
+        <div class="ctl"><label for="pSlider">주기 P <output id="pOut">4.000 h</output></label><input id="pSlider" type="range" min="2" max="8" step="0.001" value="4"></div>
+        <div class="row"><input class="num" id="pNum" type="number" min="2" max="8" step="0.001" value="4"><span class="note">시간</span></div>
+        <div class="row" style="margin-top:8px">
+          <button class="btn sm" data-dp="-0.1">−0.1</button><button class="btn sm" data-dp="-0.01">−0.01</button><button class="btn sm" data-dp="-0.001">−0.001</button>
+          <button class="btn sm" data-dp="0.001">+0.001</button><button class="btn sm" data-dp="0.01">+0.01</button><button class="btn sm" data-dp="0.1">+0.1</button>
+        </div>
+        <p class="note">0.001시간은 3.6초입니다.</p>
+        <div class="meter"><span>흩어짐 (곡선과의 차, 등급)</span><strong id="rms">—</strong></div>
+        <div class="bar"><i id="rmsBar" style="width:0"></i></div>
+        <label class="note" style="display:block;margin-top:10px"><input type="checkbox" id="showFit"> 맞춘 곡선 보기</label>
+        <button class="btn primary" type="button" id="recP" style="width:100%;margin-top:12px">이 주기 기록</button>
+        <table class="log" style="margin-top:10px"><thead><tr><th>주기 (h)</th><th>흩어짐</th><th></th></tr></thead><tbody id="pLog"></tbody></table>
+        <details id="scanBox"><summary>컴퓨터로 2~8시간을 모두 시도해 보기</summary>
+          <p class="note">세 번 이상 기록하면 열립니다.</p>
+          <canvas id="scan" class="plot" height="200" aria-label="주기마다 흩어짐을 계산한 그래프"></canvas>
+          <p class="note">골짜기를 누르면 그 주기로 접습니다.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="step" hidden>
+    <div class="step-title"><span class="tag">3단계</span><h2>AI 답 검토</h2><small>AI가 낸 주기를 자료와 물리로 따져 보기</small></div>
+    <p class="ask">AI가 내놓은 자전주기는 믿을 만할까? 자료만으로 결정할 수 없다면 무엇이 더 필요할까?</p>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <div class="sub">① AI에게 묻기</div>
+        <h3>CSV와 요청문을 AI에 넣기</h3>
+        <p class="note">학교에서 허용한 생성형 AI에 <a href="data/eros-1975-five-nights.csv" download>다섯 밤 CSV</a>를 올리고 아래 요청문을 붙여 넣으세요.</p>
+        <textarea id="prompt" rows="6" readonly></textarea>
+        <div class="row" style="margin-top:8px"><button class="btn sm" type="button" id="copyPrompt">요청문 복사</button></div>
+        <label class="note" for="aiAnswer" style="display:block;margin-top:12px">AI가 답한 주기와 근거를 붙여 넣으세요.</label>
+        <textarea id="aiAnswer" rows="4" placeholder="AI 답변"></textarea>
+        <div class="row" style="margin-top:8px"><input class="num" id="aiP" type="number" step="0.001" placeholder="AI 주기"><span class="note">시간</span><button class="btn sm" type="button" id="foldAi">이 값으로 접어 보기</button></div>
+        <details><summary>AI를 쓸 수 없는 교실이라면</summary>
+          <p class="note">주기를 찾는 가장 흔한 컴퓨터 방법은 자료에 <b>사인 곡선 하나</b>를 맞추며 주기를 바꿔 보는 것입니다(Lomb–Scargle 주기 분석). AI가 분석 코드를 써 줄 때 이 방법을 많이 씁니다. 같은 자료에 이 방법을 그대로 쓰면 가장 강한 후보는 <b>2.633시간</b>입니다.</p>
+          <button class="btn sm" type="button" id="useLs">2.633시간으로 접어 보기</button>
+        </details>
+      </div>
+      <div class="box">
+        <div class="sub">② 비교하기</div>
+        <h3>두 주기로 접은 모습</h3>
+        <canvas id="cmpA" class="plot" height="190" aria-label="AI 주기로 접은 곡선"></canvas>
+        <p class="note" id="cmpALabel" style="margin:4px 0 10px"></p>
+        <canvas id="cmpB" class="plot" height="190" aria-label="내가 찾은 주기로 접은 곡선"></canvas>
+        <p class="note" id="cmpBLabel" style="margin:4px 0 0"></p>
+      </div>
+    </div>
+    <div class="box" style="margin-top:16px">
+      <h3>나의 판정</h3>
+      <p class="note">두 값의 흩어짐이 거의 같다면 자료만으로는 정할 수 없습니다. 1차시의 두 가설 모형, 밝기 차가 1등급에 이른다는 점을 함께 생각해 보세요.</p>
+      <div class="choice" id="judge">
+        <label><input type="radio" name="judge" value="ai">AI의 값이 자전주기다</label>
+        <label><input type="radio" name="judge" value="double">AI 값의 두 배가 자전주기다</label>
+        <label><input type="radio" name="judge" value="other">다른 값이다</label>
+      </div>
+      <textarea id="judgeWhy" rows="3" style="margin-top:10px" placeholder="판정 근거: 자료에서 본 것 + 물리적 이유"></textarea>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="step" hidden>
+    <div class="step-title"><span class="tag">4단계</span><h2>모형 맞추기</h2><small>길쭉한 타원체가 돌 때의 밝기 곡선</small></div>
+    <p class="ask">어떤 모양과 방향의 타원체가 관측 곡선을 가장 잘 따라갈까?</p>
+    <div class="grid wide">
+      <div class="box">
+        <div class="row" style="align-items:stretch;gap:12px">
+          <div style="flex:0 0 260px;max-width:100%">
+            <canvas id="body" height="230" style="width:100%;border-radius:8px" aria-label="지구에서 본 모형 타원체"></canvas>
+            <p class="note" style="margin:6px 0 0">지구에서 본 모형. 점선은 자전축.</p>
+          </div>
+          <div style="flex:1;min-width:260px">
+            <canvas id="mfit" class="plot" height="300" aria-label="관측점과 모형 곡선"></canvas>
+          </div>
+        </div>
+        <div class="row" style="margin-top:10px"><button class="btn sm" type="button" id="mplay">회전 재생</button><span class="note">그래프를 누르면 그 위상의 모습을 봅니다.</span></div>
+      </div>
+      <div class="box">
+        <div class="sub">모형 조절</div>
+        <div class="ctl"><label for="ab">길쭉한 정도 a/b <output id="abO"></output></label><input id="ab" type="range" min="1" max="4" step="0.01" value="1.5"></div>
+        <div class="ctl"><label for="th">자전축과 시선의 각 θ <output id="thO"></output></label><input id="th" type="range" min="5" max="90" step="1" value="90"></div>
+        <div class="ctl"><label for="ph0">위상 맞춤 <output id="ph0O"></output></label><input id="ph0" type="range" min="0" max="1" step="0.002" value="0"></div>
+        <div class="ctl"><label for="bc">납작한 정도 b/c <output id="bcO"></output></label><input id="bc" type="range" min="1" max="2" step="0.01" value="1"></div>
+        <div class="meter"><span>모형과 관측의 차 (등급)</span><strong id="mrms">—</strong></div>
+        <div class="bar"><i id="mrmsBar" style="width:0"></i></div>
+        <p class="note" id="mPeriod"></p>
+        <button class="btn primary" type="button" id="recM" style="width:100%;margin-top:10px">이 모형 기록</button>
+        <table class="log" style="margin-top:10px"><thead><tr><th>a/b</th><th>θ</th><th>차</th></tr></thead><tbody id="mLog"></tbody></table>
+        <details><summary>힌트: 1975년의 θ</summary><p class="note">나중에 밝혀진 에로스의 자전축 방향으로 계산하면, 1975년 1월 지구는 에로스를 자전축에서 약 <b>85°</b> 기울어진 방향, 거의 적도 쪽에서 보았습니다.</p></details>
+        <details><summary>도전: θ를 바꿔도 맞출 수 있을까?</summary><p class="note">θ를 75°로 바꾼 뒤 a/b를 다시 맞춰 보세요. 차가 비슷하게 작아지면, 한 시기의 자료만으로는 a/b와 θ를 함께 정할 수 없다는 뜻입니다.</p><button class="btn sm" type="button" id="autoFit">현재 θ에서 a/b·위상 자동 맞춤</button></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="step" hidden>
+    <div class="step-title"><span class="tag">5단계</span><h2>탐사선과 비교</h2><small>1931년의 망원경, 2000년의 탐사선</small></div>
+    <p class="ask">밝기 곡선으로 추론한 에로스와 실제 에로스는 얼마나 닮았을까?</p>
+    <div class="reveal">
+      <div class="ph">
+        <img src="media/eros-near.jpg" alt="NEAR 슈메이커 탐사선이 촬영한 에로스 모자이크">
+        <div class="cover" id="cover"><p>내 모형을 기록한 뒤 열어 보세요.</p><button class="btn primary" type="button" id="openCover">탐사선 사진 열기</button></div>
+      </div>
+      <div class="box">
+        <div class="sub">1931 · 남아프리카</div>
+        <p class="note">에로스가 다시 지구에 가까워진 1931년, 천문학자 판 덴 보스와 핀센은 큰 굴절 망원경으로 에로스가 길쭉하게 보이며 그 긴 축의 방향이 <b>약 5시간 17분</b>마다 한 바퀴 돈다고 직접 측정했습니다.</p>
+        <div class="sub" style="margin-top:14px">2000 · NEAR 슈메이커</div>
+        <p class="note">2000년 2월 14일, NEAR 슈메이커는 소행성 궤도에 들어간 첫 탐사선이 되었습니다. 측정된 크기는 <b>34.4 × 11.2 × 11.2 km</b>, 자전주기는 <b>5.270시간</b>입니다. 왼쪽 사진은 NEAR가 2000년에 찍은 사진을 이어 붙인 모자이크입니다. (NASA/JPL/JHUAPL · Public domain)</p>
+        <h3 style="margin-top:16px">내 결과와 비교</h3>
+        <div class="compare" id="cmp"></div>
+        <label class="note" for="diffWhy" style="display:block;margin-top:12px">모형의 a/b가 실제와 다른 이유는 무엇일까?</label>
+        <textarea id="diffWhy" rows="3" placeholder="모형이 단순하게 둔 가정을 떠올려 보세요"></textarea>
+      </div>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <div class="sub">더 생각하기</div>
+        <h3>1951년 10월 11일의 에로스</h3>
+        <canvas id="y1951" class="plot" height="220" aria-label="1951년 10월 11일 에로스 광도곡선"></canvas>
+        <p class="note">같은 에로스인데 이 밤에는 밝기가 0.2등급 정도만 변했습니다. Beyer (1953) · DAMIT</p>
+      </div>
+      <div class="box">
+        <h3>보는 방향이 바뀌면</h3>
+        <canvas id="body1951" height="200" style="width:100%;border-radius:8px"></canvas>
+        <div class="ctl"><label for="th51">시선 각 θ <output id="th51O"></output></label><input id="th51" type="range" min="5" max="90" step="1" value="85"></div>
+        <div class="meter"><span>내 모형(a/b)이 예측하는 밝기 차</span><strong id="amp51">—</strong></div>
+        <textarea id="why1951" rows="2" placeholder="1951년 10월에 밝기 변화가 작았던 이유는?"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="step" hidden>
+    <div class="step-title"><span class="tag">6단계</span><h2>기록</h2><small>주장 · 근거 · 한계</small></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box"><h3>나의 측정</h3><table class="log"><tbody id="sum2"></tbody></table></div>
+      <div class="box">
+        <h3>결론 쓰기</h3>
+        <label class="note" for="claim">주장: 에로스의 자전주기와 모양은?</label><textarea id="claim" rows="2"></textarea>
+        <label class="note" for="evid">근거: 어떤 자료와 측정이 뒷받침하나?</label><textarea id="evid" rows="3"></textarea>
+        <label class="note" for="limit">한계: 이 방법으로 알 수 없는 것은?</label><textarea id="limit" rows="2"></textarea>
+        <label class="note" for="aiNote">AI 사용: AI 답의 어느 부분을 받아들이고 어느 부분을 고쳤나?</label><textarea id="aiNote" rows="2"></textarea>
+        <div class="row" style="margin-top:10px"><button class="btn primary" type="button" id="print2">기록 인쇄 · PDF</button><button class="btn" type="button" id="saveJson">기록 파일 저장</button></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot no-print">
+    <button class="btn" type="button" data-prev>← 이전 단계</button>
+    <span class="count"></span>
+    <button class="btn primary" type="button" data-next>다음 단계 →</button>
+  </div>
+</main>
+</body>
+</html>

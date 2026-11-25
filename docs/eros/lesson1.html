@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1차시 · 소행성의 발견</title>
+<meta name="description" content="소행성의 발견과 이름의 유래, 소행성의 특징, 1975년 에로스 하룻밤 관측 기록으로 자전 재기">
+<link rel="stylesheet" href="eros.css?v=8">
+<script defer src="data/eros-data.js"></script>
+<script defer src="eros.js?v=8"></script>
+<script defer src="lesson1.js?v=8"></script>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="brand" href="index.html"><b>소행성 관측실</b><span>Asteroid light-curve lab</span></a>
+  <nav aria-label="수업"><a href="index.html">처음</a><a href="lesson1.html" aria-current="page">1차시</a><a href="lesson2.html">2차시</a><a href="guide.html">교사용</a></nav>
+</div></header>
+
+<main class="wrap" id="lesson">
+  <div class="head">
+    <div class="kicker">1차시 · 50분</div>
+    <h1>소행성은 어떻게 발견되고, 왜 소행성이라 불렸을까</h1>
+    <p>1781년부터 1901년까지, 하늘의 빈자리를 찾던 사람들이 행성도 혜성도 아닌 작은 천체를 만나 이름을 붙이기까지를 따라갑니다. 그리고 점으로만 보이는 소행성의 자전을 실제 관측 기록으로 재 봅니다.</p>
+  </div>
+
+  <div class="stepper" role="tablist" aria-label="1차시 단계">
+    <button type="button"><span class="n">0</span><span class="t">발견 이야기</span></button>
+    <button type="button"><span class="n">1</span><span class="t">소행성은 어떤 천체</span></button>
+    <button type="button"><span class="n">2</span><span class="t">하룻밤 기록 읽기</span></button>
+    <button type="button"><span class="n">3</span><span class="t">두 가설 비교</span></button>
+    <button type="button"><span class="n">4</span><span class="t">정리</span></button>
+  </div>
+
+  <!-- 0. documentary -->
+  <section class="step film-step" data-step="0">
+    <div class="film" id="film">
+      <button class="btn sm fs-btn no-print" type="button" id="fs">전체 화면</button>
+
+      <article class="scene">
+        <div class="pic"><figure><img src="media/herschel.jpg" alt="윌리엄 허셜 초상화"><figcaption>윌리엄 허셜(1738–1822). Lemuel Francis Abbott 그림, 1785 · Public domain</figcaption></figure></div>
+        <div class="say">
+          <div class="when">1장</div>
+          <div class="year">1781</div>
+          <div class="where">3월 13일 · 영국 바스</div>
+          <p>교회 오르간 연주자이자 음악 선생, <em>윌리엄 허셜</em>. 그가 정말 좋아한 것은 밤하늘이었다. 거울을 직접 갈아 망원경을 만들고 밤마다 별을 훑었다.</p>
+          <p>그날 밤 그의 망원경에 별보다 조금 큰 원반 하나가 들어왔다. 천왕성. 망원경으로 찾은 첫 행성이었다.</p>
+          <p>천왕성의 거리는 당시 알려진 행성 거리의 규칙(티티우스–보데 규칙)에 들어맞았다. 그런데 그 규칙에는 빈자리가 하나 남아 있었다. <em>화성과 목성 사이</em>.</p>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic two">
+          <figure><img src="media/lilienthal.jpg" alt="독일 릴리엔탈 천문대 판화" style="max-height:230px"><figcaption>릴리엔탈 천문대, 1805 판화 · Public domain</figcaption></figure>
+          <figure><img src="media/zach.jpg" alt="프란츠 폰 차흐 초상 판화"><figcaption>프란츠 크사버 폰 차흐(1754–1832). G. Zumpe 판화 · Public domain</figcaption></figure>
+        </div>
+        <div class="say">
+          <div class="when">2장</div>
+          <div class="year">1800</div>
+          <div class="where">9월 · 독일 릴리엔탈</div>
+          <p>천문학자 <em>프란츠 폰 차흐</em>는 그 빈자리에 숨은 행성이 있다고 믿었다.</p>
+          <p>그는 유럽 곳곳의 천문학자에게 하늘을 구역별로 나누어 맡기자고 했다. 사람들은 이 모임을 ‘하늘 경찰’이라고 불렀다.</p>
+          <div class="q">화성과 목성 사이에 정말 행성이 있을까?</div>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic two">
+          <figure><img src="media/piazzi.jpg" alt="주세페 피아치 초상 판화"><figcaption>주세페 피아치(1746–1826). F. Bordiga 판화, 1808 · Public domain</figcaption></figure>
+          <figure><img class="color" src="media/palermo-circle.jpg" alt="팔레르모 천문대에 남아 있는 피아치의 관측 기기" style="max-height:250px"><figcaption>피아치가 별 위치를 재던 관측 기기(오늘날 팔레르모). Archipenzolo · CC BY-SA 3.0</figcaption></figure>
+        </div>
+        <div class="say">
+          <div class="when">3장</div>
+          <div class="year">1801</div>
+          <div class="where">1월 1일 밤 · 시칠리아 팔레르모</div>
+          <p>쉰네 살의 수도사 <em>주세페 피아치</em>. 그가 매달린 일은 별 수천 개의 위치를 하나하나 정확히 재어 목록을 만드는 것이었다.</p>
+          <p>새해 첫날 밤, 황소자리에서 지도에 없는 희미한 별을 적었다. 다음 날 밤 그 별은 자리를 옮겨 있었다.</p>
+          <p>그는 혜성이라고 알렸다. 그런데 혜성이라면 있어야 할 흐릿한 머리도 꼬리도 없었다.</p>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic"><figure><img src="media/gauss.jpg" alt="카를 프리드리히 가우스 초상화"><figcaption>카를 프리드리히 가우스(1777–1855). C. A. Jensen 그림, 1840 · Public domain</figcaption></figure></div>
+        <div class="say">
+          <div class="when">4장</div>
+          <div class="year">1801</div>
+          <div class="where">사라진 별 · 독일 브라운슈바이크</div>
+          <p>피아치는 병으로 관측을 멈췄고, 그 별은 태양 빛 속으로 사라졌다. 남은 것은 41일치 위치 기록뿐.</p>
+          <p>스물네 살 수학자 <em>카를 프리드리히 가우스</em>가 그 짧은 기록으로 궤도를 계산했다. 1801년 12월 31일, 폰 차흐는 가우스가 짚은 자리 가까이에서 그 별을 다시 찾았다.</p>
+          <p>궤도는 화성과 목성 사이였다. 이름은 <em>세레스</em>.</p>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic"><figure><img src="media/olbers.jpg" alt="하인리히 빌헬름 올베르스 초상 판화"><figcaption>하인리히 빌헬름 올베르스(1758–1840) · Public domain</figcaption></figure></div>
+        <div class="say">
+          <div class="when">5장</div>
+          <div class="year">1802</div>
+          <div class="where">3월 28일 · 독일 브레멘</div>
+          <p>낮에는 환자를 보는 의사, 밤에는 집 위층 관측실에서 혜성을 쫓던 <em>하인리히 올베르스</em>. 혜성의 궤도를 계산하는 방법을 직접 만들 만큼 혜성을 좋아했다.</p>
+          <p>세레스를 확인하던 그는 근처에서 또 하나의 움직이는 별을 찾았다. 팔라스.</p>
+          <div class="q">빈자리는 하나였는데 천체는 둘. 이것들은 행성일까?</div>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic"><figure><img src="media/herschel.jpg" alt="윌리엄 허셜 초상화"><figcaption>윌리엄 허셜. Lemuel Francis Abbott 그림, 1785 · Public domain</figcaption></figure></div>
+        <div class="say">
+          <div class="when">6장</div>
+          <div class="year">1802</div>
+          <div class="where">이름이 생기다 · 영국</div>
+          <p>천왕성을 찾았던 <em>허셜</em>이 자기 망원경으로 세레스와 팔라스를 보았다. 행성이라면 원반으로 보여야 하는데, 높은 배율에서도 별처럼 점으로만 보였다. 행성이라기에 너무 작았다.</p>
+          <p>그는 이 천체들을 ‘별을 닮은 것’이라는 뜻의 <em>애스터로이드(asteroid)</em>라고 부르자고 했다.</p>
+          <p>우리는 이 천체를 <em>작은 행성, 소행성</em>이라고 부른다.</p>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic two">
+          <figure><img src="media/witt.jpg" alt="구스타프 비트 사진"><figcaption>구스타프 비트(1866–1946). Adolf Halwas 사진 · Public domain</figcaption></figure>
+          <figure><img src="media/urania.jpg" alt="베를린 우라니아 천문대 건물 판화" style="max-height:220px"><figcaption>베를린 우라니아 천문대, 1888 · CC0</figcaption></figure>
+        </div>
+        <div class="say">
+          <div class="when">7장</div>
+          <div class="year">1898</div>
+          <div class="where">8월 13일 · 베를린 우라니아 천문대</div>
+          <p>그 뒤로 소행성은 하나둘 늘었다. 1891년부터는 사진 건판이 사람의 눈을 대신했다.</p>
+          <p><em>구스타프 비트</em>는 소행성 에우니케를 쫓으며 건판을 오래 노출했다. 현상한 건판에 별들 사이를 길게 가로지른 줄이 하나 더 있었다.</p>
+          <p>지구 궤도 가까이 다가오는 첫 소행성, <em>에로스</em>였다.</p>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic"><figure><img src="media/oppolzer.jpg" alt="에곤 폰 오폴처 사진"><figcaption>에곤 폰 오폴처(1869–1907), 1899 · University of Innsbruck · CC BY-SA 4.0</figcaption></figure></div>
+        <div class="say">
+          <div class="when">8장</div>
+          <div class="year">1901</div>
+          <div class="where">에로스가 지구에 가까워진 겨울 · 오스트리아</div>
+          <p>젊은 천문학자 <em>에곤 폰 오폴처</em>가 이상한 점을 발표했다.</p>
+          <p>에로스의 밝기가 몇 시간 만에 한 등급 가까이, 두 배 넘게 변한다.</p>
+          <div class="q">점으로만 보이는 소행성의 밝기는 왜 몇 시간마다 변할까?</div>
+        </div>
+      </article>
+
+      <article class="scene" hidden>
+        <div class="pic" style="flex-direction:column;align-items:stretch">
+          <canvas id="teaser" class="plot" height="330" aria-label="1975년 1월 23일 에로스 밝기 기록"></canvas>
+          <p class="note" style="margin:10px 0 0">1975년 1월 23일 밤의 실제 측광 기록 146점. 위로 갈수록 밝다. DAMIT · CC BY 4.0</p>
+        </div>
+        <div class="say">
+          <div class="when">9장</div>
+          <div class="year">1975</div>
+          <div class="where">1월 · 지구에서 2,260만 km</div>
+          <p>에로스가 지구와 달 거리의 약 60배까지 다가왔다. 미국, 이탈리아, 루마니아의 천문학자들이 같은 몇 주 동안 밤새 밝기를 쟀다.</p>
+          <p>그 기록은 지금 체코 카렐대학교의 공개 데이터베이스 DAMIT에 남아 있다. 오늘 우리가 읽을 자료가 바로 <em>1월 23일 밤</em>의 기록이다.</p>
+        </div>
+      </article>
+
+      <div class="film-nav no-print">
+        <button class="btn sm" type="button" id="fprev">← 이전 장면</button>
+        <div class="dots" id="dots"></div>
+        <span class="hint">← → 키</span>
+        <button class="btn sm primary" type="button" id="fnext">다음 장면 →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. what is an asteroid -->
+  <section class="step" hidden>
+    <div class="step-title"><span class="tag">1단계</span><h2>소행성은 어떤 천체일까</h2><small>탐사선이 가까이서 찍은 실제 사진</small></div>
+    <p class="ask">지구의 망원경으로는 모두 점이었다. 가까이 가서 보니 어떤 모습이었을까?</p>
+    <div class="gallery">
+      <figure><img src="media/ceres.jpg" alt="탐사선 Dawn이 촬영한 세레스"><figcaption><b>세레스</b> · 지름 약 940 km<br>1801 발견 · 2006년부터 왜소행성<span>Dawn, 2015 · NASA/JPL-Caltech/UCLA/MPS/DLR/IDA, J. Cowart 처리</span></figcaption></figure>
+      <figure><img src="media/vesta.jpg" alt="탐사선 Dawn이 촬영한 베스타"><figcaption><b>베스타</b> · 지름 약 525 km<br>1807 올베르스 발견<span>Dawn, 2011–2012 · NASA/JPL-Caltech/UCLA/MPS/DLR/IDA</span></figcaption></figure>
+      <figure><img src="media/ida.jpg" alt="탐사선 갈릴레오가 촬영한 이다"><figcaption><b>이다</b> · 약 60 × 25 × 19 km<br>1884 발견<span>Galileo, 1993 · NASA/JPL</span></figcaption></figure>
+      <figure><img src="media/bennu.jpg" alt="탐사선 OSIRIS-REx가 촬영한 베누"><figcaption><b>베누</b> · 지름 약 0.49 km<br>1999 발견 · 지구 접근 소행성<span>OSIRIS-REx, 2019 · NASA/Goddard/University of Arizona</span></figcaption></figure>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <h3>소행성의 특징</h3>
+        <ul class="facts">
+          <li>대부분 화성과 목성 사이 <b>소행성대</b>에서 태양 주위를 돈다. 지구 궤도 가까이 오는 것도 있다.</li>
+          <li>오늘날 알려진 소행성은 <b>100만 개가 넘는다</b>.</li>
+          <li>크기는 수백 km부터 수 m까지. <b>작을수록 둥글지 않고 울퉁불퉁하다.</b></li>
+          <li>스스로 빛을 내지 않고 <b>햇빛을 반사</b>해서 보인다. 그리고 <b>스스로 돈다(자전)</b>.</li>
+        </ul>
+      </div>
+      <div class="box">
+        <h3>생각해 보기</h3>
+        <label class="note" for="q1">세레스는 2006년부터 왜소행성으로 분류됩니다. 사진에서 세레스가 다른 소행성과 다른 점은?</label>
+        <textarea id="q1" rows="2"></textarea>
+        <label class="note" for="q2" style="display:block;margin-top:10px">탐사선이 가지 않은 소행성은 지구에서 점으로만 보입니다. 그 점의 모양과 자전을 알아낼 방법은?</label>
+        <textarea id="q2" rows="2"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. read one night -->
+  <section class="step" data-step="1" hidden>
+    <div class="step-title"><span class="tag">2단계</span><h2>하룻밤 기록 읽기</h2><small>1975년 1월 23일 · 관측 146점 · 약 5시간 50분</small></div>
+    <p class="ask">밝기가 가장 밝아지는 꼭대기는 몇 번 나타나고, 꼭대기 사이는 몇 시간일까?</p>
+    <div class="grid wide">
+      <div class="box">
+        <canvas id="night" class="plot" height="380" aria-label="1975년 1월 23일 에로스 광도곡선. A, B 선을 끌어 시간을 잰다."></canvas>
+        <p class="note" id="readout" style="margin:8px 0 0">그래프 위 점에 마우스를 올리면 시각과 밝기가 보입니다. 주황 A선, 파란 B선을 끌어 옮기세요.</p>
+      </div>
+      <div class="box">
+        <div class="sub">측정</div>
+        <h3>A선과 B선의 시간 차</h3>
+        <div class="meter" style="border:0;padding-top:2px"><span>B − A</span><strong id="dt">—</strong></div>
+        <div class="row"><button class="btn sm" type="button" data-nudge="A,-1">A ←</button><button class="btn sm" type="button" data-nudge="A,1">A →</button><button class="btn sm" type="button" data-nudge="B,-1">B ←</button><button class="btn sm" type="button" data-nudge="B,1">B →</button></div>
+        <p class="note">버튼은 1분씩 옮깁니다.</p>
+        <div class="ctl"><label for="peaks">밝은 꼭대기 수</label><input class="num" id="peaks" type="number" min="0" max="9" step="1"></div>
+        <div class="ctl"><label for="amp">가장 밝을 때와 어두울 때의 차 (등급)</label><input class="num" id="amp" type="number" min="0" max="3" step="0.05"></div>
+        <button class="btn primary" type="button" id="saveRead" style="margin-top:12px;width:100%">이웃한 꼭대기 사이 시간 기록</button>
+        <p class="note" id="savedRead"></p>
+        <details><summary>등급이 뭐였지?</summary><p class="note">천문학에서 밝기는 등급으로 씁니다. 숫자가 <b>작을수록 밝습니다</b>. 1등급 차이는 밝기 약 2.5배입니다. 이 그래프는 위로 갈수록 밝게 그렸습니다.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. hypotheses -->
+  <section class="step" data-step="2" hidden>
+    <div class="step-title"><span class="tag">3단계</span><h2>두 가설 비교</h2><small>한 바퀴 도는 동안 밝기가 어떻게 바뀔까</small></div>
+    <p class="ask">한 바퀴 도는 동안 밝은 꼭대기가 한 번 생기는 모형과 두 번 생기는 모형 가운데, 관측과 맞는 것은?</p>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <div class="sub">가설 ①</div><h3>한쪽이 어두운 공</h3>
+        <canvas id="bodyA" height="220" style="width:100%;border-radius:8px"></canvas>
+        <canvas id="curveA" class="plot" height="170" style="margin-top:8px"></canvas>
+      </div>
+      <div class="box">
+        <div class="sub">가설 ②</div><h3>길쭉한 돌</h3>
+        <canvas id="bodyB" height="220" style="width:100%;border-radius:8px"></canvas>
+        <canvas id="curveB" class="plot" height="170" style="margin-top:8px"></canvas>
+      </div>
+    </div>
+    <div class="box" style="margin-top:16px">
+      <div class="row" style="justify-content:space-between">
+        <div class="ctl" style="flex:1;min-width:240px;margin:0"><label for="spin">회전 <output id="spinv">0°</output></label><input id="spin" type="range" min="0" max="360" step="1" value="0"></div>
+        <button class="btn" type="button" id="play">회전 재생</button>
+      </div>
+      <p class="note">두 모형 모두 관측자 쪽에서 햇빛이 비친다고 놓고, 보이는 면이 넓고 밝을수록 밝게 계산했습니다. 모형 그림은 설명용입니다.</p>
+    </div>
+    <div class="box" style="margin-top:16px">
+      <h3>나의 판단</h3>
+      <div class="choice" id="hyp">
+        <label><input type="radio" name="hyp" value="1">가설 ① 한 바퀴에 꼭대기 1번</label>
+        <label><input type="radio" name="hyp" value="2">가설 ② 한 바퀴에 꼭대기 2번</label>
+      </div>
+      <div class="meter"><span>2단계의 꼭대기 사이 시간 × 한 바퀴의 꼭대기 수 = 예측 자전주기</span><strong id="guess">—</strong></div>
+      <label class="note" for="hypWhy">관측 곡선의 어떤 특징을 근거로 골랐나요?</label>
+      <textarea id="hypWhy" rows="3" placeholder="예) 두 꼭대기의 높이가 …, 밝기 차가 …"></textarea>
+    </div>
+  </section>
+
+  <!-- 3. wrap-up -->
+  <section class="step" data-step="3" hidden>
+    <div class="step-title"><span class="tag">4단계</span><h2>정리</h2><small>다음 시간에 쓸 나의 예측</small></div>
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="box">
+        <h3>오늘 기록</h3>
+        <table class="log"><tbody id="sum1"></tbody></table>
+      </div>
+      <div class="box">
+        <h3>생각 정리</h3>
+        <label class="note" for="exit0">소행성이란 어떤 천체인가? 오늘 배운 내용으로 한 문장으로 쓰세요.</label>
+        <textarea id="exit0" rows="2"></textarea>
+        <label class="note" for="exit1">하룻밤 기록 한 장으로 자전주기를 정할 때 불확실한 점은?</label>
+        <textarea id="exit1" rows="3"></textarea>
+        <label class="note" for="exit2">더 정확히 알려면 어떤 자료가 더 필요할까?</label>
+        <textarea id="exit2" rows="3"></textarea>
+        <div class="row" style="margin-top:10px"><button class="btn primary" type="button" id="print1">기록 인쇄 · PDF</button><a class="btn" href="lesson2.html">2차시로</a></div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:14px">다음 시간에는 1월 19일부터 29일까지 다섯 밤의 기록을 겹쳐 주기를 분 단위까지 맞추고, 모형으로 에로스의 모양을 추론합니다.</p>
+  </section>
+
+  <div class="foot no-print">
+    <button class="btn" type="button" data-prev>← 이전 단계</button>
+    <span class="count"></span>
+    <button class="btn primary" type="button" data-next>다음 단계 →</button>
+  </div>
+</main>
+</body>
+</html>

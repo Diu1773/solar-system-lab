@@ -1,0 +1,189 @@
+{
+ "piazzi": {
+  "file": "piazzi.jpg",
+  "title": "File:Giuseppe Piazzi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Giuseppe_Piazzi.jpg",
+  "license": "Public domain",
+  "artist": "F. Bordiga",
+  "date": "1808",
+  "desc": "Portrait of Giuseppe Piazzi",
+  "w": 696,
+  "h": 885
+ },
+ "gauss": {
+  "file": "gauss.jpg",
+  "title": "File:Carl Friedrich Gauss 1840 by Jensen.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Carl_Friedrich_Gauss_1840_by_Jensen.jpg",
+  "license": "Public domain",
+  "artist": "Christian Albrecht Jensen",
+  "date": "1840date QS:P571,+1840-00-00T00:00:00Z/9",
+  "desc": "Portrait of Carl Friedrich Gauß (1777-1855)",
+  "w": 1639,
+  "h": 2088
+ },
+ "olbers": {
+  "file": "olbers.jpg",
+  "title": "File:Heinrich Wilhelm Olbers.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Heinrich_Wilhelm_Olbers.jpg",
+  "license": "Public domain",
+  "artist": "",
+  "date": "",
+  "desc": "Heinrich Wilhelm Matthäus Olbers (October 11, 1758 – March 2, 1840) was a German astronomer, physician and physicist.",
+  "w": 716,
+  "h": 950
+ },
+ "zach": {
+  "file": "zach.jpg",
+  "title": "File:Franz Xaver von Zach portrait by Zumpe.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Franz_Xaver_von_Zach_portrait_by_Zumpe.jpg",
+  "license": "Public domain",
+  "artist": "Gustav Zumpe (engraver); Gebr. Schumann, Zwickau (publisher)",
+  "date": "from 1818 until 1832date QS:P,+1850-00-00T00:00:00Z/7,P580,+1818-00-00T00:00:00Z/9,P582,+1832-00-00T00:00:00Z/9",
+  "desc": "Franz Frhr. v. Zach. Punktierstich",
+  "w": 2831,
+  "h": 4244
+ },
+ "witt": {
+  "file": "witt.jpg",
+  "title": "File:GustavWitt.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:GustavWitt.jpg",
+  "license": "Public domain",
+  "artist": "Adolf Halwas (1835-?)",
+  "date": "",
+  "desc": "Gustav Witt (1866-?)",
+  "w": 560,
+  "h": 800
+ },
+ "urania": {
+  "file": "urania.png",
+  "title": "File:Urania.Sternwarte.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Urania.Sternwarte.png",
+  "license": "CC0",
+  "artist": "Bautsch",
+  "date": "1888-12-31",
+  "desc": "Gebäude der Urania in Berlin-Moabit (Invalidenstraße 57/62) mit Sternwarte.\nIn der großen Kuppel in der Mitte befand sich Bamberg-Refraktor.\n\nW. Foerster, A. Hirt, A. Jost und W. Meyer: „Über die Entw",
+  "w": 1819,
+  "h": 1129
+ },
+ "palermo-circle": {
+  "file": "palermo-circle.jpg",
+  "title": "File:Strumento osservatorio astronomico Palazzo dei Normanni.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Strumento_osservatorio_astronomico_Palazzo_dei_Normanni.jpg",
+  "license": "CC BY-SA 3.0",
+  "artist": "Archipenzolo",
+  "date": "",
+  "desc": "Strumento ottico all'Osservatorio Astronomico di Palermo (OAPa) Giuseppe S. Vaiana, in Palazzo dei Normanni",
+  "w": 2304,
+  "h": 1728
+ },
+ "eros-near": {
+  "file": "eros-near.jpg",
+  "title": "File:Eros - PIA02923 (color).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Eros_-_PIA02923_(color).jpg",
+  "license": "Public domain",
+  "artist": "NASA/JPL/JHUAPL (color version published at Planetary Society)",
+  "date": "2000-06-10",
+  "desc": "While NEAR Shoemaker orbits Eros, the asteroid appears too large for the camera's field of view. In order to get a complete view of the surface from a particular vantage point, several images are mosa",
+  "w": 760,
+  "h": 838
+ },
+ "eros-near2": {
+  "file": "eros-near2.png",
+  "title": "File:NEAR-Shoemaker - Eros (43457246821).png",
+  "page": "https://commons.wikimedia.org/wiki/File:NEAR-Shoemaker_-_Eros_(43457246821).png",
+  "license": "CC BY 2.0",
+  "artist": "Justin Cowart",
+  "date": "2018-07-17 00:48",
+  "desc": "NEAR-Shoemaker Multi-Spectral Imager (MSI) mosaic of the surface of asteroid 433 Eros. This is a 1x2 mosaic, capturing the small crater Tai-Yu. This mosaic was taken on April 20, 2000 from a distance ",
+  "w": 790,
+  "h": 994
+ },
+ "oppolzer": {
+  "file": "oppolzer.jpg",
+  "title": "File:Egon von Oppolzer Universität Innsbruck.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Egon_von_Oppolzer_Universit%C3%A4t_Innsbruck.jpg",
+  "license": "CC BY-SA 4.0",
+  "artist": "University of Innsbruck",
+  "date": "1899",
+  "desc": "Egon von Oppolzer (1869–1907) was an Austrian astronomer, who founded the Historical observatory at the University of Innsbruck, and, where he was appointed professor.\nThe portrait photo is part of a ",
+  "w": 1209,
+  "h": 1777
+ },
+ "piazzi-book-p1": {
+  "file": "piazzi-book-p1.jpg",
+  "title": "File:Della scoperta del nuovo pianeta Cerere Ferdinandea p1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Della_scoperta_del_nuovo_pianeta_Cerere_Ferdinandea_p1.jpg",
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "date": "before 1802date QS:P,+1802-00-00T00:00:00Z/7,P1326,+1802-00-00T00:00:00Z/9",
+  "desc": "Illustrazione da Della scoperta del nuovo pianeta Cerere Ferdinandea, Palermo, 1802",
+  "w": 640,
+  "h": 512
+ },
+ "herschel": {
+  "file": "herschel.jpg",
+  "title": "File:William Herschel01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:William_Herschel01.jpg",
+  "license": "Public domain",
+  "artist": "Lemuel Francis Abbott",
+  "date": "1785 ",
+  "desc": "",
+  "w": 1936,
+  "h": 2368
+ },
+ "ceres": {
+  "file": "ceres.jpg",
+  "title": "File:Ceres - RC3 - Haulani Crater (22381131691) (cropped).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg",
+  "license": "Public domain",
+  "artist": "Justin Cowart",
+  "date": "2015-05-04",
+  "desc": "Approximate true-color image of Ceres, using the F7 ('red'), F2 ('green') and F8 ('blue') filters, projected onto a clear filter image. \nImages were acquired by Dawn at 04:13 UT May 4, 2015, at a dist",
+  "w": 852,
+  "h": 836
+ },
+ "vesta": {
+  "file": "vesta.jpg",
+  "title": "File:Vesta full mosaic.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Vesta_full_mosaic.jpg",
+  "license": "Public domain",
+  "artist": "NASA/JPL-Caltech/UCAL/MPS/DLR/IDA",
+  "date": "2012-09-17 10:29:10",
+  "desc": "As NASA's Dawn spacecraft takes off for its next destination, this mosaic synthesizes some of the best views the spacecraft had of the giant asteroid Vesta. Dawn studied Vesta from July 2011 to Septem",
+  "w": 894,
+  "h": 767
+ },
+ "ida": {
+  "file": "ida.jpg",
+  "title": "File:243 Ida large.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:243_Ida_large.jpg",
+  "license": "Public domain",
+  "artist": "NASA/JPL",
+  "date": "1993-08-28, released 1996-09-12",
+  "desc": "This view of the en:asteroid en:243 Ida is a mosaic of five image frames acquired by the en:Galileo spacecraft's solid-state imaging system at ranges of 3,057 to 3,821 kilometers (1,900 to 2,375 miles",
+  "w": 1973,
+  "h": 1229
+ },
+ "bennu": {
+  "file": "bennu.jpg",
+  "title": "File:Bennu mosaic OSIRIS-REx.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Bennu_mosaic_OSIRIS-REx.jpg",
+  "license": "Public domain",
+  "artist": "NASA/Goddard/University of Arizona",
+  "date": "2020-02-27 00:38:40",
+  "desc": "This mosaic of Bennu was created using observations made by NASA’s OSIRIS-REx spacecraft that was in close proximity to the asteroid for over two years.",
+  "w": 3840,
+  "h": 2160
+ },
+ "lilienthal": {
+  "file": "lilienthal.jpg",
+  "title": "File:Lilienthaler Sternwarte.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lilienthaler_Sternwarte.jpg",
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "date": "1805",
+  "desc": "Observatory Johann Hieronymus Schröter",
+  "w": 369,
+  "h": 267
+ }
+}
