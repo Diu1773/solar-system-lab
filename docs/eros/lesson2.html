@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2차시 수업자료 · 소행성의 자전과 모양</title>
-<link rel="stylesheet" href="slides.css?v=11">
-<script defer src="data/eros-data.js?v=11"></script>
-<script defer src="eros.js?v=11"></script>
-<script defer src="slides.js?v=11"></script>
-<script defer src="lesson2-slides.js?v=11"></script>
+<link rel="stylesheet" href="slides.css?v=12">
+<script defer src="data/eros-data.js?v=12"></script>
+<script defer src="eros.js?v=12"></script>
+<script defer src="slides.js?v=12"></script>
+<script defer src="lesson2-slides.js?v=12"></script>
 </head>
 <body>
 <div class="deck" data-unit="행성우주과학 · 2차시 · 소행성의 자전과 모양" data-sim="sim2.html">
@@ -23,14 +23,23 @@
   </section>
 
   <section class="sl" data-phase="도입">
+    <header><span class="ph">도입</span><h2>학습목표</h2></header>
+    <div style="margin-top:40px">
+      <p class="goal"><span>1</span>여러 밤의 관측 자료를 위상으로 접어 소행성의 자전주기를 구할 수 있다.</p>
+      <p class="goal"><span>2</span>AI가 낸 분석 결과를 자료와 물리적 근거로 검증할 수 있다.</p>
+      <p class="goal"><span>3</span>모형을 관측에 맞추어 소행성의 모양을 추론하고 탐사선 결과와 비교할 수 있다.</p>
+    </div>
+  </section>
+
+  <section class="sl" data-phase="도입">
     <header><span class="ph">도입</span><h2>지난 시간 복습</h2></header>
     <div class="row">
       <div class="col" style="flex:1.4"><canvas id="night" height="600"></canvas></div>
       <div class="col" style="padding-top:20px">
         <p class="lead">1975년 1월 23일 밤의 에로스</p>
-        <p class="lead" style="margin-top:24px">· 밝은 꼭대기 <span class="bk" data-a="2번">?번</span></p>
-        <p class="lead" style="margin-top:24px">· 꼭대기 사이 약 <span class="bk" data-a="2시간 반">?시간 반</span></p>
-        <p class="lead" style="margin-top:24px">· 맞는 가설 <span class="bk" data-a="길쭉한 돌">ㄱㅉㅎ ㄷ</span></p>
+        <p class="lead" style="margin-top:24px">· 밝은 꼭대기 <b class="em">2번</b></p>
+        <p class="lead" style="margin-top:24px">· 꼭대기 사이 약 <b class="em">2시간 반</b></p>
+        <p class="lead" style="margin-top:24px">· 맞는 가설 <b class="em">길쭉한 돌</b></p>
       </div>
     </div>
   </section>
@@ -44,42 +53,42 @@
     <p class="q" style="margin-top:70px">밤과 밤 사이 몇 바퀴 돌았는지 모르는데, 여러 밤을 어떻게 이어 붙일까?</p>
   </section>
 
-  <section class="sl" data-phase="개념">
-    <header><span class="ph">개념</span><h2>1975년 1월, 다섯 밤의 관측</h2></header>
+  <section class="sl" data-phase="전개">
+    <header><span class="ph">전개</span><h2>1975년 1월, 다섯 밤의 관측</h2></header>
     <canvas id="raw" height="560"></canvas>
     <div class="legend5" id="leg"></div>
     <p class="small" style="margin-top:8px">미국·루마니아·이탈리아 천문학자들의 측광 589점 · DAMIT 공개 자료(CC BY 4.0)</p>
   </section>
 
-  <section class="sl" data-phase="개념">
-    <header><span class="ph">개념</span><h2>위상 접기</h2></header>
+  <section class="sl" data-phase="전개">
+    <header><span class="ph">전개</span><h2>위상 접기</h2></header>
     <div class="row" style="gap:60px">
       <div class="col" style="flex:1.3"><canvas id="phase1" height="600"></canvas></div>
       <div class="col" style="padding-top:10px">
         <p class="lead">한 바퀴 안에서의 위치 = <b>위상</b></p>
         <p class="lead" style="margin-top:20px">0은 출발점, 0.5는 반 바퀴, 1은 다시 출발점</p>
         <div class="box" style="margin-top:30px"><p style="font-size:34px;font-weight:700">위상 = 시간 ÷ 주기의 소수 부분</p></div>
-        <p class="lead" style="margin-top:30px">예) 주기 5시간, 23시간 뒤<br>23 ÷ 5 = 4.6바퀴 → 위상 <span class="bk" data-a="0.6">?.?</span></p>
+        <p class="lead" style="margin-top:30px">예) 주기 5시간, 23시간 뒤<br>23 ÷ 5 = 4.6바퀴 → 위상 <b class="em">0.6</b></p>
       </div>
     </div>
     <p class="small" style="margin-top:10px">왼쪽: 1975년 1월 23일 밤의 실제 기록에 위상을 표시</p>
   </section>
 
-  <section class="sl" data-phase="개념">
-    <header><span class="ph">개념</span><h2>주기가 틀리면</h2></header>
+  <section class="sl" data-phase="전개">
+    <header><span class="ph">전개</span><h2>주기가 틀리면</h2></header>
     <div class="row">
       <div class="col" style="flex:1.5"><canvas id="wrong" height="600"></canvas></div>
       <div class="col" style="padding-top:30px">
         <p class="lead">4.000시간으로 접은 모습</p>
-        <p class="lead" style="margin-top:24px">점이 <span class="bk" data-a="흩어진다">ㅎㅇㅈㄷ</span></p>
+        <p class="lead" style="margin-top:24px">점이 <b class="em">흩어진다</b></p>
         <p class="q" style="margin-top:60px">점이 한 곡선으로 모이는 주기는 몇 시간일까?</p>
         <p class="small">→ 탐구 시뮬레이터에서 0.001시간 단위로 찾기</p>
       </div>
     </div>
   </section>
 
-  <section class="sl" data-phase="탐구">
-    <header><span class="ph">탐구</span><h2>AI에게 묻기</h2></header>
+  <section class="sl" data-phase="전개">
+    <header><span class="ph">전개</span><h2>AI에게 묻기</h2></header>
     <div class="row" style="gap:70px">
       <div class="col">
         <div class="box" style="background:#f3f2ef"><div class="t">요청문</div><p style="font-size:30px;line-height:1.55;margin-top:10px">첨부한 CSV는 소행성 433 에로스를 1975년 1월 다섯 밤 동안 측광한 자료입니다. 자전주기를 구하고 방법과 근거를 설명해 주세요.</p></div>
@@ -87,28 +96,28 @@
       <div class="col">
         <p class="lead">AI가 낸 주기를 그대로 믿을까?</p>
         <p class="lead" style="margin-top:30px">확인 방법</p>
-        <p class="lead" style="margin-top:14px">① 그 값으로 <span class="bk" data-a="접어 보기">ㅈㅇ ㅂㄱ</span></p>
-        <p class="lead" style="margin-top:14px">② 모양과 <span class="bk" data-a="밝아지는 횟수">ㅂㅇㅈㄴ ㅎㅅ</span>로 따지기</p>
+        <p class="lead" style="margin-top:14px">① 그 값으로 <b class="em">접어 보기</b></p>
+        <p class="lead" style="margin-top:14px">② 모양과 <b class="em">밝아지는 횟수</b>로 따지기</p>
       </div>
     </div>
   </section>
 
-  <section class="sl" data-phase="개념">
-    <header><span class="ph">개념</span><h2>밝기로 모양 읽기</h2></header>
+  <section class="sl" data-phase="전개">
+    <header><span class="ph">전개</span><h2>밝기로 모양 읽기</h2></header>
     <div class="row" style="gap:50px">
       <div class="pic dark" style="width:980px;height:680px"><img src="media/ida-rotation.jpg" alt="갈릴레오 탐사선이 촬영한 이다의 회전 연속 사진"></div>
       <div class="col" style="padding-top:10px">
         <p class="lead">갈릴레오 탐사선이 지나가며 찍은 이다(1993). 도는 동안 보이는 모습이 바뀐다.</p>
-        <p class="lead" style="margin-top:26px">넓은 면이 보이면 <span class="bk" data-a="밝다">ㅂㄷ</span></p>
-        <p class="lead" style="margin-top:14px">좁은 면이 보이면 <span class="bk" data-a="어둡다">ㅇㄷㄷ</span></p>
-        <p class="lead" style="margin-top:26px">더 길쭉할수록 밝기 차가 <span class="bk" data-a="커진다">ㅋㅈㄷ</span></p>
+        <p class="lead" style="margin-top:26px">넓은 면이 보이면 <b class="em">밝다</b></p>
+        <p class="lead" style="margin-top:14px">좁은 면이 보이면 <b class="em">어둡다</b></p>
+        <p class="lead" style="margin-top:26px">더 길쭉할수록 밝기 차가 <b class="em">커진다</b></p>
       </div>
     </div>
     <div class="credit">243 이다 회전 연속 사진(오른쪽 아래에서 왼쪽 위 순서), Galileo, 1993 · NASA/JPL · Public domain</div>
   </section>
 
-  <section class="sl" data-phase="탐구">
-    <header><span class="ph">탐구</span><h2>탐구 시뮬레이터 활동</h2></header>
+  <section class="sl" data-phase="전개">
+    <header><span class="ph">전개</span><h2>탐구 시뮬레이터 활동</h2></header>
     <div class="row" style="gap:40px;margin-top:30px">
       <div class="col box" style="background:#f3f2ef"><div class="t">1</div><p style="font-size:40px;font-weight:800;margin-top:8px">주기 찾기</p><p class="small" style="margin-top:12px">다섯 밤을 접어 점이 모이는 주기</p></div>
       <div class="col box" style="background:#f3f2ef"><div class="t">2</div><p style="font-size:40px;font-weight:800;margin-top:8px">AI 답 비교</p><p class="small" style="margin-top:12px">AI의 주기로 접어 보고 판정</p></div>
@@ -132,12 +141,10 @@
   </section>
 
   <section class="sl" data-phase="정리">
-    <header><span class="ph">정리</span><h2>오늘 배운 것</h2></header>
-    <p class="lead">· 여러 밤의 관측을 <span class="bk" data-a="위상">ㅇㅅ</span>으로 접으면 자전주기를 분 단위까지 구할 수 있다</p>
-    <p class="lead" style="margin-top:26px">· 길쭉한 소행성은 한 바퀴에 <span class="bk" data-a="두 번">ㄷ ㅂ</span> 밝아진다</p>
-    <p class="lead" style="margin-top:26px">· 밝기 차가 클수록 더 <span class="bk" data-a="길쭉하다">ㄱㅉㅎㄷ</span></p>
-    <p class="lead" style="margin-top:26px">· AI가 낸 값도 자료와 물리로 <span class="bk" data-a="확인">ㅎㅇ</span>해야 한다</p>
-    <p class="sum" style="margin-top:50px">점으로만 보이는 소행성도 밝기 변화로 자전과 모양을 알 수 있다</p>
+    <header><span class="ph">정리</span><h2>학습목표 돌아보기</h2></header>
+    <p class="goal"><span>1</span>내가 찾은 자전주기는 몇 시간이고, 탐사선 값과 얼마나 달랐나?</p>
+    <p class="goal"><span>2</span>AI가 낸 주기를 받아들였나, 고쳤나? 근거는?</p>
+    <p class="goal"><span>3</span>모형으로 추론한 모양과 실제 에로스는 무엇이 같고 무엇이 달랐나?</p>
   </section>
 
 </div>

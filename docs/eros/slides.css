@@ -58,3 +58,7 @@ body.all .sl{position:relative;left:0;top:0;transform:none!important;display:blo
 body.all .cover{display:grid}
 body.all .ctl{display:none}
 @page{size:1920px 1080px;margin:0}
+
+.em{color:var(--orange);font-weight:800}
+.goal{display:flex;gap:30px;align-items:flex-start;font-size:42px;line-height:1.5;font-weight:600;letter-spacing:-.03em;margin:0 0 44px;color:#1c1c1c}
+.goal span{flex:none;width:64px;height:64px;border-radius:50%;background:var(--teal);color:#fff;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
