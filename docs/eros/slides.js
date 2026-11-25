@@ -2,7 +2,7 @@
 (function(){
 'use strict';
 const deck=document.querySelector('.deck'),slides=[...deck.querySelectorAll('.sl')];
-const phases=['도입','전개','정리'],unit=deck.dataset.unit||'';
+const phases=['참여','탐색','설명','정교화','평가'],unit=deck.dataset.unit||'';
 const all=new URLSearchParams(location.search).has('all');
 if(all)document.body.classList.add('all');
 slides.forEach((s,i)=>{if(s.classList.contains('cover'))return;const f=document.createElement('div');f.className='foot';

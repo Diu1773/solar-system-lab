@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2차시 수업자료 · 소행성의 자전과 모양</title>
-<link rel="stylesheet" href="slides.css?v=12">
-<script defer src="data/eros-data.js?v=12"></script>
-<script defer src="eros.js?v=12"></script>
-<script defer src="slides.js?v=12"></script>
-<script defer src="lesson2-slides.js?v=12"></script>
+<link rel="stylesheet" href="slides.css?v=13">
+<script defer src="data/eros-data.js?v=13"></script>
+<script defer src="eros.js?v=13"></script>
+<script defer src="slides.js?v=13"></script>
+<script defer src="lesson2-slides.js?v=13"></script>
 </head>
 <body>
 <div class="deck" data-unit="행성우주과학 · 2차시 · 소행성의 자전과 모양" data-sim="sim2.html">
@@ -22,8 +22,8 @@
     <div class="img" style="background-image:url(media/vesta.jpg);background-size:contain;background-color:#000"></div>
   </section>
 
-  <section class="sl" data-phase="도입">
-    <header><span class="ph">도입</span><h2>학습목표</h2></header>
+  <section class="sl" data-phase="참여">
+    <header><span class="ph">참여</span><h2>학습목표</h2></header>
     <div style="margin-top:40px">
       <p class="goal"><span>1</span>여러 밤의 관측 자료를 위상으로 접어 소행성의 자전주기를 구할 수 있다.</p>
       <p class="goal"><span>2</span>AI가 낸 분석 결과를 자료와 물리적 근거로 검증할 수 있다.</p>
@@ -31,8 +31,8 @@
     </div>
   </section>
 
-  <section class="sl" data-phase="도입">
-    <header><span class="ph">도입</span><h2>지난 시간 복습</h2></header>
+  <section class="sl" data-phase="참여">
+    <header><span class="ph">참여</span><h2>지난 시간 복습</h2></header>
     <div class="row">
       <div class="col" style="flex:1.4"><canvas id="night" height="600"></canvas></div>
       <div class="col" style="padding-top:20px">
@@ -44,8 +44,8 @@
     </div>
   </section>
 
-  <section class="sl" data-phase="도입">
-    <header><span class="ph">도입</span><h2>더 정확하게 재려면</h2></header>
+  <section class="sl" data-phase="참여">
+    <header><span class="ph">참여</span><h2>더 정확하게 재려면</h2></header>
     <div class="row" style="gap:80px;margin-top:40px">
       <div class="col box" style="background:#f3f2ef"><div class="t">하룻밤</div><p style="font-size:54px;font-weight:800;margin-top:10px">한 바퀴 남짓</p><p class="small" style="margin-top:14px">꼭대기 위치를 몇 분만 잘못 읽어도 주기가 크게 달라짐</p></div>
       <div class="col box"><div class="t">열흘 동안 여러 밤</div><p style="font-size:54px;font-weight:800;margin-top:10px">수십 바퀴</p><p class="small" style="margin-top:14px">작은 오차가 바퀴 수만큼 쌓여 눈에 보임 → 분 단위까지</p></div>
@@ -53,15 +53,25 @@
     <p class="q" style="margin-top:70px">밤과 밤 사이 몇 바퀴 돌았는지 모르는데, 여러 밤을 어떻게 이어 붙일까?</p>
   </section>
 
-  <section class="sl" data-phase="전개">
-    <header><span class="ph">전개</span><h2>1975년 1월, 다섯 밤의 관측</h2></header>
+  <section class="sl" data-phase="탐색">
+    <header><span class="ph">탐색</span><h2>1975년 1월, 다섯 밤의 관측</h2></header>
     <canvas id="raw" height="560"></canvas>
     <div class="legend5" id="leg"></div>
     <p class="small" style="margin-top:8px">미국·루마니아·이탈리아 천문학자들의 측광 589점 · DAMIT 공개 자료(CC BY 4.0)</p>
   </section>
 
-  <section class="sl" data-phase="전개">
-    <header><span class="ph">전개</span><h2>위상 접기</h2></header>
+  <section class="sl" data-phase="탐색">
+    <header><span class="ph">탐색</span><h2>탐구 시뮬레이터 활동</h2></header>
+    <div class="row" style="gap:40px;margin-top:30px">
+      <div class="col box" style="background:#f3f2ef"><div class="t">1</div><p style="font-size:40px;font-weight:800;margin-top:8px">주기 찾기</p><p class="small" style="margin-top:12px">다섯 밤을 접어 점이 모이는 주기</p></div>
+      <div class="col box" style="background:#f3f2ef"><div class="t">2</div><p style="font-size:40px;font-weight:800;margin-top:8px">AI 답 비교</p><p class="small" style="margin-top:12px">AI의 주기로 접어 보고 판정</p></div>
+      <div class="col box" style="background:#f3f2ef"><div class="t">3</div><p style="font-size:40px;font-weight:800;margin-top:8px">모형 맞추기</p><p class="small" style="margin-top:12px">길쭉한 정도를 조절해 곡선에 맞춤</p></div>
+      <div class="col box" style="background:#f3f2ef"><div class="t">4</div><p style="font-size:40px;font-weight:800;margin-top:8px">결과 기록</p><p class="small" style="margin-top:12px">주기·모양·근거</p></div>
+    </div>
+  </section>
+
+  <section class="sl" data-phase="설명">
+    <header><span class="ph">설명</span><h2>위상 접기</h2></header>
     <div class="row" style="gap:60px">
       <div class="col" style="flex:1.3"><canvas id="phase1" height="600"></canvas></div>
       <div class="col" style="padding-top:10px">
@@ -74,21 +84,20 @@
     <p class="small" style="margin-top:10px">왼쪽: 1975년 1월 23일 밤의 실제 기록에 위상을 표시</p>
   </section>
 
-  <section class="sl" data-phase="전개">
-    <header><span class="ph">전개</span><h2>주기가 틀리면</h2></header>
+  <section class="sl" data-phase="설명">
+    <header><span class="ph">설명</span><h2>주기가 틀리면</h2></header>
     <div class="row">
       <div class="col" style="flex:1.5"><canvas id="wrong" height="600"></canvas></div>
       <div class="col" style="padding-top:30px">
         <p class="lead">4.000시간으로 접은 모습</p>
         <p class="lead" style="margin-top:24px">점이 <b class="em">흩어진다</b></p>
-        <p class="q" style="margin-top:60px">점이 한 곡선으로 모이는 주기는 몇 시간일까?</p>
-        <p class="small">→ 탐구 시뮬레이터에서 0.001시간 단위로 찾기</p>
+        <p class="q" style="margin-top:60px">탐색에서 찾은 주기로 접으면 어떻게 달라졌나?</p>
       </div>
     </div>
   </section>
 
-  <section class="sl" data-phase="전개">
-    <header><span class="ph">전개</span><h2>AI에게 묻기</h2></header>
+  <section class="sl" data-phase="정교화">
+    <header><span class="ph">정교화</span><h2>AI에게 묻기</h2></header>
     <div class="row" style="gap:70px">
       <div class="col">
         <div class="box" style="background:#f3f2ef"><div class="t">요청문</div><p style="font-size:30px;line-height:1.55;margin-top:10px">첨부한 CSV는 소행성 433 에로스를 1975년 1월 다섯 밤 동안 측광한 자료입니다. 자전주기를 구하고 방법과 근거를 설명해 주세요.</p></div>
@@ -102,8 +111,8 @@
     </div>
   </section>
 
-  <section class="sl" data-phase="전개">
-    <header><span class="ph">전개</span><h2>밝기로 모양 읽기</h2></header>
+  <section class="sl" data-phase="정교화">
+    <header><span class="ph">정교화</span><h2>밝기로 모양 읽기</h2></header>
     <div class="row" style="gap:50px">
       <div class="pic dark" style="width:980px;height:680px"><img src="media/ida-rotation.jpg" alt="갈릴레오 탐사선이 촬영한 이다의 회전 연속 사진"></div>
       <div class="col" style="padding-top:10px">
@@ -116,18 +125,8 @@
     <div class="credit">243 이다 회전 연속 사진(오른쪽 아래에서 왼쪽 위 순서), Galileo, 1993 · NASA/JPL · Public domain</div>
   </section>
 
-  <section class="sl" data-phase="전개">
-    <header><span class="ph">전개</span><h2>탐구 시뮬레이터 활동</h2></header>
-    <div class="row" style="gap:40px;margin-top:30px">
-      <div class="col box" style="background:#f3f2ef"><div class="t">1</div><p style="font-size:40px;font-weight:800;margin-top:8px">주기 찾기</p><p class="small" style="margin-top:12px">다섯 밤을 접어 점이 모이는 주기</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">2</div><p style="font-size:40px;font-weight:800;margin-top:8px">AI 답 비교</p><p class="small" style="margin-top:12px">AI의 주기로 접어 보고 판정</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">3</div><p style="font-size:40px;font-weight:800;margin-top:8px">모형 맞추기</p><p class="small" style="margin-top:12px">길쭉한 정도를 조절해 곡선에 맞춤</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">4</div><p style="font-size:40px;font-weight:800;margin-top:8px">결과 기록</p><p class="small" style="margin-top:12px">주기·모양·근거</p></div>
-    </div>
-  </section>
-
-  <section class="sl" data-phase="정리">
-    <header><span class="ph">정리</span><h2>2000년, 탐사선이 본 에로스</h2></header>
+  <section class="sl" data-phase="평가">
+    <header><span class="ph">평가</span><h2>2000년, 탐사선이 본 에로스</h2></header>
     <div class="row" style="gap:60px">
       <div class="pic dark" style="width:640px;height:700px"><img src="media/eros-near.jpg" alt="NEAR 슈메이커가 촬영한 에로스"></div>
       <div class="col" style="padding-top:20px">
@@ -140,12 +139,14 @@
     <div class="credit">433 에로스, NEAR 슈메이커 모자이크, 2000 · NASA/JPL/JHUAPL · Public domain</div>
   </section>
 
-  <section class="sl" data-phase="정리">
-    <header><span class="ph">정리</span><h2>학습목표 돌아보기</h2></header>
+  <section class="sl" data-phase="평가">
+    <header><span class="ph">평가</span><h2>학습목표 돌아보기</h2></header>
     <p class="goal"><span>1</span>내가 찾은 자전주기는 몇 시간이고, 탐사선 값과 얼마나 달랐나?</p>
     <p class="goal"><span>2</span>AI가 낸 주기를 받아들였나, 고쳤나? 근거는?</p>
     <p class="goal"><span>3</span>모형으로 추론한 모양과 실제 에로스는 무엇이 같고 무엇이 달랐나?</p>
   </section>
+
+
 
 </div>
 </body>
