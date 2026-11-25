@@ -1,6 +1,6 @@
 const byId = id => document.getElementById(id);
 const state = { sessions: [], period: 6, view: 'time', search: null, fit: null, model: null, records: [], playing: false };
-const shape = { a: 1.12, c: .9, aspect: 90, offset: 20 };
+const shape = { a: 1.48, c: .9, aspect: 90, offset: 0 };
 const colors = ['#168a78', '#a44785', '#2669b1'];
 const ids = ['time', 'phase', 'search'];
 const number = (value, digits = 3) => value.toFixed(digits);
@@ -9,6 +9,7 @@ let periodRecords = [];
 let inspectedPoint = null;
 let chartFrame = null;
 let animationFrame = 0;
+let trialFrame = 0;
 
 function route() {
   const hash = location.hash.slice(1);
@@ -23,6 +24,7 @@ function route() {
     else link.removeAttribute('aria-current');
   }
   if (stage !== 'shape' && state.playing) byId('play').click();
+  if (stage === 'shape') drawModel();
   requestAnimationFrame(() => {
     if (hash === 'history' || hash === 'research') byId(hash).scrollIntoView();
     else if (hash !== 'main') window.scrollTo({ top: 0 });
@@ -99,22 +101,28 @@ function drawPeriod() {
     chartFrame = plot(canvas, [{ points, color: '#168a78', line: true }, { points: candidates, color: '#a44785' }], ['시험 주기 (시간)', '잔차 RMS (mag)'], { x: [2, 16], marker: [state.period, state.fit.rms] });
     byId('point-readout').textContent = '현재 시험 주기 ' + number(state.period) + ' h · RMS ' + number(fit.rms, 4) + ' mag';
     legend.textContent = '낮은 지점일수록 현재 적합에서 관측값에 가깝습니다.';
+    byId('view-note').textContent = '';
     return;
   }
-  const phase = view === 'phase';
+  const phase = view === 'phase', fitted = phase && byId('show-fit').checked;
   const point = inspectedPoint;
-  const mark = point ? (phase ? [point.phase, point.adjusted] : [point.t, point.flux]) : undefined;
-  byId('period-label').textContent = phase ? '접은 위상과 상대 등급' : '시간과 상대 강도';
+  const magnitude = p => fitted ? p.adjusted : -2.5 * Math.log10(p.flux) - state.sessionMeans.get(p.session);
+  const mark = point ? (phase ? [point.phase, magnitude(point)] : [point.t, point.flux]) : undefined;
+  byId('period-label').textContent = phase ? '한 바퀴 위에 겹쳐 본 관측점' : '세 밤에 관측한 밝기';
   const series = state.sessions.map((s, i) => ({
     color: colors[i],
-    points: fit.points.filter(p => p.session === s.id).map(p => phase ? [p.phase, p.adjusted] : [p.t, p.flux])
+    points: fit.points.filter(p => p.session === s.id).map(p => phase ? [p.phase, magnitude(p)] : [p.t, p.flux])
   }));
-  if (phase) series.unshift({ color: '#9c5621', line: true, points: fit.curve.map((v, i) => [i / (fit.curve.length - 1), v]) });
+  if (fitted) series.unshift({ color: '#9c5621', line: true, points: fit.curve.map((v, i) => [i / (fit.curve.length - 1), v]) });
   chartFrame = plot(canvas, series, phase ? ['회전 위상 (한 바퀴 = 1)', '상대 등급 (위쪽이 밝음)'] : ['첫 관측 이후 시간 (h)', '상대 강도 F'], { x: phase ? [0, 1] : undefined, invert: phase, marker: mark });
   byId('point-readout').textContent = point
     ? '회차 ' + point.session + ' · JD ' + number(point.jd, 6) + ' · F ' + number(point.flux, 5) + (phase ? ' · 위상 ' + number(point.phase) : '')
     : '그래프를 가리키거나, 그래프에 초점을 맞추고 ← →로 관측점을 읽으세요.';
-  legend.textContent = '초록 회차 26 (41점) · 보라 회차 27 (91점) · 파랑 회차 28 (23점)' + (phase ? ' · 갈색 선은 적합 곡선' : '');
+  legend.textContent = '초록 11/28 (41점) · 보라 11/29 (91점) · 파랑 11/30 (23점)';
+  byId('view-note').textContent = fitted
+    ? '황토색 선은 적합 곡선입니다. 잔차 비교에서는 회차별 등급 기준값도 곡선과 함께 맞춥니다.'
+    : phase ? '밤마다 평균 등급을 0으로 맞췄습니다. 시험 주기를 바꿔도 점의 높이는 그대로입니다.'
+    : '관측점이 없는 구간에서 몇 번 자전했는지는 이 시간축만으로 정하기 어렵습니다.';
 }
 
 function orderedObservations() {
@@ -143,32 +151,6 @@ byId('period-plot').onkeydown = event => {
   drawPeriod();
 };
 
-function drawMesh() {
-  const canvas = byId('mesh'), ctx = canvas.getContext('2d'), { width, height } = canvas;
-  ctx.clearRect(0, 0, width, height);
-  const phi = +byId('spin').value, rad = Math.PI / 180;
-  const angle = (360 * phi + shape.offset) * rad, tilt = shape.aspect * rad;
-  const mesh = ShapeMath.ellipsoid(shape.a, shape.c, 13, 30);
-  const vertices = mesh.vertices.map(([x, y, z]) => {
-    const u = x * Math.cos(angle) - y * Math.sin(angle), v = x * Math.sin(angle) + y * Math.cos(angle);
-    return [v, z * Math.sin(tilt) - u * Math.cos(tilt), u * Math.sin(tilt) + z * Math.cos(tilt)];
-  });
-  const faces = mesh.faces.map(face => ({
-    corners: face.map(i => vertices[i]),
-    depth: face.reduce((sum, i) => sum + vertices[i][2], 0) / 3
-  })).sort((a, b) => a.depth - b.depth);
-  const scale = 104 / Math.max(1, shape.a * .8);
-  for (const { corners, depth } of faces) {
-    const light = Math.round(30 + 23 * Math.max(0, depth));
-    ctx.fillStyle = `hsl(166 36% ${light}%)`; ctx.strokeStyle = '#90c5b980'; ctx.lineWidth = .65;
-    ctx.beginPath();
-    corners.forEach(([x, y], i) => i ? ctx.lineTo(width / 2 + x * scale, height / 2 - y * scale) : ctx.moveTo(width / 2 + x * scale, height / 2 - y * scale));
-    ctx.closePath(); ctx.fill(); ctx.stroke();
-  }
-  ctx.font = '18px system-ui'; ctx.fillStyle = '#c5dfdc'; ctx.textAlign = 'left';
-  ctx.fillText('위상 ' + number(phi), 24, 33);
-}
-
 function updateModel() {
   state.model = ShapeMath.fit(state.sessions, state.period, shape);
   const model = state.model;
@@ -177,7 +159,7 @@ function updateModel() {
   byId('shape-period').textContent = number(state.period) + ' h';
   byId('shape-rms').textContent = number(model.rms, 4) + ' mag';
   byId('amplitude').textContent = number(model.amplitude, 4) + ' mag';
-  drawModel();
+  if (!byId('shape').hidden) drawModel();
   updatePrompt();
 }
 
@@ -185,10 +167,26 @@ function drawModel() {
   if (!state.model) return;
   const model = state.model;
   const phase = Number(byId('spin').value);
-  const series = state.sessions.map((s, i) => ({ color: colors[i], points: model.points.filter(p => p.session === s.id).map(p => [p.phase, p.adjusted]) }));
-  series.unshift({ color: '#9c5621', line: true, points: model.curve.map((v, i) => [i / (model.curve.length - 1), v]) });
-  plot(byId('model-plot'), series, ['회전 위상', '상대 등급 (위쪽이 밝음)'], { x: [0, 1], invert: true, marker: [phase, ShapeMath.rawMag(phase, shape) - model.mean] });
-  drawMesh();
+  const maximum = ShapeMath.projectedArea((90 - shape.offset) / 360, shape);
+  const brightest = -2.5 * Math.log10(maximum) - model.mean;
+  const percent = magnitude => 100 * 10 ** (-.4 * (magnitude - brightest));
+  const visible = byId('show-observations').checked;
+  const series = [{
+    color: '#9c5621', line: true, points: model.curve.map((v, i) => [i / (model.curve.length - 1), percent(v)])
+  }];
+  if (visible) for (const [index, session] of state.sessions.entries()) {
+    series.push({ color: colors[index], points: model.points.filter(p => p.session === session.id).map(p => [p.phase, percent(p.adjusted)]) });
+  }
+  const current = 100 * ShapeMath.projectedArea(phase, shape) / maximum;
+  const brightnesses = series.flatMap(set => set.points.map(p => p[1]));
+  const domain = [5 * Math.floor((Math.min(...brightnesses) - 3) / 5), 5 * Math.ceil((Math.max(...brightnesses) + 3) / 5)];
+  plot(byId('model-plot'), series, ['회전 위상', '모형 최댓값 대비 밝기 (%)'], { x: [0, 1], y: domain, yDigits: 0, marker: [phase, current] });
+  byId('spin-value').value = number(phase);
+  byId('area-value').value = number(current, 1) + '%';
+  byId('model-legend').textContent = visible
+    ? '황토색 선은 모형의 예측, 세 색은 회차별 관측점입니다. 회차별 등급 영점을 맞춰 같은 밝기 축에 표시합니다.'
+    : '황토색 선은 면적으로 계산한 밝기입니다. 넓은 면일수록 그래프의 표시점이 위로 움직입니다.';
+  AsteroidRender.draw(byId('mesh'), phase, shape);
 }
 
 function updatePrompt() {
@@ -196,12 +194,13 @@ function updatePrompt() {
   const fits = state.search?.candidates.slice(0, 3).map(r => `${number(r.period)} h (RMS ${number(r.rms, 4)} mag)`) || [];
   byId('prompt').value = [
     '첨부한 팔라스 1971 관측 CSV를 직접 읽어 회차별 표본 수, 시각·강도 열, 관측 사이 공백을 요약해 줘.',
+    periodRecords.length ? '내가 비교한 시험 주기: ' + periodRecords.map(r => number(r.period) + ' h (RMS ' + number(r.rms, 4) + ' mag)').join(', ') + '.' : '',
     '후보별로 회차별 영점과 2차 푸리에 곡선을 맞추는 계산을 수행할 수 있으면 방법과 RMS 단위를 표시해 줘. 계산을 못 했으면 제공값을 사용했다고 밝혀 줘.',
     fits.length ? '웹의 후보 비교값: ' + fits.join(', ') + '.' : '웹에서 후보를 찾은 뒤 두 후보의 위상 모임과 RMS를 대조할 거야.',
     '비슷한 잔차가 다른 자전주기 또는 모형에서 나올 수 있는 이유와, 더 필요한 관측을 설명해 줘.',
     modelRows.length ? '내 모형 기록: ' + modelRows.join(' / ') + '.' : '타원체는 반사율이 균일하고 투영 면적에 밝기가 비례한다고 가정해.',
     '답변에서 직접 읽거나 계산한 값, 입력에서 인용한 값, 추론을 구분해 줘.'
-  ].join('\n');
+  ].filter(Boolean).join('\n');
 }
 
 function setView(view) {
@@ -215,6 +214,8 @@ function setPeriod(period, view) {
   state.period = Math.min(16, Math.max(2, period));
   state.fit = ObservationMath.fit(state.sessions, state.period);
   byId('trial').value = number(state.period, 6).replace(/0+$/, '').replace(/\.$/, '');
+  byId('trial-value').value = number(state.period) + ' h';
+  byId('period-slider').value = state.period;
   byId('rms').textContent = state.fit ? number(state.fit.rms, 4) + ' mag' : '—';
   byId('count').textContent = (state.fit?.points.length || 0) + '점';
   setView(view || state.view);
@@ -233,6 +234,16 @@ function deferred(button, operation) {
 
 for (const id of ids) byId(id + '-view').onclick = () => setView(id);
 byId('trial').onchange = e => { if (state.sessions.length && Number.isFinite(e.target.valueAsNumber)) setPeriod(e.target.valueAsNumber, 'phase'); };
+byId('period-slider').oninput = event => {
+  if (!state.sessions.length) return;
+  const period = event.currentTarget.valueAsNumber;
+  cancelAnimationFrame(trialFrame);
+  trialFrame = requestAnimationFrame(() => setPeriod(period, 'phase'));
+};
+for (const button of document.querySelectorAll('[data-period]')) button.onclick = () => {
+  if (state.sessions.length) setPeriod(+button.dataset.period, 'phase');
+};
+byId('show-fit').onchange = () => setView('phase');
 byId('search').onclick = event => {
   byId('period-status').textContent = '2–16시간 범위의 후보를 비교하는 중…';
   deferred(event.currentTarget, () => {
@@ -249,7 +260,8 @@ byId('search').onclick = event => {
     if (!result.candidates.length) { byId('period-status').textContent = '탐색 범위 안에서 후보를 찾지 못했습니다.'; return; }
     byId('half').disabled = false; byId('double').disabled = false;
     byId('period-status').textContent = '최저 잔차 후보 ' + number(result.candidates[0].period) + ' h. 다른 후보와도 비교하세요.';
-    setPeriod(result.candidates[0].period, 'search');
+    byId('show-fit').checked = true;
+    setView('search');
   });
 };
 byId('half').onclick = () => setPeriod(state.search.candidates[0].period / 2, 'phase');
@@ -263,12 +275,22 @@ for (const button of document.querySelectorAll('[data-aspect]')) button.onclick 
   updateModel();
 };
 byId('spin').oninput = drawModel;
+byId('show-observations').onchange = drawModel;
+for (const [id, degrees] of [['narrow', 0], ['wide', 90]]) byId(id).onclick = () => {
+  if (state.playing) byId('play').click();
+  byId('spin').value = ((degrees - shape.offset + 360) % 360) / 360;
+  drawModel();
+};
 byId('optimize').onclick = event => {
   const button = event.currentTarget;
   button.textContent = '적합 중…';
   deferred(button, () => {
-    try { Object.assign(shape, ShapeMath.optimize(state.sessions, state.period, shape)); byId('axis').value = shape.a; updateModel(); }
-    finally { button.textContent = '이 시선에서 모형 맞추기'; }
+    try {
+      Object.assign(shape, ShapeMath.optimize(state.sessions, state.period, shape));
+      byId('axis').value = shape.a;
+      byId('show-observations').checked = true;
+      updateModel();
+    } finally { button.textContent = '이 시선에서 적합'; }
   });
 };
 byId('record').onclick = () => {
@@ -301,6 +323,7 @@ function refreshNotebook() {
   replaceRecords('records', state.records.map(r => [r.aspect + '°', number(r.a), number(r.period), number(r.rms, 4)]), '회전 모형에서 서로 다른 조건을 기록하세요.', 4);
   replaceRecords('period-records', periodRecords.map(r => [number(r.period), number(r.rms, 4)]), '관측과 주기에서 시험 주기를 기록하세요.', 2);
   byId('period-log-note').textContent = periodRecords.length === 1 ? '근거를 쓰려면 다른 후보도 하나 기록하세요.' : '';
+  byId('trial-log').textContent = periodRecords.length ? '기록한 후보 ' + periodRecords.map(r => number(r.period) + ' h').join(' · ') : '';
   updatePrompt();
 }
 function storeNotebook() {
@@ -326,8 +349,12 @@ byId('play').onclick = () => {
   let last = performance.now();
   function tick(now) {
     if (!state.playing) return;
-    byId('spin').value = (+byId('spin').value + Math.min(60, now - last) / 7300) % 1;
-    last = now; drawModel(); animationFrame = requestAnimationFrame(tick);
+    if (now - last >= 35) {
+      byId('spin').value = (+byId('spin').value + Math.min(120, now - last) / 7300) % 1;
+      last = now;
+      drawModel();
+    }
+    animationFrame = requestAnimationFrame(tick);
   }
   animationFrame = requestAnimationFrame(tick);
 };
@@ -350,8 +377,12 @@ async function initialize() {
     if (!response.ok) throw new Error('CSV를 열 수 없습니다.');
     state.sessions = readSessions(await response.text());
     if (!state.sessions.length) throw new Error('유효한 관측값이 없습니다.');
+    state.sessionMeans = new Map(state.sessions.map(session => [
+      session.id,
+      session.points.reduce((sum, point) => sum - 2.5 * Math.log10(point[1]), 0) / session.points.length
+    ]));
     setPeriod(state.period, 'time');
-    byId('period-status').textContent = '관측 공백을 먼저 찾으세요.';
+    byId('period-status').textContent = '';
     for (const id of ['search', 'optimize', 'record', 'record-period']) byId(id).disabled = false;
   } catch (error) { byId('period-status').textContent = '관측 자료를 불러오지 못했습니다. ' + error.message; }
 }

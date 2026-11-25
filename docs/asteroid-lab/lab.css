@@ -10,3 +10,43 @@
 @media(max-width:770px){.shell{padding-inline:17px}.opening{grid-template-columns:1fr;gap:1.25rem;padding:2rem 0 1.5rem}.opening-image img{max-height:320px}.reading,.guide-grid{grid-template-columns:1fr;gap:.7rem;padding:1.55rem 0}.bench{grid-template-columns:1fr}.rail{border-left:0;border-top:1px solid var(--line)}.opening h1{font-size:clamp(2.48rem,10vw,4.4rem)}}
 @media(max-width:480px){.header{flex-wrap:wrap;gap:0;min-height:0;padding-top:.5rem}.header nav{width:100%;justify-content:space-between}.header nav a{min-height:42px;font-size:.86rem}.worknav a{font-size:.8rem}.page-head.compact{padding-top:1.25rem}:root{scroll-padding-top:87px}.chart{padding:.72rem}.chart-tools{margin-bottom:.52rem}}
 @media print{.bar,.foot,.skip,#materials,#sim,#print-lesson{display:none!important}#lesson{display:block!important}.shell{max-width:none}.page-head{padding:.3rem 0}.guide-grid{padding:.7rem 0;break-inside:avoid}.guide-grid h2{font-size:18pt}body{background:white;font-size:10pt}}
+.story-date{margin:1.55rem 0 .4rem;color:var(--green);font-weight:800;font-size:.96rem}
+.sky-pair{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin:1rem 0 .15rem}
+.sky-pair figcaption{font-size:.85rem;color:var(--mute);margin-top:.2rem}
+.sky{position:relative;height:112px;background:radial-gradient(circle at 21% 30%,#d9e6de 0 2px,transparent 3px),radial-gradient(circle at 53% 57%,#d9e6de 0 2px,transparent 3px),radial-gradient(circle at 82% 41%,#d9e6de 0 2px,transparent 3px),#152321}
+.sky-point{position:absolute;color:#f5bc79;font-weight:800;line-height:1}
+.sky-point::before{content:'';display:inline-block;width:5px;height:5px;vertical-align:middle;margin-right:5px;border-radius:50%;background:currentColor}
+.sky-point.first{left:28%;top:72%}.sky-point.second{left:60%;top:22%}
+.prose>details{margin:1.15rem 0 0;border-top:1px solid var(--line);padding-top:.7rem}
+.activity-brief{margin:.15rem 0 1.1rem;max-width:830px}
+.activity-brief h2{font-size:1.47rem;margin-bottom:.38rem}
+.activity-brief p{font-size:.95rem;color:var(--mute)}
+.activity-brief a{white-space:nowrap}
+.calculation{display:grid;gap:.6rem;border-top:1px solid var(--line);padding-top:.62rem}
+.calculation :is(.choices,.segmented){margin-top:.45rem}
+.calculation .check{display:flex;gap:.46rem;align-items:center;line-height:1.4}
+.calculation[open] .check{margin:.57rem 0}
+.check input{accent-color:var(--green)}
+.orbit-readout{display:flex;justify-content:space-between;align-items:center;gap:.45rem .8rem;flex-wrap:wrap;margin:.3rem 0 .65rem}
+.orbit-readout p{font-size:.86rem;color:var(--mute)}
+.orbit-readout output{color:var(--accent);font-weight:800;font-variant-numeric:tabular-nums}
+.orbit-readout span{margin:0 .2rem}
+.mesh{background:#191f22}
+.rail [role=status]:empty,.rail #trial-log:empty{display:none}
+.worksheet{max-width:860px;padding-top:1.5rem}
+.worksheet-sheet{padding:1.2rem 0 1.9rem;scroll-margin-top:1rem}
+.worksheet-sheet+.worksheet-sheet{border-top:1px solid var(--line)}
+.worksheet h1{font-size:2rem;margin:.45rem 0 .7rem}
+.worksheet h2{font-size:1.22rem;margin:1.25rem 0 .45rem}
+.worksheet .fill{display:block;width:100%;min-height:2.15rem;border-bottom:1px solid var(--line)}
+.worksheet .long{min-height:3rem}
+.worksheet .worksheet-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;color:var(--mute)}
+.worksheet .worksheet-meta a{white-space:nowrap}
+@media print{
+ .worksheet{padding:0}
+ .worksheet-sheet{padding:0;break-after:page}
+ .worksheet-sheet:last-child{break-after:auto;border:0}
+ .worksheet .screen-only{display:none!important}
+ .worksheet table{margin:.25rem 0}
+ .worksheet h2{margin-top:.85rem}
+}
