@@ -1,6 +1,6 @@
 (function(){
 'use strict';
-const {Store,toast,Stepper,Plot,shapeFlux,hm}=Eros;
+const {Store,toast,Stepper,Plot,shapeFlux,renderBody,hm}=Eros;
 const one=window.EROS_DATA.singleNight,base=Math.floor(one.jd[0]-0.5)+0.5;
 const T=one.jd.map(j=>(j-base)*24),M=one.mag;
 const st=Store.get().l1||{};
@@ -13,14 +13,14 @@ bind('first','first');
 /* step 1: predict light-curve profile for each shape from real images, then check with the model */
 const css=document.createElement('style');
 css.textContent=`.hyp3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:20px}
-.hyp3 .ph{background:#000;height:230px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hyp3 .ph{background:#000;height:180px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hyp3 .ph img{max-width:100%;max-height:100%;object-fit:contain}
 .hyp3 h3{margin:12px 0 2px;font-size:17px}.hyp3 .src{font-size:12px;color:var(--muted);margin-bottom:8px}
 .opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
 .opts label{border:1px solid var(--rule2);border-radius:6px;padding:6px;cursor:pointer;background:#fff;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:12px;color:var(--ink2);text-align:center}
 .opts label:has(input:checked){border-color:var(--ink);background:var(--paper2);font-weight:650}
 .opts input{position:absolute;opacity:0}.opts canvas{width:100%;height:46px}
-.reveal3{margin-top:10px}.reveal3 .res{font-size:14px;margin-top:6px;font-weight:650}
+.spin{position:relative;margin-top:6px}.spin canvas{width:100%;border-radius:4px}.spin .lum{position:absolute;right:8px;top:6px;color:#fff;display:flex;gap:6px;align-items:baseline}.spin .lum span{font-size:12px;color:#b9b6ae}.spin .lum strong{font-size:22px;font-variant-numeric:tabular-nums}.trace{margin-top:6px}
 .cmp4{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:16px}.cmp4 .t{font-size:13.5px;font-weight:650;margin-bottom:4px}
 .then{background:var(--paper2);border-radius:6px;padding:10px 12px}.then b{font-size:12.5px;color:var(--muted)}.then p{margin:4px 0 0;white-space:pre-wrap}
 @media(max-width:900px){.hyp3,.cmp4{grid-template-columns:1fr}}`;
@@ -28,30 +28,45 @@ document.head.appendChild(css);
 const SHAPES=[
   {k:'spot',name:'무늬가 있는 둥근 소행성',img:'media/ceres-rotation.gif',src:'세레스 자전 영상 · Dawn 탐사선, 2015 · NASA/JPL-Caltech/UCLA/MPS/DLR/IDA',opt:{mode:'sphere',dark:.6}},
   {k:'long',name:'길쭉한 소행성',img:'media/ida-rotation.jpg',src:'이다가 도는 모습(연속 사진) · Galileo 탐사선, 1993 · NASA/JPL',opt:{mode:'ellipsoid',ab:2.4,bc:1.05}},
-  {k:'peanut',name:'땅콩 모양 소행성',img:'media/kleopatra.jpg',src:'클레오파트라를 여러 방향에서 본 모습 · VLT 망원경 · ESO/Vernazza, Marchis et al., CC BY 4.0',opt:{mode:'peanut'}}];
+  {k:'peanut',name:'땅콩 모양 소행성',img:'media/kleopatra-rotation.gif',src:'클레오파트라를 여러 방향에서 본 모습 · VLT 망원경 · ESO/Vernazza, Marchis et al., CC BY 4.0',opt:{mode:'peanut'}}];
 const PROFILES=[{k:'one',label:'극대 1번',f:p=>-Math.cos(2*Math.PI*p)},{k:'two',label:'극대 2번 · 고른 모양',f:p=>-Math.cos(4*Math.PI*p)},{k:'twodiff',label:'극대 2번 · 고르지 않은 모양',f:p=>-Math.cos(4*Math.PI*p)+.3*Math.sin(2*Math.PI*p)+.25*Math.cos(6*Math.PI*p+1)}];
-const ANSWER={spot:'one',long:'two',peanut:'twodiff'};
 const box=document.getElementById('hyp3');
 box.innerHTML=SHAPES.map(s=>`<div class="card3" data-k="${s.k}"><div class="ph"><img src="${s.img}" alt="${s.name}의 실제 사진"></div><h3>${s.name}</h3><div class="src">${s.src}</div>
-  <div class="note">예측: 이 모양이 한 바퀴 돌 때의 밝기 곡선</div>
+  <div class="note"><b>① 예측</b> 이 모양이 한 바퀴 돌 때의 밝기 곡선</div>
   <div class="opts">${PROFILES.map(p=>`<label><input type="radio" name="pred-${s.k}" value="${p.k}"><canvas height="46" data-prof="${p.k}"></canvas>${p.label}</label>`).join('')}</div>
-  <button class="btn sm" type="button" data-check="${s.k}" style="margin-top:10px">모형으로 확인</button>
-  <div class="reveal3" hidden><canvas class="plot" height="140"></canvas><div class="res"></div></div></div>`).join('');
+  <div class="note" style="margin-top:12px"><b>② 돌려 보기</b> 모형을 한 바퀴 돌리며 밝기 측정</div>
+  <div class="spin"><canvas class="model" height="150"></canvas><div class="lum"><span>밝기</span><strong>—</strong></div></div>
+  <canvas class="plot trace" height="130"></canvas>
+  <div class="row" style="margin-top:8px"><button class="btn sm primary" type="button" data-spin="${s.k}" disabled>돌려 보기</button><button class="btn sm" type="button" data-reset="${s.k}">다시</button></div>
+  <div class="judge3" hidden><div class="note"><b>③ 판단</b> 나타난 곡선이 내 예측과 같은가?</div>
+    <div class="choice"><label><input type="radio" name="same-${s.k}" value="yes">같음</label><label><input type="radio" name="same-${s.k}" value="no">다름</label></div>
+    <input class="field" data-why="${s.k}" placeholder="극대는 몇 번? 모양은?" style="margin-top:6px"></div></div>`).join('');
 function drawThumb(c,prof){const dpr=devicePixelRatio||1,W=c.offsetWidth||90,H=46;c.width=W*dpr;c.height=H*dpr;const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W,H);g.strokeStyle='#141414';g.lineWidth=1.6;g.beginPath();
   const pr=PROFILES.find(p=>p.k===prof);let lo=9,hi=-9;const ys=[];for(let i=0;i<=60;i++){const v=pr.f(i/60);ys.push(v);lo=Math.min(lo,v);hi=Math.max(hi,v)}
   ys.forEach((v,i)=>{const x=4+i/60*(W-8),y=H-6-(v-lo)/(hi-lo)*(H-12);i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke()}
 const curves={};const N=72,ph=[...Array(N+1)].map((_,i)=>i/N);
 function curveOf(s){if(curves[s.k])return curves[s.k];const f=ph.map(p=>shapeFlux(Object.assign({phase:p,theta:88},s.opt)));const mx=Math.max(...f);return curves[s.k]=f.map(v=>-2.5*Math.log10(Math.max(v,1)/mx))}
 const mkPlot=c=>new Plot(c,{xlabel:'회전 (바퀴)',ylabel:'밝기',pad:{l:40,r:10,t:8,b:32},xstep:.25,yfmt:y=>(+y.toFixed(1)).toString()});
-function drawModel(P,s){const c=curveOf(s);P.setRange(0,1,Math.max(...c)+.1,-.1);P.layers=[(g,pl)=>pl.line(ph,c,'#141414',2)];P.draw()}
-function reveal(k,quiet){const s=SHAPES.find(x=>x.k===k),card=box.querySelector(`[data-k="${k}"]`);const sel=card.querySelector('input:checked');
-  if(!sel){if(!quiet)toast('먼저 예측한 곡선을 고르세요');return}
-  const rv=card.querySelector('.reveal3');rv.hidden=false;if(!rv._plot)rv._plot=mkPlot(rv.querySelector('canvas'));
-  rv._plot.resize();drawModel(rv._plot,s);const ok=sel.value===ANSWER[k];
-  rv.querySelector('.res').textContent=(ok?'예측과 같음 · ':'예측과 다름 · ')+PROFILES.find(p=>p.k===ANSWER[k]).label;
-  save({['pred_'+k]:sel.value,['ok_'+k]:ok,['seen_'+k]:true})}
-box.querySelectorAll('[data-check]').forEach(b=>b.onclick=()=>reveal(b.dataset.check));
-box.querySelectorAll('.opts input').forEach(inp=>{const k=inp.name.slice(5);if(st['pred_'+k]===inp.value)inp.checked=true;inp.onchange=()=>save({['pred_'+k]:inp.value})});
+function drawModel(P,s,upto){const c=curveOf(s);P.setRange(0,1,Math.max(...c)+.1,-.1);const n=upto==null?N:upto;
+  P.layers=[(g,pl)=>{pl.points(ph.slice(0,n+1),c.slice(0,n+1),'#141414',2.6);if(upto!=null&&upto<N)pl.vline(ph[n],'#b8322a',null,1)}];P.draw()}
+const state={};
+function card(k){return box.querySelector(`[data-k="${k}"]`)}
+function frame(k,i){const s=SHAPES.find(x=>x.k===k),c=card(k),st0=state[k];
+  renderBody(c.querySelector('canvas.model'),Object.assign({phase:ph[i],theta:88,label:'지구 쪽에서 본 모습'},s.opt));
+  const v=curveOf(s)[i];c.querySelector('.lum strong').textContent=Math.round(100*Math.pow(10,-v/2.5));drawModel(st0.plot,s,i)}
+function spin(k){const c=card(k);if(!c.querySelector('.opts input:checked')){toast('먼저 예측한 곡선을 고르세요');return}
+  const st0=state[k];if(st0.timer)return;st0.i=0;
+  st0.timer=setInterval(()=>{frame(k,st0.i);st0.i++;if(st0.i>N){clearInterval(st0.timer);st0.timer=null;c.querySelector('.judge3').hidden=false;save({['seen_'+k]:true})}},55)}
+function resetCard(k){const st0=state[k];if(st0.timer){clearInterval(st0.timer);st0.timer=null}const c=card(k);renderBody(c.querySelector('canvas.model'),Object.assign({phase:0,theta:88,label:'지구 쪽에서 본 모습'},SHAPES.find(x=>x.k===k).opt));
+  c.querySelector('.lum strong').textContent='—';st0.plot.resize();const s=SHAPES.find(x=>x.k===k);const cv=curveOf(s);st0.plot.setRange(0,1,Math.max(...cv)+.1,-.1);st0.plot.layers=[];st0.plot.draw()}
+function initCards(){SHAPES.forEach(s=>{const c=card(s.k);if(!state[s.k])state[s.k]={plot:mkPlot(c.querySelector('canvas.trace'))};state[s.k].plot.resize();
+  const sel=c.querySelector('.opts input:checked');c.querySelector('[data-spin]').disabled=!sel;
+  if(st['seen_'+s.k]){drawModel(state[s.k].plot,s);renderBody(c.querySelector('canvas.model'),Object.assign({phase:0,theta:88,label:'지구 쪽에서 본 모습'},s.opt));c.querySelector('.judge3').hidden=false}else resetCard(s.k)})}
+box.querySelectorAll('[data-spin]').forEach(b=>b.onclick=()=>spin(b.dataset.spin));
+box.querySelectorAll('[data-reset]').forEach(b=>b.onclick=()=>resetCard(b.dataset.reset));
+box.querySelectorAll('.opts input').forEach(inp=>{const k=inp.name.slice(5);if(st['pred_'+k]===inp.value)inp.checked=true;inp.onchange=()=>{save({['pred_'+k]:inp.value});card(k).querySelector('[data-spin]').disabled=false}});
+box.querySelectorAll('.judge3 input[type=radio]').forEach(inp=>{const k=inp.name.slice(5);if(st['same_'+k]===inp.value)inp.checked=true;inp.onchange=()=>save({['same_'+k]:inp.value})});
+box.querySelectorAll('[data-why]').forEach(inp=>{const k=inp.dataset.why;if(st['why_'+k])inp.value=st['why_'+k];inp.oninput=()=>save({['why_'+k]:inp.value})});
 
 /* step 2: one night with two cursors */
 const yr=[Math.max(...M)+.08,Math.min(...M)-.08];
@@ -96,7 +111,7 @@ function updateGuess(){const s=Store.get().l1||{};const g=document.getElementByI
 document.getElementById('print1').onclick=()=>{const secs=[...document.querySelectorAll('section.step')];const was=secs.map(s=>s.hidden);secs.forEach(s=>s.hidden=false);window.print();secs.forEach((s,k)=>s.hidden=was[k])};
 
 Stepper(document.getElementById('lesson'),i=>{
-  if(i===1)requestAnimationFrame(()=>{box.querySelectorAll('[data-prof]').forEach(c=>drawThumb(c,c.dataset.prof));SHAPES.forEach(s=>{if(st['seen_'+s.k])reveal(s.k,true)})});
+  if(i===1)requestAnimationFrame(()=>{box.querySelectorAll('[data-prof]').forEach(c=>drawThumb(c,c.dataset.prof));initCards()});
   if(i===2){night.resize();drawNight()}
   if(i===3){drawCmp();updateGuess();const f=(Store.get().l1||{}).first;document.getElementById('firstShow').textContent=f||'(0단계에서 쓴 생각이 없음)'}
 });
