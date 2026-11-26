@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2차시 탐구 시뮬레이터 · 자전주기와 모양 추론</title>
-<link rel="stylesheet" href="eros.css?v=20">
-<script defer src="data/eros-data.js?v=20"></script>
-<script defer src="eros.js?v=20"></script>
-<script defer src="sim2.js?v=20"></script>
+<link rel="stylesheet" href="eros.css?v=21">
+<script defer src="data/eros-data.js?v=21"></script>
+<script defer src="eros.js?v=21"></script>
+<script defer src="sim2.js?v=21"></script>
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -19,7 +19,7 @@
   <div class="head">
     <div class="kicker">2차시 탐구 시뮬레이터</div>
     <h1>소행성의 자전주기와 모양 추론</h1>
-    <div class="inq"><span>탐구 질문</span>빛의 변화만으로 추론한 에로스의 자전주기와 모양은 실제와 얼마나 맞을까?</div>
+    <div class="inq"><span>탐구 질문</span>에로스는 몇 시간마다 한 바퀴 돌고, 어떤 모양일까?</div>
     <div class="inq goalline"><span>학습목표 1</span>여러 밤의 관측 자료를 위상으로 접어 소행성의 자전주기를 구할 수 있다.</div>
     <div class="inq goalline"><span>학습목표 2</span>AI가 낸 분석 결과를 자료와 물리적 근거로 검증할 수 있다.</div>
     <div class="inq goalline"><span>학습목표 3</span>모형을 관측에 맞추어 소행성의 모양을 추론하고 탐사선 결과와 비교할 수 있다.</div>
@@ -141,7 +141,7 @@ print(f'자전주기: {1/f[p.argmax()]:.3f} 시간')</pre>
         <h3>나의 결과</h3>
         <table class="log"><tbody id="sum2"></tbody></table>
         <label class="note" for="diffWhy" style="display:block;margin-top:12px">같은 점과 다른 점, 다른 이유(모형의 가정)</label><textarea id="diffWhy" rows="2"></textarea>
-        <label class="note" for="claim">탐구 질문에 대한 나의 답</label><textarea id="claim" rows="2" placeholder="빛의 변화만으로 추론한 자전주기와 모양은 …"></textarea>
+        <label class="note" for="claim">탐구 질문에 대한 나의 답</label><textarea id="claim" rows="2" placeholder="에로스는 약 …시간마다 한 바퀴 돌고, … 모양이다. 탐사선 값과 비교하면 …"></textarea>
         <label class="note" for="aiNote">AI 답에서 받아들인 것과 고친 것</label><textarea id="aiNote" rows="2"></textarea>
         <div class="row" style="margin-top:12px"><button class="btn primary" type="button" id="print2">기록 인쇄 · PDF</button><button class="btn" type="button" id="saveJson">기록 파일 저장</button></div>
       </div>
