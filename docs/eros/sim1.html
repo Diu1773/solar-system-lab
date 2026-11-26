@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>1차시 탐구 시뮬레이터 · 소행성의 밝기 변화</title>
-<link rel="stylesheet" href="eros.css?v=15">
-<script defer src="data/eros-data.js?v=15"></script>
-<script defer src="eros.js?v=15"></script>
-<script defer src="sim1.js?v=15"></script>
+<title>1차시 탐구 시뮬레이터 · 소행성의 밝기 변화와 모양</title>
+<link rel="stylesheet" href="eros.css?v=20">
+<script defer src="data/eros-data.js?v=20"></script>
+<script defer src="eros.js?v=20"></script>
+<script defer src="sim1.js?v=20"></script>
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -18,76 +18,68 @@
 <main class="wrap" id="lesson">
   <div class="head">
     <div class="kicker">1차시 탐구 시뮬레이터</div>
-    <h1>소행성의 밝기 변화와 자전</h1>
+    <h1>소행성의 밝기 변화와 모양</h1>
+    <div class="inq"><span>탐구 질문</span>망원경으로 점으로만 보이는 소행성, 그 모양을 어떻게 알 수 있을까?</div>
+    <div class="inq goalline"><span>학습목표 2</span>실제 관측 자료에서 소행성의 밝기 변화를 읽고, 그 원인에 대한 가설을 세울 수 있다.</div>
   </div>
 
   <div class="stepper" aria-label="1차시 단계">
     <button type="button"><span class="n">1</span><span class="t">하룻밤 기록 측정</span></button>
-    <button type="button"><span class="n">2</span><span class="t">세 가설 모형 돌려 보기</span></button>
-    <button type="button"><span class="n">3</span><span class="t">자전주기 예측</span></button>
+    <button type="button"><span class="n">2</span><span class="t">모양별 밝기 예측과 확인</span></button>
+    <button type="button"><span class="n">3</span><span class="t">가설과 자전주기</span></button>
   </div>
 
   <section class="step">
-    <div class="step-title"><h2>하룻밤 기록 측정</h2><small>1975년 1월 23일 · 146점 · DAMIT</small></div>
-    <p class="ask">극대의 횟수와 이웃한 극대 사이의 시간 측정</p>
+    <div class="step-title"><h2>하룻밤 기록 측정</h2><small>1975년 1월 23일 · 에로스 · 146점 · DAMIT</small></div>
+    <div class="gbar"><div><b>목표</b>실제 광도곡선에서 밝기 변화의 규칙 찾기</div><div><b>할 일</b>A·B 선을 이웃한 두 극대에 맞추고 시간 차 측정</div><div><b>남길 것</b>극대 횟수, 극대 사이 시간, 밝기 차, 변화 양상</div></div>
     <div class="grid wide">
       <div class="box">
-        <canvas id="night" class="plot" height="400" aria-label="1975년 1월 23일 에로스 광도곡선. A, B 선을 끌어 시간을 측정한다."></canvas>
-        <p class="note" id="readout" style="margin:8px 0 0">빨간 A·B 선을 끌어 극대에 맞추기 점에 마우스를 올리면 시각과 밝기가 보입니다.</p>
+        <canvas id="night" class="plot" height="400" aria-label="1975년 1월 23일 에로스 광도곡선"></canvas>
+        <p class="note" id="readout" style="margin:8px 0 0">빨간 A·B 선을 끌어 극대에 맞추기. 점에 마우스를 올리면 시각과 밝기 표시.</p>
       </div>
       <div class="box">
         <h3>B − A</h3>
-        <div class="meter" style="border:0;padding-top:0;margin-top:0"><span>시간 차</span><strong id="dt">—</strong></div>
+        <div class="meter" style="border:0;padding-top:0;margin-top:0"><span>극대 사이 시간</span><strong id="dt">—</strong></div>
         <div class="row"><button class="btn sm" type="button" data-nudge="A,-1">A ←</button><button class="btn sm" type="button" data-nudge="A,1">A →</button><button class="btn sm" type="button" data-nudge="B,-1">B ←</button><button class="btn sm" type="button" data-nudge="B,1">B →</button></div>
         <p class="note">버튼 한 번에 1분</p>
         <div class="ctl"><label for="peaks">극대 횟수</label><input class="num" id="peaks" type="number" min="0" max="9" step="1"></div>
         <div class="ctl"><label for="amp">가장 밝을 때와 어두울 때의 차 (등급)</label><input class="num" id="amp" type="number" min="0" max="3" step="0.05"></div>
-        <div class="ctl"><label>밝기 변화 양상</label></div>
-        <div class="choice" id="shape"><label><input type="radio" name="shape" value="smooth">부드럽게 오르내림</label><label><input type="radio" name="shape" value="sharp">평평하다가 갑자기 떨어짐</label></div>
-        <button class="btn primary" type="button" id="saveRead" style="margin-top:14px;width:100%">극대 사이 시간 기록</button>
+        <div class="ctl"><label>두 극대와 두 극소의 모양</label></div>
+        <div class="choice" id="shape"><label><input type="radio" name="shape" value="same">서로 비슷함</label><label><input type="radio" name="shape" value="diff">서로 뚜렷이 다름</label></div>
+        <button class="btn primary" type="button" id="saveRead" style="margin-top:14px;width:100%">측정값 기록</button>
         <p class="note" id="savedRead"></p>
       </div>
     </div>
   </section>
 
   <section class="step" hidden>
-    <div class="step-title"><h2>세 가설 모형 돌려 보기</h2><small>지구에서 본 모습과 밝기</small></div>
-    <p class="ask">세 모형의 한 바퀴 동안 극대 횟수와 밝기 변화 양상 비교</p>
-    <div class="row" style="margin-top:22px;gap:16px;align-items:center">
+    <div class="step-title"><h2>모양별 밝기 예측과 확인</h2><small>무늬가 있는 둥근 소행성 · 길쭉한 소행성 · 땅콩 모양 소행성</small></div>
+    <div class="gbar"><div><b>목표</b>모양에 따라 밝기 곡선이 어떻게 달라지는지 알기</div><div><b>할 일</b>모양마다 밝기 곡선을 먼저 고른 뒤 모형을 돌려 확인</div><div><b>남길 것</b>예측한 곡선과 실제 모형 곡선, 맞았는지</div></div>
+    <div class="row" style="margin-top:18px;gap:16px;align-items:center">
       <div class="ctl" style="flex:1;min-width:260px;margin:0"><label for="spin">회전 <output id="spinv">0°</output></label><input id="spin" type="range" min="0" max="360" step="1" value="0"></div>
       <button class="btn" type="button" id="play">천천히 돌리기</button>
     </div>
-    <div class="hyp3">
-      <div><canvas id="bA" height="230"></canvas><h3>① 무늬가 있는 공</h3><div class="lum"><span>밝기</span><strong id="lA">—</strong></div>
-        <div class="ctl"><label>한 바퀴 동안 극대 횟수</label><input class="num" data-k="nA" type="number" min="0" max="6"></div>
-        <div class="choice" data-k="sA"><label><input type="radio" name="sA" value="smooth">부드럽게</label><label><input type="radio" name="sA" value="sharp">갑자기</label></div></div>
-      <div><canvas id="bB" height="230"></canvas><h3>② 길쭉한 돌</h3><div class="lum"><span>밝기</span><strong id="lB">—</strong></div>
-        <div class="ctl"><label>한 바퀴 동안 극대 횟수</label><input class="num" data-k="nB" type="number" min="0" max="6"></div>
-        <div class="choice" data-k="sB"><label><input type="radio" name="sB" value="smooth">부드럽게</label><label><input type="radio" name="sB" value="sharp">갑자기</label></div></div>
-      <div><canvas id="bC" height="230"></canvas><h3>③ 쌍소행성</h3><div class="lum"><span>밝기</span><strong id="lC">—</strong></div>
-        <div class="ctl"><label>한 바퀴 동안 극대 횟수</label><input class="num" data-k="nC" type="number" min="0" max="6"></div>
-        <div class="choice" data-k="sC"><label><input type="radio" name="sC" value="smooth">부드럽게</label><label><input type="radio" name="sC" value="sharp">갑자기</label></div></div>
-    </div>
-    <p class="note">밝기는 그 모형이 가장 밝을 때를 100으로 둔 값. 모형 그림은 설명용.</p>
-    <div class="box" style="margin-top:20px">
-      <h3>1단계 관측과 맞는 가설</h3>
-      <div class="choice" id="hyp"><label><input type="radio" name="hyp" value="1">① 무늬가 있는 공</label><label><input type="radio" name="hyp" value="2">② 길쭉한 돌</label><label><input type="radio" name="hyp" value="3">③ 쌍소행성</label></div>
-      <textarea id="hypWhy" rows="2" style="margin-top:10px" placeholder="근거: 극대 횟수, 밝기 변화 양상"></textarea>
-    </div>
+    <div class="hyp3" id="hyp3"></div>
+    <p class="note">모형은 설명용. 지구 쪽에서 햇빛이 비치고, 보이는 면이 넓고 밝을수록 밝게 계산.</p>
   </section>
 
   <section class="step" hidden>
-    <div class="step-title"><h2>자전주기 예측</h2><small>다음 시간에 다섯 밤 자료로 확인</small></div>
+    <div class="step-title"><h2>가설과 자전주기</h2><small>탐구 질문에 답하기</small></div>
+    <div class="gbar"><div><b>목표</b>관측과 모형을 맞대어 에로스의 모양 가설 세우기</div><div><b>할 일</b>1단계 측정값과 2단계 모형 곡선 비교</div><div><b>남길 것</b>모양 가설, 근거, 자전주기 예측</div></div>
     <div class="grid" style="grid-template-columns:1fr 1fr">
       <div class="box">
-        <h3>나의 기록</h3>
-        <table class="log"><tbody id="sum1"></tbody></table>
-        <div class="meter"><span>극대 사이 시간 × 한 바퀴 동안 극대 횟수</span><strong id="guess">—</strong></div>
+        <h3>에로스와 가장 닮은 모양</h3>
+        <div class="choice" id="hyp"><label><input type="radio" name="hyp" value="spot">무늬가 있는 둥근 소행성</label><label><input type="radio" name="hyp" value="long">길쭉한 소행성</label><label><input type="radio" name="hyp" value="peanut">땅콩 모양 소행성</label></div>
+        <textarea id="hypWhy" rows="3" style="margin-top:10px" placeholder="근거: 극대 횟수, 극대·극소 모양, 밝기 차"></textarea>
+        <div class="meter"><span>예측 자전주기 = 극대 사이 시간 × 한 바퀴의 극대 횟수</span><strong id="guess">—</strong></div>
+        <table class="log" style="margin-top:8px"><tbody id="sum1"></tbody></table>
       </div>
       <div class="box">
-        <h3>생각 정리</h3>
-        <label class="note" for="exit0">소행성이란 어떤 천체인지 한 문장으로</label><textarea id="exit0" rows="2"></textarea>
-        <label class="note" for="exit1">하룻밤 기록만으로 자전주기를 정할 때 불확실한 점</label><textarea id="exit1" rows="2"></textarea>
+        <h3>탐구 질문에 대한 나의 답</h3>
+        <textarea id="answer" rows="3" placeholder="점으로만 보이는 소행성의 모양은 … 로 알 수 있다"></textarea>
+        <h3 style="margin-top:18px">학습목표 확인</h3>
+        <label class="note" for="exit0">① 소행성이란 어떤 천체인지 한 문장으로</label><textarea id="exit0" rows="2"></textarea>
+        <label class="note" for="exit1">② 하룻밤 기록만으로 자전주기를 정할 때 불확실한 점</label><textarea id="exit1" rows="2"></textarea>
         <div class="row" style="margin-top:12px"><button class="btn primary" type="button" id="print1">기록 인쇄 · PDF</button></div>
       </div>
     </div>

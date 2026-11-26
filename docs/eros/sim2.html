@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2차시 탐구 시뮬레이터 · 자전주기와 모양 추론</title>
-<link rel="stylesheet" href="eros.css?v=15">
-<script defer src="data/eros-data.js?v=15"></script>
-<script defer src="eros.js?v=15"></script>
-<script defer src="sim2.js?v=15"></script>
+<link rel="stylesheet" href="eros.css?v=20">
+<script defer src="data/eros-data.js?v=20"></script>
+<script defer src="eros.js?v=20"></script>
+<script defer src="sim2.js?v=20"></script>
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -19,18 +19,23 @@
   <div class="head">
     <div class="kicker">2차시 탐구 시뮬레이터</div>
     <h1>소행성의 자전주기와 모양 추론</h1>
+    <div class="inq"><span>탐구 질문</span>빛의 변화만으로 추론한 에로스의 자전주기와 모양은 실제와 얼마나 맞을까?</div>
+    <div class="inq goalline"><span>학습목표 1</span>여러 밤의 관측 자료를 위상으로 접어 소행성의 자전주기를 구할 수 있다.</div>
+    <div class="inq goalline"><span>학습목표 2</span>AI가 낸 분석 결과를 자료와 물리적 근거로 검증할 수 있다.</div>
+    <div class="inq goalline"><span>학습목표 3</span>모형을 관측에 맞추어 소행성의 모양을 추론하고 탐사선 결과와 비교할 수 있다.</div>
   </div>
 
   <div class="stepper" aria-label="2차시 단계">
     <button type="button"><span class="n">1</span><span class="t">주기 맞추기</span></button>
-    <button type="button"><span class="n">2</span><span class="t">AI 답 비교</span></button>
+    <button type="button"><span class="n">2</span><span class="t">AI 답 검증</span></button>
     <button type="button"><span class="n">3</span><span class="t">모형 맞추기</span></button>
-    <button type="button"><span class="n">4</span><span class="t">결과 기록</span></button>
+    <button type="button"><span class="n">4</span><span class="t">탐사선과 비교·정리</span></button>
   </div>
 
   <!-- 1 -->
   <section class="step">
-    <div class="step-title"><h2>주기 맞추기</h2><small>1975년 1월 다섯 밤 · 589점</small></div>
+    <div class="step-title"><h2>주기 맞추기</h2><small>학습목표 1 · 1975년 1월 다섯 밤 · 589점</small></div>
+    <div class="gbar"><div><b>목표</b>다섯 밤의 점이 한 곡선으로 모이는 주기 찾기</div><div><b>할 일</b>‘시간 순서’로 자료를 본 뒤 ‘접어 보기’에서 주기를 바꾸며 흩어짐 줄이기</div><div><b>남길 것</b>시도한 주기 3개 이상과 흩어짐, 최종 주기</div></div>
     <div class="grid wide">
       <div class="box">
         <div class="row" style="justify-content:space-between;margin-bottom:8px">
@@ -55,32 +60,47 @@
 
   <!-- 2 -->
   <section class="step" hidden>
-    <div class="step-title"><h2>AI 답 비교</h2></div>
+    <div class="step-title"><h2>AI 답 검증</h2><small>학습목표 2 · AI가 낸 분석 결과를 자료와 물리로 확인</small></div>
+    <div class="gbar"><div><b>목표</b>AI의 분석 결과를 그대로 받지 않고 검증하기</div><div><b>할 일</b>AI 답변 사례를 읽고 ①~④ 순서로 확인</div><div><b>남길 것</b>AI 답의 맞는 점·틀린 점, 고쳐 쓴 결론</div></div>
     <div class="grid" style="grid-template-columns:1fr 1fr">
       <div class="box">
-        <h3>AI에게 묻기</h3>
-        <p class="note"><a href="data/eros-1975-five-nights.csv" download>다섯 밤 CSV</a>와 아래 요청문을 학교에서 허용한 AI에 넣으세요.</p>
-        <textarea id="prompt" rows="5" readonly></textarea>
-        <div class="row" style="margin-top:8px"><button class="btn sm" type="button" id="copyPrompt">요청문 복사</button></div>
-        <div class="row" style="margin-top:16px"><input class="num" id="aiP" type="number" step="0.001" placeholder="AI 주기"><span class="note">시간</span><button class="btn sm" type="button" id="foldAi">AI 값으로 접기</button></div>
-        <p class="note" style="margin-top:12px">AI를 쓸 수 없으면: 흔한 주기 분석(사인 곡선 하나 맞추기)의 답 <button class="btn sm" type="button" id="useLs">2.633시간 불러오기</button></p>
+        <h3>AI 답변 사례</h3>
+        <p class="note"><b>요청</b> “첨부한 CSV는 소행성 에로스를 1975년 1월 다섯 밤 동안 측광한 자료입니다. 자전주기를 구해 주세요.”</p>
+        <p class="note" style="margin-top:8px"><b>AI가 작성한 분석 코드</b></p>
+<pre class="code">import pandas as pd
+from astropy.timeseries import LombScargle
+d = pd.read_csv('eros-1975-five-nights.csv')
+t = (d.JD_light_time_corrected - d.JD_light_time_corrected.min()) * 24
+m = d.relative_mag - d.groupby('night').relative_mag.transform('mean')
+f, p = LombScargle(t, m).autopower(minimum_frequency=1/8, maximum_frequency=1/2)
+print(f'자전주기: {1/f[p.argmax()]:.3f} 시간')</pre>
+        <p class="note"><b>실행 결과</b> <code>자전주기: 2.632 시간</code></p>
+        <p class="note"><b>AI의 결론</b> “에로스의 자전주기는 약 2.63시간입니다.”</p>
+        <details><summary>교실에서 직접 AI에 물어보기</summary>
+          <p class="note"><a href="data/eros-1975-five-nights.csv" download>다섯 밤 CSV</a>와 요청문을 학교에서 허용한 AI에 넣고 답을 비교합니다.</p>
+          <textarea id="prompt" rows="4" readonly></textarea>
+          <div class="row" style="margin-top:8px"><button class="btn sm" type="button" id="copyPrompt">요청문 복사</button><input class="num" id="aiP" type="number" step="0.001" placeholder="AI 주기"><button class="btn sm" type="button" id="foldAi">이 값으로 접기</button></div>
+        </details>
       </div>
       <div class="box">
-        <h3>두 주기로 접은 모습</h3>
-        <canvas id="cmpA" class="plot" height="180"></canvas><p class="note" id="cmpALabel" style="margin:4px 0 10px"></p>
-        <canvas id="cmpB" class="plot" height="180"></canvas><p class="note" id="cmpBLabel" style="margin:4px 0 0"></p>
+        <h3>① AI 값으로 접기 · ② 내 값으로 접기</h3>
+        <div class="row"><button class="btn sm" type="button" id="useLs">① 2.632시간으로 접기</button></div>
+        <canvas id="cmpA" class="plot" height="170"></canvas><p class="note" id="cmpALabel" style="margin:4px 0 10px"></p>
+        <canvas id="cmpB" class="plot" height="170"></canvas><p class="note" id="cmpBLabel" style="margin:4px 0 0"></p>
       </div>
     </div>
     <div class="box" style="margin-top:20px">
-      <h3>판정</h3>
+      <h3>③ 판정 · ④ 고쳐 쓰기</h3>
+      <p class="note">두 흩어짐이 거의 같다면 자료만으로는 정할 수 없음 → 1차시의 모양별 밝기 곡선(길쭉한 모양은 한 바퀴에 극대 2번)을 근거로 판정</p>
       <div class="choice" id="judge"><label><input type="radio" name="judge" value="ai">AI 값이 자전주기</label><label><input type="radio" name="judge" value="double">AI 값의 두 배가 자전주기</label><label><input type="radio" name="judge" value="other">다른 값</label></div>
-      <textarea id="judgeWhy" rows="2" style="margin-top:10px" placeholder="근거: 흩어짐 비교 + 길쭉한 돌은 한 바퀴에 몇 번 밝아지나"></textarea>
+      <textarea id="judgeWhy" rows="3" style="margin-top:10px" placeholder="AI 답 고쳐 쓰기: AI가 놓친 것은 … 따라서 에로스의 자전주기는 …"></textarea>
     </div>
   </section>
 
   <!-- 3 -->
   <section class="step" hidden>
-    <div class="step-title"><h2>모형 맞추기</h2><small>길쭉한 정도와 위상을 조절해 관측 곡선에 맞추기</small></div>
+    <div class="step-title"><h2>모형 맞추기</h2><small>학습목표 3 · 길쭉한 소행성 모형을 관측 곡선에 맞추기</small></div>
+    <div class="gbar"><div><b>목표</b>밝기 곡선으로 에로스의 길쭉한 정도 추론하기</div><div><b>할 일</b>a/b와 위상을 조절해 모형과 관측의 차 줄이기</div><div><b>남길 것</b>가장 잘 맞는 a/b와 그때의 차</div></div>
     <div class="grid wide">
       <div class="box">
         <div class="row" style="align-items:stretch;gap:14px">
@@ -105,17 +125,23 @@
 
   <!-- 4 -->
   <section class="step" hidden>
-    <div class="step-title"><h2>결과 기록</h2></div>
+    <div class="step-title"><h2>탐사선과 비교·정리</h2><small>학습목표 3 · 빛으로 추론한 값과 탐사선이 직접 본 값</small></div>
+    <div class="gbar"><div><b>목표</b>지상 관측으로 추론한 결과를 탐사선 자료와 비교하기</div><div><b>할 일</b>NEAR 슈메이커의 관측과 측정값을 보고 내 결과와 비교</div><div><b>남길 것</b>같은 점·다른 점, 탐구 질문에 대한 답</div></div>
     <div class="grid" style="grid-template-columns:1fr 1fr">
       <div class="box">
-        <h3>나의 결과와 탐사선 측정</h3>
-        <table class="log"><tbody id="sum2"></tbody></table>
-        <div class="compare" id="cmp" style="margin-top:16px"></div>
+        <h3>NEAR 슈메이커가 본 에로스</h3>
+        <div class="row" style="gap:12px;align-items:flex-start">
+          <figure style="margin:0;flex:1"><img src="media/near-orbit.gif" alt="NEAR 슈메이커가 에로스 주위를 돈 궤도 애니메이션" style="width:100%;background:#000"><figcaption class="note">2000.4–2001.2 에로스 주위를 돈 궤도(실제 궤도 자료로 그린 애니메이션) · Phoenix7777, CC BY-SA 4.0</figcaption></figure>
+          <figure style="margin:0;flex:1"><img src="media/eros-near.jpg" alt="NEAR 슈메이커가 촬영한 에로스" style="width:100%;background:#000"><figcaption class="note">탐사선 카메라로 찍은 에로스 · NASA/JPL/JHUAPL</figcaption></figure>
+        </div>
+        <p class="note">2000년 2월 14일 궤도 진입, 약 1년 동안 표면을 촬영하며 크기 34.4 × 11.2 × 11.2 km, 자전주기 5.270시간을 측정</p>
+        <div class="compare" id="cmp" style="margin-top:12px"></div>
       </div>
       <div class="box">
-        <label class="note" for="claim">에로스의 자전주기와 모양</label><textarea id="claim" rows="2"></textarea>
-        <label class="note" for="evid">근거가 된 자료와 측정</label><textarea id="evid" rows="2"></textarea>
-        <label class="note" for="diffWhy">모형의 a/b가 탐사선 값과 다른 이유</label><textarea id="diffWhy" rows="2"></textarea>
+        <h3>나의 결과</h3>
+        <table class="log"><tbody id="sum2"></tbody></table>
+        <label class="note" for="diffWhy" style="display:block;margin-top:12px">같은 점과 다른 점, 다른 이유(모형의 가정)</label><textarea id="diffWhy" rows="2"></textarea>
+        <label class="note" for="claim">탐구 질문에 대한 나의 답</label><textarea id="claim" rows="2" placeholder="빛의 변화만으로 추론한 자전주기와 모양은 …"></textarea>
         <label class="note" for="aiNote">AI 답에서 받아들인 것과 고친 것</label><textarea id="aiNote" rows="2"></textarea>
         <div class="row" style="margin-top:12px"><button class="btn primary" type="button" id="print2">기록 인쇄 · PDF</button><button class="btn" type="button" id="saveJson">기록 파일 저장</button></div>
       </div>

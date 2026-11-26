@@ -62,3 +62,7 @@ body.all .ctl{display:none}
 .em{color:var(--orange);font-weight:800}
 .goal{display:flex;gap:30px;align-items:flex-start;font-size:42px;line-height:1.5;font-weight:600;letter-spacing:-.03em;margin:0 0 44px;color:#1c1c1c}
 .goal span{flex:none;width:64px;height:64px;border-radius:50%;background:var(--teal);color:#fff;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
+
+.goaltag{margin-left:auto;font-size:24px;font-weight:700;color:var(--teal);border:3px solid var(--teal);border-radius:30px;padding:4px 20px}
+.goal .flow{display:block;font-style:normal;font-size:28px;font-weight:500;color:var(--muted);margin-top:6px}
+.goal .gt{font-style:normal}

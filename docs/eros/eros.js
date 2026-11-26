@@ -114,29 +114,32 @@ function renderBody(canvas,opt){
   g.fillStyle='#05070a';g.fillRect(0,0,W,H);
   const th=o.theta*Math.PI/180,ob=[Math.sin(th),0,Math.cos(th)],right=[0,1,0],up=[-Math.cos(th),0,Math.sin(th)];
   const psi=2*Math.PI*o.phase,cp=Math.cos(psi),sp=Math.sin(psi);
-  const sph=o.mode==='sphere',ax=sph?[1,1,1]:[o.ab,1,1/o.bc];
-  const M=sph?MESH_SMOOTH:MESH_ROCK;
-  const ext=sph?1:Math.max(o.ab,1/o.bc,1);const size=Math.min(W/2/(ext*1.12),H/2/(sph?1.25:Math.max(1.6,ext*.75)))*o.scale;
-  const P=M.V.map(v=>{const x=v[0]*ax[0],y=v[1]*ax[1],z=v[2]*ax[2];const X=x*cp-y*sp,Y=x*sp+y*cp;return [X,Y,z,v[3]]});
+  const sph=o.mode==='sphere',pea=o.mode==='peanut',ax=(sph||pea)?[1,1,1]:[o.ab,1,1/o.bc];
+  const parts=pea?[{r:1,c:-.62,M:MESH_ROCK},{r:.78,c:.98,M:MESH_ROCK}]:[{r:1,c:0,M:sph?MESH_SMOOTH:MESH_ROCK}];
+  const ext=sph?1:pea?1.8:Math.max(o.ab,1/o.bc,1);const size=Math.min(W/2/(ext*1.12),H/2/(sph?1.25:Math.max(1.6,ext*.75)))*o.scale;
   const L=[ob[0]*.97+.15,ob[1]+.18,ob[2]*.97];const ln=Math.hypot(...L);L[0]/=ln;L[1]/=ln;L[2]/=ln;
   const tris=[];
-  for(const f of M.F){const A=P[f[0]],B=P[f[1]],C=P[f[2]];
-    const u=[B[0]-A[0],B[1]-A[1],B[2]-A[2]],v=[C[0]-A[0],C[1]-A[1],C[2]-A[2]];
-    let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(q=>q/nl);
-    const mx=(A[0]+B[0]+C[0])/3,my=(A[1]+B[1]+C[1])/3,mz=(A[2]+B[2]+C[2])/3;
-    if(n[0]*mx+n[1]*my+n[2]*mz<0)n=n.map(q=>-q);
-    const facing=n[0]*ob[0]+n[1]*ob[1]+n[2]*ob[2];if(facing<=0)continue;
-    const lam=Math.max(0,n[0]*L[0]+n[1]*L[1]+n[2]*L[2]);
-    let alb=1;if(sph){const lon=frac((A[3]+B[3]+C[3])/3/(2*Math.PI));alb=(lon>.5)?o.dark:1}
-    const depth=mx*ob[0]+my*ob[1]+mz*ob[2];
-    tris.push([depth,[A,B,C],.12+.88*lam,alb]);
+  for(const part of parts){
+    const C0=[part.c*cp,part.c*sp,0];
+    const P=part.M.V.map(v=>{const x=v[0]*ax[0]*part.r+part.c,y=v[1]*ax[1]*part.r,z=v[2]*ax[2]*part.r;return [x*cp-y*sp,x*sp+y*cp,z,v[3]]});
+    for(const f of part.M.F){const A=P[f[0]],B=P[f[1]],C=P[f[2]];
+      const u=[B[0]-A[0],B[1]-A[1],B[2]-A[2]],v=[C[0]-A[0],C[1]-A[1],C[2]-A[2]];
+      let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const nl=Math.hypot(...n)||1;n=n.map(q=>q/nl);
+      const mx=(A[0]+B[0]+C[0])/3,my=(A[1]+B[1]+C[1])/3,mz=(A[2]+B[2]+C[2])/3;
+      if(n[0]*(mx-C0[0])+n[1]*(my-C0[1])+n[2]*(mz-C0[2])<0)n=n.map(q=>-q);
+      const facing=n[0]*ob[0]+n[1]*ob[1]+n[2]*ob[2];if(facing<=0)continue;
+      const lam=Math.max(0,n[0]*L[0]+n[1]*L[1]+n[2]*L[2]);
+      let alb=1;if(sph){const lon=frac((A[3]+B[3]+C[3])/3/(2*Math.PI));alb=(lon>.5)?o.dark:1}
+      const depth=mx*ob[0]+my*ob[1]+mz*ob[2];
+      tris.push([depth,[A,B,C],.12+.88*lam,alb]);
+    }
   }
   tris.sort((a,b)=>a[0]-b[0]);
   const cx=W/2,cy=H/2;const pr=p=>[cx+(p[0]*right[0]+p[1]*right[1]+p[2]*right[2])*size,cy-(p[0]*up[0]+p[1]*up[1]+p[2]*up[2])*size];
   for(const t of tris){const s=t[2]*t[3];const base=sph?[205,200,190]:[178,170,158];
     g.fillStyle=`rgb(${base.map(c=>Math.round(c*s)).join(',')})`;g.beginPath();t[1].forEach((p,k)=>{const q=pr(p);k?g.lineTo(q[0],q[1]):g.moveTo(q[0],q[1])});g.closePath();g.fill();g.strokeStyle=g.fillStyle;g.lineWidth=.6;g.stroke()}
-  const a0=pr([0,0,-1.5*ax[2]]),a1=pr([0,0,1.5*ax[2]]);
-  g.strokeStyle='rgba(255,255,255,.5)';g.setLineDash([4,4]);g.lineWidth=1.2;g.beginPath();g.moveTo(a0[0],a0[1]);g.lineTo(a1[0],a1[1]);g.stroke();g.setLineDash([]);
+  if(!o.noAxis){const a0=pr([0,0,-1.5*ax[2]]),a1=pr([0,0,1.5*ax[2]]);
+  g.strokeStyle='rgba(255,255,255,.5)';g.setLineDash([4,4]);g.lineWidth=1.2;g.beginPath();g.moveTo(a0[0],a0[1]);g.lineTo(a1[0],a1[1]);g.stroke();g.setLineDash([])}
   g.fillStyle='#b9b6ae';g.font='12px Pretendard,sans-serif';g.textAlign='left';g.fillText(o.label||'',10,16);
 }
 /* Disk-integrated brightness (geometric scattering) of the rendered bodies, for the hypothesis demo. */
@@ -155,6 +158,11 @@ function bodyFlux(opt){
 }
 
 
+
+/* Brightness of any rendered body: sum of pixel light in a small off-screen render. */
+const _off=document.createElement('canvas');_off.setAttribute('height','100');
+function shapeFlux(opt){renderBody(_off,Object.assign({noAxis:true,label:''},opt));const d=_off.getContext('2d').getImageData(0,0,_off.width,_off.height).data;let s=0;for(let i=0;i<d.length;i+=4)s+=d[i]-5;return s}
+
 /* Two equal spheres orbiting each other, seen edge-on: drawing and visible area. */
 function binaryFlux(phase){const r=1,s=Math.abs(5.4*Math.cos(2*Math.PI*phase));let over=0;if(s<2*r)over=2*r*r*Math.acos(s/(2*r))-(s/2)*Math.sqrt(4*r*r-s*s);return 2*Math.PI*r*r-over}
 function renderBinary(canvas,phase,label){const dpr=window.devicePixelRatio||1,W=Math.max(120,canvas.offsetWidth||canvas.getBoundingClientRect().width);if(!canvas.dataset.h)canvas.dataset.h=canvas.getAttribute('height')||260;const H=+canvas.dataset.h;
@@ -166,6 +174,6 @@ function renderBinary(canvas,phase,label){const dpr=window.devicePixelRatio||1,W
 function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type||'text/plain'}));a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 function hm(h){const t=Math.round(Math.abs(h)*60);return (h<0?'-':'')+Math.floor(t/60)+'시간 '+String(t%60).padStart(2,'0')+'분'}
 
-window.Eros={Store,toast,Stepper,Plot,fourierFit,ellipsoidMag,renderBody,bodyFlux,binaryFlux,renderBinary,frac,download,hm,solve};
+window.Eros={Store,toast,Stepper,Plot,fourierFit,ellipsoidMag,renderBody,bodyFlux,binaryFlux,renderBinary,shapeFlux,frac,download,hm,solve};
 window.NIGHT_COLORS=['#1f4fa8','#c98a10','#2a8a5f','#b8322a','#5b5b5b'];
 })();

@@ -5,7 +5,7 @@ const deck=document.querySelector('.deck'),slides=[...deck.querySelectorAll('.sl
 const phases=['참여','탐색','설명','정교화','평가'],unit=deck.dataset.unit||'';
 const all=new URLSearchParams(location.search).has('all');
 if(all)document.body.classList.add('all');
-slides.forEach((s,i)=>{if(s.classList.contains('cover'))return;const f=document.createElement('div');f.className='foot';
+slides.forEach((s,i)=>{if(s.dataset.goal){const h=s.querySelector('header');if(h){const g=document.createElement('span');g.className='goaltag';g.textContent='학습목표 '+s.dataset.goal;h.appendChild(g)}}if(s.classList.contains('cover'))return;const f=document.createElement('div');f.className='foot';
   f.innerHTML=`<span class="u">${unit}</span>`+phases.map(p=>`<span class="p${p===s.dataset.phase?' on':''}">${p}</span>`).join('')+`<span class="n">${i+1}</span>`;s.appendChild(f)});
 document.querySelectorAll('.bk').forEach(b=>{b.dataset.c=b.textContent;b.addEventListener('click',e=>{e.stopPropagation();toggle(b)})});
 function toggle(b,open){const o=open===undefined?!b.classList.contains('open'):open;b.classList.toggle('open',o);b.textContent=o?b.dataset.a:b.dataset.c}

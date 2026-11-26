@@ -251,5 +251,49 @@
   "desc": "This image shows our neighbouring planet Mars, as it was observed shortly before opposition in 2016 by the NASA/ESA Hubble Space Telescope. Some prominent features of the planet are clearly visible: t",
   "w": 1280,
   "h": 1280
+ },
+ "kleopatra": {
+  "file": "kleopatra.jpg",
+  "title": "File:Kleopatra VLT-SPHERE - eso2113a.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kleopatra_VLT-SPHERE_-_eso2113a.jpg",
+  "license": "CC BY 4.0",
+  "artist": "ESO/Vernazza, Marchis et al./MISTRAL algorithm (ONERA/CNRS)",
+  "date": "2021-09-09 14:00:00",
+  "desc": "These eleven images are of the asteroid Kleopatra, viewed at different angles as it rotates. The images were taken at different times between 2017 and 2019 with the Spectro-Polarimetric High-contrast ",
+  "w": 2772,
+  "h": 941
+ },
+ "near-craft": {
+  "file": "near-craft.jpg",
+  "title": "File:Near Shoemaker.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Near_Shoemaker.jpg",
+  "license": "Public domain",
+  "artist": "",
+  "date": "",
+  "desc": "Artist's conception of the NEAR Shoenmaker spacecraft. Originally from the NSSDC website: http://nssdc.gsfc.nasa.gov/nmc/tmp/1996-008A.html",
+  "w": 512,
+  "h": 361
+ },
+ "mathilde-flyby": {
+  "file": "mathilde-flyby.gif",
+  "title": "File:253 Mathilde Flyby.gif",
+  "page": "https://commons.wikimedia.org/wiki/File:253_Mathilde_Flyby.gif",
+  "license": "Public domain",
+  "artist": "Cornell University/JHU/APL/NASA",
+  "date": "1997-06-27",
+  "desc": "This is a real video sequence of the NEAR spacecraft's encounter with Asteroid Mathilde.",
+  "w": 320,
+  "h": 240
+ },
+ "near-orbit": {
+  "file": "near-orbit.gif",
+  "title": "File:Animation of NEAR Shoemaker trajectory around 433 Eros.gif",
+  "page": "https://commons.wikimedia.org/wiki/File:Animation_of_NEAR_Shoemaker_trajectory_around_433_Eros.gif",
+  "license": "CC BY-SA 4.0",
+  "artist": "Phoenix7777",
+  "date": "2018-07-25",
+  "desc": "Animation of NEAR Shoemaker's trajectory around 433 Eros from 1 April 2000 to 12 February 2001.mw-parser-output .legend{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .legend-colo",
+  "w": 560,
+  "h": 420
  }
 }

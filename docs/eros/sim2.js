@@ -44,9 +44,10 @@ function drawCmp(){const a=+S.aiP||0;
   const r2=drawFolded(cmpB,P);document.getElementById('cmpBLabel').textContent=`내가 찾은 주기 ${P.toFixed(3)} h · 흩어짐 ${r2.toFixed(3)}`}
 const setAi=v=>{save({aiP:+v});aiP.value=(+v).toFixed(3);drawCmp()};
 document.getElementById('foldAi').onclick=()=>{if(!(+aiP.value>=1)){toast('AI가 답한 주기를 넣으세요');return}setAi(aiP.value)};
-document.getElementById('useLs').onclick=()=>setAi(2.633);
+document.getElementById('useLs').onclick=()=>setAi(2.632);
 const judge=document.getElementById('judge');if(S.judge)(judge.querySelector(`input[value="${S.judge}"]`)||{}).checked=true;
 judge.onchange=()=>save({judge:judge.querySelector('input:checked').value});
+const jw=document.getElementById('judgeWhy');if(S.judgeWhy)jw.value=S.judgeWhy;jw.oninput=()=>save({judgeWhy:jw.value});
 
 /* 3: model */
 const mfit=new Plot(document.getElementById('mfit'),{xlabel:'위상',ylabel:'밝기 · 위가 밝음',pad:{l:50,r:12,t:12,b:38},xstep:.25,yfmt:yf});
@@ -72,7 +73,7 @@ document.getElementById('autoFit').onclick=()=>{const ph=phases(modelPeriod()),t
   ctl.ab.value=b.ab.toFixed(2);ctl.ph0.value=b.p0.toFixed(3);drawModel();toast(`θ ${th}°: a/b ${b.ab.toFixed(2)}`)};
 
 /* 4: record */
-['claim','evid','diffWhy','aiNote'].forEach(f=>{const el=document.getElementById(f);if(S[f])el.value=S[f];el.oninput=()=>save({[f]:el.value})});
+['claim','diffWhy','aiNote'].forEach(f=>{const el=document.getElementById(f);if(S[f])el.value=S[f];el.oninput=()=>save({[f]:el.value})});
 const best=()=>{const L=S.logM||[];return L.length?L.reduce((a,b)=>b.rms<a.rms?b:a):S.model};
 function drawSum(){const bm=best(),l1=Store.get().l1||{},mp=modelPeriod();
   const rows=[['1차시 예측',l1.guess?hm(l1.guess):'—'],['주기 맞추기로 찾은 주기',(S.P||P).toFixed(3)+' h'],['AI 주기와 판정',S.aiP?(+S.aiP).toFixed(3)+' h · '+({ai:'AI 값',double:'두 배',other:'다른 값'}[S.judge]||'—'):'—'],['모형 a/b',bm?bm.ab.toFixed(2)+' (θ '+bm.th+'°, 차 '+bm.rms.toFixed(3)+')':'—']];
