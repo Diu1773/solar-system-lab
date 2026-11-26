@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2차시 탐구 시뮬레이터 · 자전주기와 모양 추론</title>
-<link rel="stylesheet" href="eros.css?v=21">
-<script defer src="data/eros-data.js?v=21"></script>
-<script defer src="eros.js?v=21"></script>
-<script defer src="sim2.js?v=21"></script>
+<link rel="stylesheet" href="eros.css?v=22">
+<script defer src="data/eros-data.js?v=22"></script>
+<script defer src="eros.js?v=22"></script>
+<script defer src="sim2.js?v=22"></script>
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -26,14 +26,33 @@
   </div>
 
   <div class="stepper" aria-label="2차시 단계">
+    <button type="button"><span class="n">0</span><span class="t">처음 생각</span></button>
     <button type="button"><span class="n">1</span><span class="t">주기 맞추기</span></button>
     <button type="button"><span class="n">2</span><span class="t">AI 답 검증</span></button>
     <button type="button"><span class="n">3</span><span class="t">모형 맞추기</span></button>
     <button type="button"><span class="n">4</span><span class="t">탐사선과 비교·정리</span></button>
   </div>
 
-  <!-- 1 -->
+  <!-- 0 -->
   <section class="step">
+    <div class="step-title"><h2>처음 생각</h2><small>수업자료 · 탐구 질문 다음</small></div>
+    <div class="gbar"><div><b>목표</b>탐구를 시작하기 전 내 예상 남기기</div><div><b>할 일</b>지난 시간 결과를 바탕으로 에로스의 자전주기와 모양 예상하기</div><div><b>남길 것</b>처음 예상 (마지막에 다시 비교)</div></div>
+    <div class="grid" style="grid-template-columns:1.2fr .8fr">
+      <div class="box">
+        <h3>에로스는 몇 시간마다 한 바퀴 돌고, 어떤 모양일까?</h3>
+        <div class="row" style="margin-top:8px"><input class="num" id="firstP" type="number" step="0.1" placeholder="예상 주기"><span class="note">시간</span></div>
+        <textarea id="first2" rows="4" style="margin-top:10px" placeholder="예상 모양과 그렇게 생각한 이유"></textarea>
+      </div>
+      <div class="box">
+        <h3>지난 시간 기록</h3>
+        <table class="log"><tbody id="l1sum"></tbody></table>
+        <p class="note" style="margin-top:12px"><b>다음:</b> 수업자료 ‘더 정확하게 측정하려면’ → 1단계</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section class="step" hidden>
     <div class="step-title"><h2>주기 맞추기</h2><small>학습목표 1 · 1975년 1월 다섯 밤 · 589점</small></div>
     <div class="gbar"><div><b>목표</b>다섯 밤의 점이 한 곡선으로 모이는 주기 찾기</div><div><b>할 일</b>‘시간 순서’로 자료를 본 뒤 ‘접어 보기’에서 주기를 바꾸며 흩어짐 줄이기</div><div><b>남길 것</b>시도한 주기 3개 이상과 흩어짐, 최종 주기</div></div>
     <div class="grid wide">
@@ -129,19 +148,25 @@ print(f'자전주기: {1/f[p.argmax()]:.3f} 시간')</pre>
     <div class="gbar"><div><b>목표</b>지상 관측으로 추론한 결과를 탐사선 자료와 비교하기</div><div><b>할 일</b>NEAR 슈메이커의 관측과 측정값을 보고 내 결과와 비교</div><div><b>남길 것</b>같은 점·다른 점, 탐구 질문에 대한 답</div></div>
     <div class="grid" style="grid-template-columns:1fr 1fr">
       <div class="box">
-        <h3>NEAR 슈메이커가 본 에로스</h3>
-        <div class="row" style="gap:12px;align-items:flex-start">
-          <figure style="margin:0;flex:1"><img src="media/near-orbit.gif" alt="NEAR 슈메이커가 에로스 주위를 돈 궤도 애니메이션" style="width:100%;background:#000"><figcaption class="note">2000.4–2001.2 에로스 주위를 돈 궤도(실제 궤도 자료로 그린 애니메이션) · Phoenix7777, CC BY-SA 4.0</figcaption></figure>
-          <figure style="margin:0;flex:1"><img src="media/eros-near.jpg" alt="NEAR 슈메이커가 촬영한 에로스" style="width:100%;background:#000"><figcaption class="note">탐사선 카메라로 찍은 에로스 · NASA/JPL/JHUAPL</figcaption></figure>
-        </div>
-        <p class="note">2000년 2월 14일 궤도 진입, 약 1년 동안 표면을 촬영하며 크기 34.4 × 11.2 × 11.2 km, 자전주기 5.270시간을 측정</p>
+        <h3>NEAR 슈메이커가 찍은 에로스의 자전</h3>
+        <img src="media/eros-rotation.gif" alt="NEAR 슈메이커가 2000년 12월 3–4일 촬영한 에로스 자전 영상" style="width:100%;background:#000">
+        <p class="note">2000년 12월 3–4일, 에로스 중심에서 200 km 궤도. 영상 아래 숫자는 촬영 시각과 에로스 경도 · NASA/JHUAPL</p>
+        <table class="log"><tbody>
+          <tr><th>첫 장면</th><td>12월 3일 23:08:30 · 경도 146°</td></tr>
+          <tr><th>마지막 장면</th><td>12월 4일 04:14:20 · 경도 142°</td></tr>
+        </tbody></table>
+        <div class="row" style="margin-top:10px;gap:10px"><label class="note">걸린 시간</label><input class="num" id="nh" type="number" step="1" placeholder="시" style="width:70px"><input class="num" id="nm" type="number" step="1" placeholder="분" style="width:70px"><label class="note">돈 각도</label><input class="num" id="ndeg" type="number" step="1" placeholder="°" style="width:80px"></div>
+        <div class="meter"><span>탐사선 영상으로 구한 자전주기 = 걸린 시간 × 360° ÷ 돈 각도</span><strong id="nearP">—</strong></div>
+        <p class="note">NEAR 공식 측정값: 5.270시간, 크기 34.4 × 11.2 × 11.2 km</p>
         <div class="compare" id="cmp" style="margin-top:12px"></div>
       </div>
       <div class="box">
         <h3>나의 결과</h3>
         <table class="log"><tbody id="sum2"></tbody></table>
         <label class="note" for="diffWhy" style="display:block;margin-top:12px">같은 점과 다른 점, 다른 이유(모형의 가정)</label><textarea id="diffWhy" rows="2"></textarea>
-        <label class="note" for="claim">탐구 질문에 대한 나의 답</label><textarea id="claim" rows="2" placeholder="에로스는 약 …시간마다 한 바퀴 돌고, … 모양이다. 탐사선 값과 비교하면 …"></textarea>
+        <div class="then"><b>처음 예상</b><p id="firstShow2">—</p></div>
+        <label class="note" for="claim" style="display:block;margin-top:10px">최종 답: 에로스는 몇 시간마다 한 바퀴 돌고, 어떤 모양일까?</label><textarea id="claim" rows="2" placeholder="에로스는 약 …시간마다 한 바퀴 돌고, … 모양이다. 탐사선 값과 비교하면 …"></textarea>
+        <label class="note" for="changed2">처음 예상에서 바뀐 점</label><textarea id="changed2" rows="2"></textarea>
         <label class="note" for="aiNote">AI 답에서 받아들인 것과 고친 것</label><textarea id="aiNote" rows="2"></textarea>
         <div class="row" style="margin-top:12px"><button class="btn primary" type="button" id="print2">기록 인쇄 · PDF</button><button class="btn" type="button" id="saveJson">기록 파일 저장</button></div>
       </div>

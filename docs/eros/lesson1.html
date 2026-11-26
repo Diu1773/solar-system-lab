@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>1차시 수업자료 · 소행성의 발견</title>
-<link rel="stylesheet" href="slides.css?v=21">
-<script defer src="data/eros-data.js?v=21"></script>
-<script defer src="eros.js?v=21"></script>
-<script defer src="slides.js?v=21"></script>
-<script defer src="lesson1-slides.js?v=21"></script>
+<link rel="stylesheet" href="slides.css?v=22">
+<script defer src="data/eros-data.js?v=22"></script>
+<script defer src="eros.js?v=22"></script>
+<script defer src="slides.js?v=22"></script>
+<script defer src="lesson1-slides.js?v=22"></script>
 </head>
 <body>
 <div class="deck" data-unit="행성우주과학 · 1차시 · 소행성의 발견" data-sim="sim1.html">
@@ -153,6 +153,7 @@
         <p class="lead">천문학자 <b>에곤 폰 오폴처</b>가 발표했다.</p>
         <p class="lead" style="margin-top:24px">“에로스의 밝기가 몇 시간 만에 한 등급 가까이 변한다.”</p>
         <div class="box" style="margin-top:50px"><div class="t">오늘의 탐구 질문</div><p style="font-size:44px;font-weight:800;margin-top:8px;letter-spacing:-.03em">에로스의 밝기는 왜 몇 시간마다 변할까?</p></div>
+        <div class="go">▶ 탐구 시뮬레이터 0단계 · 처음 생각 쓰기</div>
       </div>
     </div>
     <div class="credit">에곤 폰 오폴처(1869–1907), 1899 · University of Innsbruck · CC BY-SA 4.0</div>
@@ -161,42 +162,49 @@
   <section class="sl" data-phase="정교화" data-goal="2">
     <header><span class="ph">정교화</span><h2>모양에 따른 세 가지 가설</h2></header>
     <div class="row" style="gap:32px">
-      <div class="col"><div class="pic dark" style="height:400px"><img src="media/vesta.jpg" alt="밝고 어두운 지역이 있는 베스타"></div><div class="cap"><b>① 무늬가 있는 둥근 소행성</b>밝은 곳과 어두운 곳이 번갈아 보임 · 베스타(Dawn)</div></div>
-      <div class="col"><div class="pic dark" style="height:400px"><img src="media/ida.jpg" alt="길쭉한 소행성 이다"></div><div class="cap"><b>② 길쭉한 소행성</b>보이는 면의 넓이가 달라짐 · 이다(Galileo)</div></div>
-      <div class="col" style="flex:1.4"><div class="pic dark" style="height:400px"><img src="media/kleopatra.jpg" alt="VLT로 촬영한 소행성 클레오파트라의 여러 방향 모습"></div><div class="cap"><b>③ 땅콩 모양 소행성</b>크기가 다른 두 덩어리가 붙은 모양 · 클레오파트라(VLT, 지상 망원경)</div></div>
+      <div class="col"><div class="pic dark" style="height:400px"><img src="media/ceres-rotation.gif" alt="Dawn 탐사선이 찍은 세레스 자전 영상"></div><div class="cap"><b>① 무늬가 있는 둥근 소행성</b>밝은 반점이 돌며 보였다 사라짐 · 세레스(Dawn 탐사선)</div></div>
+      <div class="col"><div class="pic dark" style="height:400px"><img src="media/ida-rotation.jpg" alt="Galileo 탐사선이 찍은 이다의 연속 사진"></div><div class="cap"><b>② 길쭉한 소행성</b>도는 동안 보이는 면의 넓이가 달라짐 · 이다(Galileo 탐사선)</div></div>
+      <div class="col" style="flex:1.4"><div class="pic dark" style="height:400px"><img src="media/kleopatra.jpg" alt="VLT로 촬영한 소행성 클레오파트라의 여러 방향 모습"></div><div class="cap"><b>③ 땅콩 모양 소행성</b>크기가 다른 두 덩어리가 붙은 모양 · 클레오파트라(VLT 망원경)</div></div>
     </div>
-    <p class="q" style="margin-top:30px">각 모양이 한 바퀴 돌 때 밝기 곡선은 어떤 모양일까? → 탐구 시뮬레이터에서 예측하고 확인</p>
-    <div class="credit" style="bottom:86px">베스타: NASA/JPL-Caltech/UCLA/MPS/DLR/IDA · 이다: NASA/JPL · Public domain / 클레오파트라: ESO/Vernazza, Marchis et al./MISTRAL algorithm (ONERA/CNRS) · CC BY 4.0</div>
-  </section>
-
-  <section data-goal="2" class="sl" data-phase="정교화">
-    <header><span class="ph">정교화</span><h2>1975년 1월 23일 밤의 기록</h2></header>
-    <div class="row">
-      <div class="col" style="flex:1.5"><canvas id="night" height="620"></canvas></div>
-      <div class="col" style="padding-top:30px">
-        <p class="lead">에로스가 지구에 2,260만 km까지 다가온 밤, 천문학자들이 6시간 동안 밝기를 측정했다.</p>
-        <p class="lead" style="margin-top:24px">기록 146점</p>
-        <p class="small" style="margin-top:30px">DAMIT(체코 카렐대학교) 공개 자료 · CC BY 4.0</p>
-        <p class="q">탐구 시뮬레이터에서 직접 측정하기</p>
-      </div>
-    </div>
+    <p class="q" style="margin-top:26px">각 모양이 한 바퀴 돌 때 밝기 곡선은 어떤 모양일까?</p>
+    <div class="go">▶ 탐구 시뮬레이터 1단계 · 가설별 밝기 예측</div>
+    <div class="credit" style="bottom:86px">세레스: NASA/JPL-Caltech/UCLA/MPS/DLR/IDA · 이다: NASA/JPL · Public domain / 클레오파트라: ESO/Vernazza, Marchis et al./MISTRAL algorithm (ONERA/CNRS) · CC BY 4.0</div>
   </section>
 
   <section class="sl" data-phase="정교화" data-goal="2">
-    <header><span class="ph">정교화</span><h2>탐구 시뮬레이터</h2></header>
-    <div class="row" style="gap:40px;margin-top:30px">
-      <div class="col box" style="background:#f3f2ef"><div class="t">1</div><p style="font-size:40px;font-weight:800;margin-top:8px">하룻밤 기록 측정</p><p class="small" style="margin-top:12px">남길 것: 극대 횟수, 극대 사이 시간, 밝기 변화 양상</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">2</div><p style="font-size:40px;font-weight:800;margin-top:8px">모양별 밝기 예측과 확인</p><p class="small" style="margin-top:12px">남길 것: 모양마다 예측한 곡선과 실제 모형 곡선</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">3</div><p style="font-size:40px;font-weight:800;margin-top:8px">가설과 자전주기</p><p class="small" style="margin-top:12px">남길 것: 에로스 모양 가설, 근거, 자전주기 예측</p></div>
+    <header><span class="ph">정교화</span><h2>1975년 1월, 실제 관측</h2></header>
+    <div class="row" style="gap:60px">
+      <div class="col">
+        <p class="lead">1975년 1월 23일, 에로스가 지구에 <b>2,260만 km</b>까지 다가왔다. 지구–달 거리의 약 60배.</p>
+        <p class="lead" style="margin-top:24px">미국·이탈리아·루마니아의 천문학자들이 같은 몇 주 동안 밤새 에로스의 밝기를 측정했다.</p>
+        <p class="lead" style="margin-top:24px">그 기록이 지금 체코 카렐대학교의 공개 데이터베이스 <b>DAMIT</b>에 남아 있다.</p>
+        <p class="q" style="margin-top:40px">예측한 곡선 가운데 실제 에로스와 닮은 것은?</p>
+        <div class="go">▶ 탐구 시뮬레이터 2단계 · 실제 관측 측정 → 3단계 · 비교와 답</div>
+      </div>
+      <div class="col" style="flex:.7"><div class="box" style="background:#f3f2ef"><div class="t">측정 자료</div><p style="font-size:34px;font-weight:700;margin-top:8px">1975.1.23. 세계시 5–11시</p><p style="font-size:34px;font-weight:700;margin-top:8px">밝기 측정 146회</p><p class="small" style="margin-top:12px">Miner &amp; Young (1976) · DAMIT, CC BY 4.0</p></div></div>
     </div>
-    <p class="q" style="margin-top:50px">에로스의 밝기는 왜 몇 시간마다 변할까? → 근거 모으기</p>
+  </section>
+
+  
+
+  <section class="sl" data-phase="평가" data-goal="2">
+    <header><span class="ph">평가</span><h2>결과 나누기</h2></header>
+    <div class="row" style="gap:28px">
+      <div class="col" style="flex:1.4"><div class="cap" style="margin:0 0 8px"><b>1975년 관측 · 에로스</b></div><canvas id="obs" height="330"></canvas></div>
+      <div class="col"><div class="cap" style="margin:0 0 8px"><b>① 둥근 · 무늬</b></div><canvas id="m1" height="330"></canvas></div>
+      <div class="col"><div class="cap" style="margin:0 0 8px"><b>② 길쭉함</b></div><canvas id="m2" height="330"></canvas></div>
+      <div class="col"><div class="cap" style="margin:0 0 8px"><b>③ 땅콩</b></div><canvas id="m3" height="330"></canvas></div>
+    </div>
+    <p class="lead" style="margin-top:30px">· 관측: 극대 2번, 극대 사이 약 2시간 반, 밝기 차 약 1등급</p>
+    <p class="q" style="margin-top:20px">모둠별 결론 발표 · 고른 모양과 근거</p>
   </section>
 
   <section class="sl" data-phase="평가">
     <header><span class="ph">평가</span><h2>탐구 질문에 답하기</h2></header>
     <div class="box" style="margin-top:0"><div class="t">오늘의 탐구 질문</div><p style="font-size:38px;font-weight:800;margin-top:8px">에로스의 밝기는 왜 몇 시간마다 변할까?</p>
       <p style="font-size:32px;margin-top:16px;color:#2a2a2a">→ 길쭉한 에로스가 <b class="em">자전하면서 보이는 면적이 바뀌기</b> 때문 · 한 바퀴에 극대 2번</p></div>
-    <p class="goal" style="margin-top:44px;font-size:36px"><span>1</span>소행성을 한 문장으로 설명하고, 세레스 발견부터 ‘asteroid’라는 이름까지 순서대로 말하기</p>
+    <p class="small" style="margin-top:26px">탐구 시뮬레이터 3단계의 ‘처음 생각’과 ‘최종 답’을 나란히 놓고 바뀐 점 말하기</p>
+    <p class="goal" style="margin-top:30px;font-size:36px"><span>1</span>소행성을 한 문장으로 설명하고, 세레스 발견부터 ‘asteroid’라는 이름까지 순서대로 말하기</p>
     <p class="goal" style="font-size:36px"><span>2</span>에로스의 극대 횟수·간격과 내가 고른 모양 가설, 그 근거를 탐구 기록에 쓰기</p>
     <p class="sum" style="margin-top:20px">다음 시간: 에로스는 몇 시간마다 한 바퀴 돌고, 어떤 모양일까?</p>
   </section>

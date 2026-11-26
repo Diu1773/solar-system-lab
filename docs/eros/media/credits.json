@@ -295,5 +295,49 @@
   "desc": "Animation of NEAR Shoemaker's trajectory around 433 Eros from 1 April 2000 to 12 February 2001.mw-parser-output .legend{page-break-inside:avoid;break-inside:avoid-column}.mw-parser-output .legend-colo",
   "w": 560,
   "h": 420
+ },
+ "eros-rotation": {
+  "file": "eros-rotation.gif",
+  "title": "File:Eros rotation Dec. 3-4 2000.gif",
+  "page": "https://commons.wikimedia.org/wiki/File:Eros_rotation_Dec._3-4_2000.gif",
+  "license": "Public domain",
+  "artist": "NASA / Johns Hopkins University Applied Physics Laboratory",
+  "date": "December 3-4, 2000",
+  "desc": "NEAR Shoemaker captured this movie on December 3-4, 2000, while in orbit 200 kilometers (125 miles) from the center of Eros. Covering a full rotation of the 21-mile-long asteroid, the movie opens with",
+  "w": 498,
+  "h": 390
+ },
+ "vesta-rotation": {
+  "file": "vesta-rotation.gif",
+  "title": "File:Vesta Rotation.gif",
+  "page": "https://commons.wikimedia.org/wiki/File:Vesta_Rotation.gif",
+  "license": "Public domain",
+  "artist": "NASA/JPL-Caltech/UCLA/MPS/DLR/IDA; Little Mountain 5",
+  "date": "2011-08-02",
+  "desc": "A full rotation of the asteroid Vesta as seen from the Dawn spacecraft. Sixty-four images were extracted from the NASA video and animated. Vesta's actual rotation period is 5.342 hours.",
+  "w": 345,
+  "h": 345
+ },
+ "ceres-rotation": {
+  "file": "ceres-rotation.gif",
+  "title": "File:PIA18920-Ceres-DawnSpacecraft-Animation-20150219.gif",
+  "page": "https://commons.wikimedia.org/wiki/File:PIA18920-Ceres-DawnSpacecraft-Animation-20150219.gif",
+  "license": "",
+  "artist": "NASA/JPL-Caltech/UCLA/MPS/DLR/IDA",
+  "date": "2015-02-19",
+  "desc": "Ceres Awaits Dawn\nCeres rotates in this sped-up movie comprised of images taken by NASA's Dawn mission during its approach to the dwarf planet. The images were taken on Feb. 19, 2015, from a distance ",
+  "w": 946,
+  "h": 944
+ },
+ "eros-flyover": {
+  "file": "eros-flyover.gif",
+  "title": "File:Asteroide Eros survole par sonde Near.gif",
+  "page": "https://commons.wikimedia.org/wiki/File:Asteroide_Eros_survole_par_sonde_Near.gif",
+  "license": "Public domain",
+  "artist": "NASA/Johns Hopkins University Applied Physics Laboratory",
+  "date": "2000-09-19",
+  "desc": "NEAR Shoemaker captured this rotation movie Sept. 19, 2000, from an orbit 62 miles (100 kilometers) above Eros.",
+  "w": 249,
+  "h": 196
  }
 }

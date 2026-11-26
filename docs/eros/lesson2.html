@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>2차시 수업자료 · 소행성의 자전과 모양</title>
-<link rel="stylesheet" href="slides.css?v=21">
-<script defer src="data/eros-data.js?v=21"></script>
-<script defer src="eros.js?v=21"></script>
-<script defer src="slides.js?v=21"></script>
-<script defer src="lesson2-slides.js?v=21"></script>
+<link rel="stylesheet" href="slides.css?v=22">
+<script defer src="data/eros-data.js?v=22"></script>
+<script defer src="eros.js?v=22"></script>
+<script defer src="slides.js?v=22"></script>
+<script defer src="lesson2-slides.js?v=22"></script>
 </head>
 <body>
 <div class="deck" data-unit="행성우주과학 · 2차시 · 소행성의 자전과 모양" data-sim="sim2.html">
@@ -30,6 +30,7 @@
       <p class="goal"><span>2</span><i class="gt">AI가 낸 분석 결과를 자료와 물리적 근거로 검증할 수 있다.<em class="flow">AI 답변 사례 → 검증과 고쳐 쓰기</em></i></p>
       <p class="goal"><span>3</span><i class="gt">모형을 관측에 맞추어 소행성의 모양을 추론하고 탐사선 결과와 비교할 수 있다.<em class="flow">모형 맞추기 → NEAR 슈메이커와 비교</em></i></p>
     </div>
+  <div class="go">▶ 탐구 시뮬레이터 0단계 · 처음 예상 쓰기</div>
   </section>
 
   <section data-goal="1" class="sl" data-phase="참여">
@@ -59,17 +60,10 @@
     <canvas id="raw" height="560"></canvas>
     <div class="legend5" id="leg"></div>
     <p class="small" style="margin-top:8px">미국·루마니아·이탈리아 천문학자들의 측광 589점 · DAMIT 공개 자료(CC BY 4.0)</p>
+  <div class="go">▶ 탐구 시뮬레이터 1단계 · 주기 맞추기</div>
   </section>
 
-  <section class="sl" data-phase="탐색" data-goal="1">
-    <header><span class="ph">탐색</span><h2>탐구 시뮬레이터</h2></header>
-    <div class="row" style="gap:32px;margin-top:20px">
-      <div class="col box" style="background:#f3f2ef"><div class="t">1 · 학습목표 1</div><p style="font-size:36px;font-weight:800;margin-top:8px">주기 맞추기</p><p class="small" style="margin-top:10px">남길 것: 시도한 주기와 흩어짐, 최종 주기</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">2 · 학습목표 2</div><p style="font-size:36px;font-weight:800;margin-top:8px">AI 답 검증</p><p class="small" style="margin-top:10px">남길 것: 판정과 고쳐 쓴 결론</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">3 · 학습목표 3</div><p style="font-size:36px;font-weight:800;margin-top:8px">모형 맞추기</p><p class="small" style="margin-top:10px">남길 것: 가장 잘 맞는 a/b</p></div>
-      <div class="col box" style="background:#f3f2ef"><div class="t">4 · 학습목표 3</div><p style="font-size:36px;font-weight:800;margin-top:8px">탐사선과 비교·정리</p><p class="small" style="margin-top:10px">남길 것: 탐구 질문에 대한 답</p></div>
-    </div>
-  </section>
+  
 
   <section data-goal="1" class="sl" data-phase="설명">
     <header><span class="ph">설명</span><h2>위상 접기</h2></header>
@@ -112,6 +106,7 @@
         <p class="lead" style="margin-top:12px">④ AI의 답을 고쳐 쓰기</p>
       </div>
     </div>
+  <div class="go">▶ 탐구 시뮬레이터 2단계 · AI 답 검증</div>
   </section>
 
   <section data-goal="3" class="sl" data-phase="정교화">
@@ -125,29 +120,32 @@
         <p class="lead" style="margin-top:26px">더 길쭉할수록 밝기 차가 <b class="em">커진다</b></p>
       </div>
     </div>
-    <div class="credit">243 이다 회전 연속 사진(오른쪽 아래에서 왼쪽 위 순서), Galileo, 1993 · NASA/JPL · Public domain</div>
+    <div class="go">▶ 탐구 시뮬레이터 3단계 · 모형 맞추기</div>
+  <div class="credit">243 이다 회전 연속 사진(오른쪽 아래에서 왼쪽 위 순서), Galileo, 1993 · NASA/JPL · Public domain</div>
   </section>
 
   <section class="sl" data-phase="평가" data-goal="3">
     <header><span class="ph">평가</span><h2>2000년, 탐사선이 본 에로스</h2></header>
     <div class="row" style="gap:40px">
-      <div class="pic dark" style="width:560px;height:620px"><img src="media/near-orbit.gif" alt="NEAR 슈메이커가 에로스 주위를 돈 궤도 애니메이션"></div>
+      <div class="pic dark" style="width:640px;height:620px"><img src="media/eros-rotation.gif" alt="NEAR 슈메이커가 촬영한 에로스 자전 영상"></div>
       <div class="pic dark" style="width:520px;height:620px"><img src="media/eros-near.jpg" alt="NEAR 슈메이커가 촬영한 에로스"></div>
       <div class="col" style="padding-top:10px">
         <p class="lead">NEAR 슈메이커가 2000년 2월 14일 에로스 궤도에 들어가 1년 동안 직접 관측</p>
         <p class="lead" style="margin-top:24px">크기 <b>34.4 × 11.2 × 11.2 km</b></p>
         <p class="lead" style="margin-top:12px">자전주기 <b>5.270시간</b></p>
-        <p class="q" style="margin-top:36px">빛으로 추론한 내 값과 비교</p>
+        <p class="q" style="margin-top:36px">영상의 촬영 시각으로 자전주기 측정 → 내 값과 비교</p>
+        <div class="go">▶ 탐구 시뮬레이터 4단계 · 탐사선과 비교·정리</div>
       </div>
     </div>
-    <div class="credit">궤도 애니메이션: Phoenix7777, 실제 궤도 자료 · CC BY-SA 4.0 / 에로스: NEAR 슈메이커, NASA/JPL/JHUAPL · Public domain</div>
+    <div class="credit">에로스 자전 영상(2000.12.3–4): NASA/JHUAPL · 에로스: NEAR 슈메이커, NASA/JPL/JHUAPL · Public domain</div>
   </section>
 
   <section class="sl" data-phase="평가">
     <header><span class="ph">평가</span><h2>탐구 질문에 답하기</h2></header>
     <div class="box" style="margin-top:0"><div class="t">탐구 질문</div><p style="font-size:36px;font-weight:800;margin-top:8px">에로스는 몇 시간마다 한 바퀴 돌고, 어떤 모양일까?</p>
       <p style="font-size:30px;margin-top:14px;color:#2a2a2a">→ 약 5.27시간마다 한 바퀴 도는 길쭉한 모양 · 탐사선 값(5.270시간, 34.4 × 11.2 km)과 비교해 길쭉한 정도는 모형의 가정 때문에 작게 나옴</p></div>
-    <p class="goal" style="margin-top:36px;font-size:34px"><span>1</span>내가 찾은 자전주기와 그 근거(흩어짐)</p>
+    <p class="small" style="margin-top:22px">탐구 시뮬레이터 4단계의 ‘처음 예상’과 ‘최종 답’을 나란히 놓고 바뀐 점 말하기</p>
+    <p class="goal" style="margin-top:26px;font-size:34px"><span>1</span>내가 찾은 자전주기와 그 근거(흩어짐)</p>
     <p class="goal" style="font-size:34px"><span>2</span>AI 답에서 틀린 곳과 고쳐 쓴 결론</p>
     <p class="goal" style="font-size:34px"><span>3</span>모형으로 추론한 모양과 탐사선 관측의 같은 점·다른 점</p>
   </section>

@@ -72,8 +72,16 @@ document.getElementById('autoFit').onclick=()=>{const ph=phases(modelPeriod()),t
   for(let ab=1;ab<=4.0001;ab+=.02)for(let p0=0;p0<1;p0+=.005){const r=evalM(ab,th,p0,ph);if(r.rms<b.rms)b={rms:r.rms,ab,p0}}
   ctl.ab.value=b.ab.toFixed(2);ctl.ph0.value=b.p0.toFixed(3);drawModel();toast(`θ ${th}°: a/b ${b.ab.toFixed(2)}`)};
 
+
+/* step 0 and spacecraft timing */
+function drawL1(){const l1=Store.get().l1||{};const n={spot:'무늬가 있는 둥근',long:'길쭉한',peanut:'땅콩 모양'}[l1.hyp];
+  document.getElementById('l1sum').innerHTML=[['극대 횟수',l1.peaks??'—'],['극대 사이 시간',l1.dt?hm(l1.dt):'—'],['고른 모양',n||'—'],['예측 자전주기',l1.guess?hm(l1.guess):'—']].map(r=>`<tr><th>${r[0]}</th><td>${r[1]}</td></tr>`).join('')}
+function nearCalc(){const h=+document.getElementById('nh').value||0,m=+document.getElementById('nm').value||0,d=+document.getElementById('ndeg').value||0;const el=document.getElementById('nearP');
+  if(d>0&&(h||m)){const P=(h+m/60)*360/d;save({nearP:P});el.textContent=P.toFixed(2)+' h'}else el.textContent='—'}
+['nh','nm','ndeg'].forEach(id=>document.getElementById(id).addEventListener('input',nearCalc));
+
 /* 4: record */
-['claim','diffWhy','aiNote'].forEach(f=>{const el=document.getElementById(f);if(S[f])el.value=S[f];el.oninput=()=>save({[f]:el.value})});
+['claim','diffWhy','aiNote','first2','changed2','firstP','nh','nm','ndeg'].forEach(f=>{const el=document.getElementById(f);if(S[f])el.value=S[f];el.oninput=()=>save({[f]:el.value})});
 const best=()=>{const L=S.logM||[];return L.length?L.reduce((a,b)=>b.rms<a.rms?b:a):S.model};
 function drawSum(){const bm=best(),l1=Store.get().l1||{},mp=modelPeriod();
   const rows=[['1차시 예측',l1.guess?hm(l1.guess):'—'],['주기 맞추기로 찾은 주기',(S.P||P).toFixed(3)+' h'],['AI 주기와 판정',S.aiP?(+S.aiP).toFixed(3)+' h · '+({ai:'AI 값',double:'두 배',other:'다른 값'}[S.judge]||'—'):'—'],['모형 a/b',bm?bm.ab.toFixed(2)+' (θ '+bm.th+'°, 차 '+bm.rms.toFixed(3)+')':'—']];
@@ -84,9 +92,10 @@ document.getElementById('print2').onclick=()=>{const secs=[...document.querySele
 document.getElementById('saveJson').onclick=()=>download('eros-record.json',JSON.stringify(Store.get(),null,2),'application/json');
 
 Stepper(document.getElementById('lesson'),i=>{
-  if(i===0){fold.resize();setP(P);drawLog()}
-  if(i===1){cmpA.resize();cmpB.resize();drawCmp()}
-  if(i===2){mfit.resize();drawModel()}
-  if(i===3)drawSum();
+  if(i===0)drawL1();
+  if(i===1){fold.resize();setP(P);drawLog()}
+  if(i===2){cmpA.resize();cmpB.resize();drawCmp()}
+  if(i===3){mfit.resize();drawModel()}
+  if(i===4){drawSum();nearCalc();const s0=Store.get().l2||{};document.getElementById('firstShow2').textContent=(s0.firstP?s0.firstP+'시간 · ':'')+(s0.first2||'')||'(0단계에서 쓴 예상이 없음)'}
 });
 })();
